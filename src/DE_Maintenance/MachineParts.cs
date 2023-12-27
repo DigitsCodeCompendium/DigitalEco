@@ -27,12 +27,8 @@ namespace Digits.DE_Maintenance
         
     /// <summary>
     /// <para>Server side recipe definition for "MachineParts".</para>
-    /// <para>More information about RecipeFamily objects can be found at https://docs.play.eco/api/server/eco.gameplay/Eco.Gameplay.Items.RecipeFamily.html</para>
+    /// <para>Machine parts are used for repairing worktables.</para>
     /// </summary>
-    /// <remarks>
-    /// This is an auto-generated class. Don't modify it! All your changes will be wiped with next update! Use Mods* partial methods instead for customization. 
-    /// If you wish to modify this class, please create a new partial class or follow the instructions in the "UserCode" folder to override the entire file.
-    /// </remarks>
     [RequiresSkill(typeof(LoggingSkill), 1)]
     [ForceCreateView]
     [Ecopedia("Items", "Products", subPageName: "Machine Parts Item")]
@@ -81,18 +77,11 @@ namespace Digits.DE_Maintenance
     /// <para>Server side item definition for the "MachineParts" item.</para>
     /// <para>More information about Item objects can be found at https://docs.play.eco/api/server/eco.gameplay/Eco.Gameplay.Items.Item.html</para>
     /// </summary>
-    /// <remarks>
-    /// This is an auto-generated class. Don't modify it! All your changes will be wiped with next update! Use Mods* partial methods instead for customization. 
-    /// If you wish to modify this class, please create a new partial class or follow the instructions in the "UserCode" folder to override the entire file.
-    /// </remarks>
     [Serialized] // Tells the save/load system this object needs to be serialized. 
     [LocDisplayName("Machine Parts")] // Defines the localized name of the item.
     [Weight(500)] // Defines how heavy MachineParts is.
-    [Fuel(2000)][Tag("Fuel")] // Marks MachineParts as fuel item.
-    [Tag("Currency")][Currency] // Defines if this item can be used to back a currency
     [Ecopedia("Items", "Products", createAsSubPage: true)]
     [Tag("Machine Parts")]
-    [Tag("Burnable Fuel")]
     [LocDescription("Machine Parts used for repairing and maintaining machines and workbenches.")] //The tooltip description for the item.
     public partial class MachinePartsItem : Item
     {
