@@ -77,15 +77,21 @@ namespace Digits.DE_Maintenance
     /// <para>Server side item definition for the "MachineParts" item.</para>
     /// <para>More information about Item objects can be found at https://docs.play.eco/api/server/eco.gameplay/Eco.Gameplay.Items.Item.html</para>
     /// </summary>
-    [Serialized] // Tells the save/load system this object needs to be serialized. 
-    [LocDisplayName("Machine Parts")] // Defines the localized name of the item.
-    [Weight(500)] // Defines how heavy MachineParts is.
-    [Ecopedia("Items", "Products", createAsSubPage: true)]
+    [Serialized]
+    [LocDisplayName("Machine Parts")]
+    [LocDescription("Machine Parts used for repairing and maintaining machines and workbenches.")]
+    [Tier(1)]
+    [RepairRequiresSkill(typeof(SmeltingSkill), 0)]
+    [Weight(500)]
+    [Category("Machine Parts")]
     [Tag("Machine Parts")]
-    [LocDescription("Machine Parts used for repairing and maintaining machines and workbenches.")] //The tooltip description for the item.
-    public partial class MachinePartsItem : Item
+    [Ecopedia("Items", "Machine Parts", createAsSubPage: true)]
+    public partial class MachinePartsItem : RepairableMachinePartsItem
     {
-
-
+        public override Item RepairItem                 => Item.Get<IronBarItem>();
+        public override int FullRepairAmount            => 4;
+        //set durability by changing the denominator below
+        public override float DurabilityRate            => DurabilityMax / 500f;
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(4, SmeltingSkill.MultiplicativeStrategy, typeof(SmeltingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }
