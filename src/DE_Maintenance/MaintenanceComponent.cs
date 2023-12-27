@@ -45,20 +45,69 @@ namespace Digits.DE_Maintenance
 
     [Serialized]
     [RequireComponent(typeof(StatusComponent))]
-    [LocDisplayName("Maintenance Component"), LocDescription("Provides information about object maintenance")]
+    [LocDisplayName("Maintenance"), LocDescription("Provides information about object maintenance")]
+    [NoIcon]
     [AutogenClass]
     public class MaintenanceComponent : WorldObjectComponent, IController
     {
+        private StatusElement status;
 
+        [Serialized] private bool hasPartInserted;
 
         public void Initialize()
         {
-            
-        }
+            this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
+            base.Initialize();
 
+            hasPartInserted = true;
+        }
+        
         public override void Tick()
         {
-            
+            this.status.SetStatusMessage(false, Localizer.Format("Machine Parts are currently at %"));
+        }
+
+        // Pop-out button
+        [RPC, Autogen]
+        public virtual void PullOutPart(Player player)
+        {
+            if(this.hasPartInserted)
+            {
+                if (player.User.Inventory.NonEmptyStacks.Count() < player.User.Inventory.Stacks.Count())
+                {
+                    Result result = player.User.Inventory.TryAddItem(new MachinePartsItem());
+                    if(result.Success) {
+                        this.hasPartInserted = false;
+                        player.MsgLocStr("<color=green>Pulled out part");
+                        return;
+                    }
+                }
+                player.MsgLocStr("<color=red>No space in inventory to pull out parts!");
+                return;
+            } else {
+                player.MsgLocStr("<color=red>No parts to pull out!");
+                return;
+            }
+        }
+
+        // Put-in button
+        [RPC, Autogen]
+        public virtual void PutInPart(Player player)
+        {
+            ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;
+            var isItemValid = itemStack?.Item != null && itemStack.Item is RepairableMachinePartsItem;
+            if(isItemValid) {
+                if(!this.hasPartInserted)
+                {
+                    itemStack.TryModifyStack(player.User, -1); // Try to delete the item
+                    this.hasPartInserted = true;
+                    player.MsgLocStr("<color=green>Put in part");
+                } else {
+                    player.MsgLocStr("<color=red>Could not put in part");
+                }
+            } else {
+                player.MsgLocStr("<color=red>No valid part in hand");
+            }
         }
     }
 }
