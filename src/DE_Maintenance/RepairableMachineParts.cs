@@ -28,7 +28,6 @@ namespace Digits.DE_Maintenance
     [MaxStackSize(1)]
     public abstract class RepairableMachinePartsItem : RepairableItem
     {
-        private static IDynamicValue skilledRepairCost = new ConstantValue(1);
-        public override IDynamicValue SkilledRepairCost => skilledRepairCost;
+        
     }
 }
