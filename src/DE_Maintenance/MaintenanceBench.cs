@@ -54,7 +54,7 @@ namespace Eco.Mods.TechTree
     [RequireComponent(typeof(CraftingComponent))]
     [RequireComponent(typeof(OccupancyRequirementComponent))]
     [RequireComponent(typeof(ForSaleComponent))]
-    [RequireComponent(typeof(EnumTestComponent))]
+    // [RequireComponent(typeof(EnumTestComponent))]
     [Tag("Usable")]
     [Ecopedia("Work Stations", "Craft Tables", subPageName: "Maintenance Bench Item")]
     public partial class MaintenanceBenchObject : WorldObject, IRepresentsItem
