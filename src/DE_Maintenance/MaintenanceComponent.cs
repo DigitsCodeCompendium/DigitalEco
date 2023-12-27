@@ -45,20 +45,49 @@ namespace Digits.DE_Maintenance
 
     [Serialized]
     [RequireComponent(typeof(StatusComponent))]
+    [NoIcon]
     [LocDisplayName("Maintenance Component"), LocDescription("Provides information about object maintenance")]
     [AutogenClass]
     public class MaintenanceComponent : WorldObjectComponent, IController
     {
 
+        private bool hasPartInserted;
+        private String partInsertionString;
 
         public void Initialize()
         {
-            
+            base.Initialize();
+
+            hasPartInserted = true;
+            partInsertionString = "Yes";
         }
 
-        public override void Tick()
+        // Pop-out button
+        [RPC, Autogen]
+        public virtual void PullOutPart(Player player)
         {
-            
+            if(this.hasPartInserted)
+            {
+                this.hasPartInserted = false;
+                player.MsgLocStr("<color=green>Pulled out part");
+                return;
+            } else {
+                player.MsgLocStr("<color=red>No parts to pull out!");
+                return;
+            }
+        }
+
+        // Put-in button
+        [RPC, Autogen]
+        public virtual void PutInPart(Player player)
+        {
+            if(!this.hasPartInserted)
+            {
+                this.hasPartInserted = true;
+                player.MsgLocStr("<color=green>Put in part");
+            } else {
+                player.MsgLocStr("<color=red>Could not put in part");
+            }
         }
     }
 }
