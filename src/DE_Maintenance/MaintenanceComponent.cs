@@ -45,20 +45,20 @@ namespace Digits.DE_Maintenance
 
     [Serialized]
     [RequireComponent(typeof(StatusComponent))]
-    [LocDisplayName("Maintenance Component"), LocDescription("Provides information about object maintenance")]
+    [LocDisplayName("Maintenance"), LocDescription("Provides information about object maintenance")]
     [AutogenClass]
     public class MaintenanceComponent : WorldObjectComponent, IController
     {
-
+        private StatusElement status;
 
         public void Initialize()
         {
-            
+            this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
         }
 
         public override void Tick()
         {
-            
+            this.status.SetStatusMessage(false, Localizer.Format("Machine Parts are currently at %"));
         }
     }
 }

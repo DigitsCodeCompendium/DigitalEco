@@ -48,7 +48,7 @@ namespace Eco.Mods.TechTree
     {
         partial void ModsPreInitialize()
         {
-            
+            this.GetComponent<MaintenanceComponent>().Initialize();
         }
     }
 }
