@@ -26,7 +26,7 @@ namespace Digits.DE_Maintenance
 
         
     /// <summary>
-    /// <para>Server side recipe definition for "MaintenanceKit".</para>
+    /// <para>Server side recipe definition for "MachineParts".</para>
     /// <para>More information about RecipeFamily objects can be found at https://docs.play.eco/api/server/eco.gameplay/Eco.Gameplay.Items.RecipeFamily.html</para>
     /// </summary>
     /// <remarks>
@@ -35,15 +35,15 @@ namespace Digits.DE_Maintenance
     /// </remarks>
     [RequiresSkill(typeof(LoggingSkill), 1)]
     [ForceCreateView]
-    [Ecopedia("Items", "Products", subPageName: "Maintenance Kit Item")]
-    public partial class MaintenanceKitRecipe : RecipeFamily
+    [Ecopedia("Items", "Products", subPageName: "Machine Parts Item")]
+    public partial class MachinePartsRecipe : RecipeFamily
     {
-        public MaintenanceKitRecipe()
+        public MachinePartsRecipe()
         {
             var recipe = new Recipe();
             recipe.Init(
-                name: "MaintenanceKit",  //noloc
-                displayName: Localizer.DoStr("Maintenance Kit"),
+                name: "MachineParts",  //noloc
+                displayName: Localizer.DoStr("Machine Parts"),
 
                 // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
                 // type of the item, the amount of the item, the skill required, and the talent used.
@@ -57,7 +57,7 @@ namespace Digits.DE_Maintenance
                 // to create.
                 items: new List<CraftingElement>
                 {
-                    new CraftingElement<MaintenanceKitItem>()
+                    new CraftingElement<MachinePartsItem>()
                 });
             this.Recipes = new List<Recipe> { recipe };
             this.ExperienceOnCraft = 20f;
@@ -65,7 +65,7 @@ namespace Digits.DE_Maintenance
             this.CraftMinutes = CreateCraftTimeValue(0.01f);
 
             this.ModsPreInitialize();
-            this.Initialize(Localizer.DoStr("Maintenance Kit"), typeof(MaintenanceKitRecipe));
+            this.Initialize(Localizer.DoStr("Machine Parts"), typeof(MachinePartsRecipe));
             this.ModsPostInitialize();
 
             CraftingComponent.AddRecipe(tableType: typeof(MaintenanceBenchObject), recipe: this);
@@ -78,7 +78,7 @@ namespace Digits.DE_Maintenance
     }
     
     /// <summary>
-    /// <para>Server side item definition for the "MaintenanceKit" item.</para>
+    /// <para>Server side item definition for the "MachineParts" item.</para>
     /// <para>More information about Item objects can be found at https://docs.play.eco/api/server/eco.gameplay/Eco.Gameplay.Items.Item.html</para>
     /// </summary>
     /// <remarks>
@@ -86,15 +86,15 @@ namespace Digits.DE_Maintenance
     /// If you wish to modify this class, please create a new partial class or follow the instructions in the "UserCode" folder to override the entire file.
     /// </remarks>
     [Serialized] // Tells the save/load system this object needs to be serialized. 
-    [LocDisplayName("Maintenance Kit")] // Defines the localized name of the item.
-    [Weight(500)] // Defines how heavy MaintenanceKit is.
-    [Fuel(2000)][Tag("Fuel")] // Marks MaintenanceKit as fuel item.
+    [LocDisplayName("Machine Parts")] // Defines the localized name of the item.
+    [Weight(500)] // Defines how heavy MachineParts is.
+    [Fuel(2000)][Tag("Fuel")] // Marks MachineParts as fuel item.
     [Tag("Currency")][Currency] // Defines if this item can be used to back a currency
     [Ecopedia("Items", "Products", createAsSubPage: true)]
-    [Tag("Maintenance Kit")]
+    [Tag("Machine Parts")]
     [Tag("Burnable Fuel")]
-    [LocDescription("A higher quality Maintenance Kit used for long lasting furniture.")] //The tooltip description for the item.
-    public partial class MaintenanceKitItem : Item
+    [LocDescription("Machine Parts used for repairing and maintaining machines and workbenches.")] //The tooltip description for the item.
+    public partial class MachinePartsItem : Item
     {
 
 
