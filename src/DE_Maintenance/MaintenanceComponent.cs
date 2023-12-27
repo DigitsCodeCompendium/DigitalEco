@@ -61,6 +61,11 @@ namespace Digits.DE_Maintenance
 
             hasPartInserted = true;
         }
+        
+        public override void Tick()
+        {
+            this.status.SetStatusMessage(false, Localizer.Format("Machine Parts are currently at %"));
+        }
 
         // Pop-out button
         [RPC, Autogen]
