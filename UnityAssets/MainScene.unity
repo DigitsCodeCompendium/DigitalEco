@@ -561,7 +561,7 @@ GameObject:
   - component: {fileID: 1227033480968271233}
   - component: {fileID: 7246324089733505456}
   m_Layer: 0
-  m_Name: MaintenanceKit
+  m_Name: MachineParts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
