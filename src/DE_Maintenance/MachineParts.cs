@@ -78,14 +78,13 @@ namespace Digits.DE_Maintenance
     /// <para>More information about Item objects can be found at https://docs.play.eco/api/server/eco.gameplay/Eco.Gameplay.Items.Item.html</para>
     /// </summary>
     [Serialized] // Tells the save/load system this object needs to be serialized. 
-    [LocDisplayName("Machine Parts")] // Defines the localized name of the item.
     [Weight(500)] // Defines how heavy MachineParts is.
     [Ecopedia("Items", "Products", createAsSubPage: true)]
     [Tag("Machine Parts")]
-    [LocDescription("Machine Parts used for repairing and maintaining machines and workbenches.")] //The tooltip description for the item.
-    public partial class MachinePartsItem : Item
+    [MaxStackSize(1)]
+    [LocDisplayName("Machine Parts"), LocDescription("Machine Parts used for repairing and maintaining machines and workbenches.")] //The tooltip description for the item.
+    public partial class MachinePartsItem : RepairableMachinePartsItem
     {
-
 
     }
 }
