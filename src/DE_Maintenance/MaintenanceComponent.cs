@@ -51,15 +51,13 @@ namespace Digits.DE_Maintenance
     public class MaintenanceComponent : WorldObjectComponent, IController
     {
 
-        private bool hasPartInserted;
-        private String partInsertionString;
+        [Serialized] private bool hasPartInserted;
 
         public void Initialize()
         {
             base.Initialize();
 
             hasPartInserted = true;
-            partInsertionString = "Yes";
         }
 
         // Pop-out button
@@ -68,8 +66,16 @@ namespace Digits.DE_Maintenance
         {
             if(this.hasPartInserted)
             {
-                this.hasPartInserted = false;
-                player.MsgLocStr("<color=green>Pulled out part");
+                if (player.User.Inventory.NonEmptyStacks.Count() < player.User.Inventory.Stacks.Count())
+                {
+                    Result result = player.User.Inventory.TryAddItem(new MachinePartsItem());
+                    if(result.Success) {
+                        this.hasPartInserted = false;
+                        player.MsgLocStr("<color=green>Pulled out part");
+                        return;
+                    }
+                }
+                player.MsgLocStr("<color=red>No space in inventory to pull out parts!");
                 return;
             } else {
                 player.MsgLocStr("<color=red>No parts to pull out!");
@@ -81,12 +87,19 @@ namespace Digits.DE_Maintenance
         [RPC, Autogen]
         public virtual void PutInPart(Player player)
         {
-            if(!this.hasPartInserted)
-            {
-                this.hasPartInserted = true;
-                player.MsgLocStr("<color=green>Put in part");
+            ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;
+            var isItemValid = itemStack?.Item != null && itemStack.Item is RepairableMachinePartsItem;
+            if(isItemValid) {
+                if(!this.hasPartInserted)
+                {
+                    itemStack.TryModifyStack(player.User, -1); // Try to delete the item
+                    this.hasPartInserted = true;
+                    player.MsgLocStr("<color=green>Put in part");
+                } else {
+                    player.MsgLocStr("<color=red>Could not put in part");
+                }
             } else {
-                player.MsgLocStr("<color=red>Could not put in part");
+                player.MsgLocStr("<color=red>No valid part in hand");
             }
         }
     }
