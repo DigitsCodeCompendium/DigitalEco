@@ -68,7 +68,7 @@ namespace Digits.DE_Maintenance
             }
         }
         
-        string status {get; set;}
+        public string status {get; set;}
         [Eco, ClientInterfaceProperty, PropReadOnly]
         public string Status
         {

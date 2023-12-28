@@ -45,6 +45,11 @@ namespace Digits.DE_Maintenance
     using Eco.Core.Utils;
 	using Eco.Gameplay.Components.Storage;
     using Eco.Gameplay.Items.Recipes;
+    using System.Collections;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using Eco.Mods.TechTree;
 
     [Serialized]
     [RequireComponent(typeof(StatusComponent))]
@@ -54,7 +59,10 @@ namespace Digits.DE_Maintenance
     public class MaintenanceComponent : WorldObjectComponent, IController, IHasClientControlledContainers
     {
         private StatusElement status;
+        private OnOffComponent onOffComponent;
+        private CraftingComponent craftingComponent;
 
+        [Serialized] enum partSlots {}
         [Serialized] private bool hasPartInserted;
         [Serialized] private float partDurability;
         public float tickDurabilityDamage;
@@ -71,6 +79,16 @@ namespace Digits.DE_Maintenance
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
 
             hasPartInserted = true;
+        }
+
+        public void InitOnOffComponent()
+        {
+            this.onOffComponent = this.Parent.GetComponent<OnOffComponent>();
+        }
+
+        public void InitCraftingComponent()
+        {
+            this.craftingComponent = this.Parent.GetComponent<CraftingComponent>();
         }
         
         public override void Tick()
@@ -100,6 +118,7 @@ namespace Digits.DE_Maintenance
             {
                 PartListElement partSlot = new PartListElement();
                 partSlot.partName = partSlotName;
+                partSlot.status = "Not Installed";
                 partsList.Add(partSlot);
             }
         }
@@ -114,6 +133,30 @@ namespace Digits.DE_Maintenance
             }
             
         }
+
+        //selector for pulling out and inserting parts into slots
+        [Eco]
+        public enum enumOptions
+        {
+            Slot1,
+            Slot2,
+            Slot3,
+            Slot4,
+            Slot5
+        };
+        enumOptions enumSelection {get; set;}
+        [Eco, ClientInterfaceProperty, LocDisplayName("Slot Select")]
+        public enumOptions EnumSelector
+        {
+            get => enumSelection;
+            set
+            {
+                if(value == enumSelection) return;
+                enumSelection = value;
+                this.Changed(nameof(EnumSelector)); 
+            }
+        }
+
 
         // Pop-out button
         [RPC, Autogen]
