@@ -3,6 +3,8 @@ namespace Digits.DE_Maintenance
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Text;
+    using System.Linq;
     using Eco.Mods.TechTree;
     using Eco.Core.Items;
     using Eco.Gameplay.Blocks;
@@ -21,6 +23,7 @@ namespace Digits.DE_Maintenance
     using Eco.Gameplay.Property;
     using Eco.Gameplay.Skills;
     using Eco.Gameplay.Systems;
+    using Eco.Gameplay.Utils;
     using Eco.Gameplay.Systems.TextLinks;
     using Eco.Gameplay.Pipes.LiquidComponents;
     using Eco.Gameplay.Pipes.Gases;
@@ -41,14 +44,14 @@ namespace Digits.DE_Maintenance
     using Eco.Core.Controller;
     using Eco.Core.Utils;
 	using Eco.Gameplay.Components.Storage;
-    using Eco.Gameplay.Items.Recipes; 
+    using Eco.Gameplay.Items.Recipes;
 
     [Serialized]
     [RequireComponent(typeof(StatusComponent))]
     [LocDisplayName("Maintenance"), LocDescription("Provides information about object maintenance")]
     [NoIcon]
     [AutogenClass]
-    public class MaintenanceComponent : WorldObjectComponent, IController
+    public class MaintenanceComponent : WorldObjectComponent, IController, IHasClientControlledContainers
     {
         private StatusElement status;
 
@@ -56,10 +59,16 @@ namespace Digits.DE_Maintenance
         [Serialized] private float partDurability;
         public float tickDurabilityDamage;
 
+        public MaintenanceComponent()
+        {
+            this.PartsList ??= new ControllerList<PartListElement>(this, nameof(PartsList));
+        }
+
         public void Initialize()
         {
-            this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
             base.Initialize();
+
+            this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
 
             hasPartInserted = true;
         }
@@ -68,6 +77,31 @@ namespace Digits.DE_Maintenance
         {
             this.DamagePart(tickDurabilityDamage);
             this.status.SetStatusMessage(false, Localizer.Format("Machine Parts are currently at {0}%", Text.Info(partDurability)));
+        }
+
+        //ui List for showing components
+        ControllerList<PartListElement> partsList { get; set; }
+        [Eco, ClientInterfaceProperty, GuestHidden, PropReadOnly, LocDisplayName("Parts Overview")]
+        public ControllerList<PartListElement> PartsList
+        {
+            get => partsList;
+            set
+            {
+                if (value == partsList) return;
+                partsList = value;
+                this.Changed(nameof(PartsList));
+            }
+        }
+
+        public void CreatePartSlots(string[] partSlotNames)
+        {
+            partsList.Clear();
+            foreach (string partSlotName in partSlotNames)
+            {
+                PartListElement partSlot = new PartListElement();
+                partSlot.partName = partSlotName;
+                partsList.Add(partSlot);
+            }
         }
 
         [RPC]
