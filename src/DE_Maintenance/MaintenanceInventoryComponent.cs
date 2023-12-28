@@ -46,10 +46,10 @@ namespace Digits.DE_Maintenance
     using static Eco.Gameplay.Items.AuthorizationInventory;
 
     // This is a good reference component for inventory
-    [Serialized, CreateComponentTabLoc("MaintenanceInventory"), NoIcon]
-    [LocDisplayName("MaintenanceInventory"), LocDescription("Provides maintenance inventory access")]
-    // [NoIcon]
-    [AutogenClass]
+    // [Serialized, CreateComponentTabLoc("MaintenanceInventory"), NoIcon]
+    // [LocDisplayName("MaintenanceInventory"), LocDescription("Provides maintenance inventory access")]
+    [Serialized]
+    // [AutogenClass]
     public class MaintenanceInventoryComponent : WorldObjectComponent, IInventoryWorldObjectComponent
     {
         public readonly ThreadSafeAction OnChanged = new();
@@ -58,22 +58,46 @@ namespace Digits.DE_Maintenance
         [Serialized, SyncToView, PropReadOnly] public AuthorizationInventory? Inventory { get; private set; }
         Inventory IInventoryWorldObjectComponent.Inventory => this.Inventory!;
 
+        private int numSlots = 1; // TODO Make this not hardcoded
+
         public MaintenanceInventoryComponent() { }
 
         public override void Initialize()
         {
-
             if (this.Inventory == null)
-                this.Inventory = new AuthorizationInventory(1, AuthorizationFlags.AuthedMayAdd | AuthorizationFlags.AuthedMayRemove, AccessType.FullAccess);
+                this.Inventory = new AuthorizationInventory(numSlots, AuthorizationFlags.AuthedMayAdd | AuthorizationFlags.AuthedMayRemove, AccessType.FullAccess);
             this.Inventory.SetOwner(this.Parent);
             this.Inventory.OnChanged.Add(_ => this.OnChanged.Invoke());
-
             base.Initialize();
         }
         
         public override void Tick()
         {
 
+        }
+
+
+        public void PullOutAll(Player player)
+        {
+             var itemStacks = this.Inventory.NonEmptyStacks;
+            this.Inventory.MoveAsManyItemsAsPossible(player.User.Inventory, player.User); // This respects inventory space and weight!
+            // TODO Find a way to check this result, but honestly we don't care, it's just doing its best that it can.
+        }
+
+        public void PutInSelected(Player player)
+        {
+            ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;
+            var isItemValid = itemStack?.Item != null && itemStack.Item is RepairableMachinePartsItem;
+            if(isItemValid) {
+                Result result = player.User.Inventory.MoveItems(itemStack, this.Inventory, 1); // Try to move item
+                if(result.Success) {
+                    player.MsgLocStr("<color=green>Put in part");
+                } else {
+                    player.MsgLocStr("<color=red>Could not insert part!");
+                }
+            } else {
+                player.MsgLocStr("<color=red>No valid part in hand");
+            }
         }
 
         // // Keeping for easy debugging
@@ -93,34 +117,37 @@ namespace Digits.DE_Maintenance
         //     return;
         // }
 
-        // Pull-out button
-        [RPC, Autogen]
-        public virtual void PullOutPart(Player player)
-        {
-            var itemStacks = this.Inventory.NonEmptyStacks;
-            this.Inventory.MoveAsManyItemsAsPossible(player.User.Inventory, player.User); // This respects inventory space and weight!
-            // TODO Find a way to check this result, but honestly we don't care, it's just doing its best that it can.
-        }
+        // // Pull-out button
+        // [RPC, Autogen]
+        // public virtual void PullOutPart(Player player)
+        // {
+        //     this.PullOutAll(player);
+        //     // var itemStacks = this.Inventory.NonEmptyStacks;
+        //     // this.Inventory.MoveAsManyItemsAsPossible(player.User.Inventory, player.User); // This respects inventory space and weight!
+        //     // // TODO Find a way to check this result, but honestly we don't care, it's just doing its best that it can.
+        // }
 
         
-        // Put-in button
-        [RPC, Autogen]
-        public virtual void PutInPart(Player player)
-        {
-            ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;
-            var isItemValid = itemStack?.Item != null && itemStack.Item is RepairableMachinePartsItem;
-            if(isItemValid) {
-                Result result = player.User.Inventory.MoveItems(itemStack, this.Inventory, 1); // Try to move item
-                if(result.Success) {
-                    player.MsgLocStr("<color=green>Put in part");
-                } else {
-                    player.MsgLocStr("<color=red>Could not insert part!");
-                }
-            } else {
-                player.MsgLocStr("<color=red>No valid part in hand");
-            }
-        }
+        // // Put-in button
+        // [RPC, Autogen]
+        // public virtual void PutInPart(Player player)
+        // {
+        //     this.PutInSelected(player);
+        //     // ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;
+        //     // var isItemValid = itemStack?.Item != null && itemStack.Item is RepairableMachinePartsItem;
+        //     // if(isItemValid) {
+        //     //     Result result = player.User.Inventory.MoveItems(itemStack, this.Inventory, 1); // Try to move item
+        //     //     if(result.Success) {
+        //     //         player.MsgLocStr("<color=green>Put in part");
+        //     //     } else {
+        //     //         player.MsgLocStr("<color=red>Could not insert part!");
+        //     //     }
+        //     // } else {
+        //     //     player.MsgLocStr("<color=red>No valid part in hand");
+        //     // }
+        // }
 
+        // Handle removal of items from inventory during pickup of world object
         public override InventoryMoveResult TryPickup(Player player, InventoryChangeSet playerInvChanges, Inventory targetInventory, bool force)
         {
             // if no modules are installed object can be picked up
@@ -137,5 +164,6 @@ namespace Digits.DE_Maintenance
 
             return playerInvChanges.MoveAsManyItemsAsPossible(this.Inventory, targetInventory); // if we are not forcing, return move result
         }
+
     }
 }
