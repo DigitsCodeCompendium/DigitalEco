@@ -48,7 +48,10 @@ namespace Eco.Mods.TechTree
     {
         partial void ModsPreInitialize()
         {
-            this.GetComponent<MaintenanceComponent>().Initialize();
+            var mComp = this.GetComponent<MaintenanceComponent>();
+            mComp.Initialize();
+            mComp.tickDurabilityDamage = 100f/(24f*60f*60f);
+            mComp.CreatePartSlots(new string[] {"Machine Parts", "Wooden Frame", "Screws"});
         }
     }
 }

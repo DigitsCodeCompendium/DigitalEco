@@ -3,6 +3,8 @@ namespace Digits.DE_Maintenance
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Text;
+    using System.Linq;
     using Eco.Mods.TechTree;
     using Eco.Core.Items;
     using Eco.Gameplay.Blocks;
@@ -21,6 +23,7 @@ namespace Digits.DE_Maintenance
     using Eco.Gameplay.Property;
     using Eco.Gameplay.Skills;
     using Eco.Gameplay.Systems;
+    using Eco.Gameplay.Utils;
     using Eco.Gameplay.Systems.TextLinks;
     using Eco.Gameplay.Pipes.LiquidComponents;
     using Eco.Gameplay.Pipes.Gases;
@@ -41,30 +44,75 @@ namespace Digits.DE_Maintenance
     using Eco.Core.Controller;
     using Eco.Core.Utils;
 	using Eco.Gameplay.Components.Storage;
-    using Eco.Gameplay.Items.Recipes; 
+    using Eco.Gameplay.Items.Recipes;
 
     [Serialized]
     [RequireComponent(typeof(StatusComponent))]
     [LocDisplayName("Maintenance"), LocDescription("Provides information about object maintenance")]
     [NoIcon]
     [AutogenClass]
-    public class MaintenanceComponent : WorldObjectComponent, IController
+    public class MaintenanceComponent : WorldObjectComponent, IController, IHasClientControlledContainers
     {
         private StatusElement status;
 
         [Serialized] private bool hasPartInserted;
+        [Serialized] private float partDurability;
+        public float tickDurabilityDamage;
+
+        public MaintenanceComponent()
+        {
+            this.PartsList ??= new ControllerList<PartListElement>(this, nameof(PartsList));
+        }
 
         public void Initialize()
         {
-            this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
             base.Initialize();
+
+            this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
 
             hasPartInserted = true;
         }
         
         public override void Tick()
         {
-            this.status.SetStatusMessage(false, Localizer.Format("Machine Parts are currently at %"));
+            this.DamagePart(tickDurabilityDamage);
+            this.status.SetStatusMessage(false, Localizer.Format("Machine Parts are currently at {0}%", Text.Info(partDurability)));
+        }
+
+        //ui List for showing components
+        ControllerList<PartListElement> partsList { get; set; }
+        [Eco, ClientInterfaceProperty, GuestHidden, PropReadOnly, LocDisplayName("Parts Overview")]
+        public ControllerList<PartListElement> PartsList
+        {
+            get => partsList;
+            set
+            {
+                if (value == partsList) return;
+                partsList = value;
+                this.Changed(nameof(PartsList));
+            }
+        }
+
+        public void CreatePartSlots(string[] partSlotNames)
+        {
+            partsList.Clear();
+            foreach (string partSlotName in partSlotNames)
+            {
+                PartListElement partSlot = new PartListElement();
+                partSlot.partName = partSlotName;
+                partsList.Add(partSlot);
+            }
+        }
+
+        [RPC]
+        public void DamagePart(float damage)
+        {
+            if (hasPartInserted)
+            {
+                if (this.partDurability - damage > 0) { partDurability -= damage; }
+                else { partDurability = 0; }
+            }
+            
         }
 
         // Pop-out button
@@ -75,9 +123,12 @@ namespace Digits.DE_Maintenance
             {
                 if (player.User.Inventory.NonEmptyStacks.Count() < player.User.Inventory.Stacks.Count())
                 {
-                    Result result = player.User.Inventory.TryAddItem(new MachinePartsItem());
+                    RepairableItem item = new MachinePartsItem();
+                    item.Durability = this.partDurability;
+                    Result result = player.User.Inventory.TryAddItem(item);
                     if(result.Success) {
                         this.hasPartInserted = false;
+                        this.partDurability = 0f;
                         player.MsgLocStr("<color=green>Pulled out part");
                         return;
                     }
@@ -99,6 +150,8 @@ namespace Digits.DE_Maintenance
             if(isItemValid) {
                 if(!this.hasPartInserted)
                 {
+                    RepairableItem repItem = (RepairableItem) itemStack.Item;
+                    this.partDurability = repItem.Durability;
                     itemStack.TryModifyStack(player.User, -1); // Try to delete the item
                     this.hasPartInserted = true;
                     player.MsgLocStr("<color=green>Put in part");
