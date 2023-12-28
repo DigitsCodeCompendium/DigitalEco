@@ -53,6 +53,8 @@ namespace Digits.DE_Maintenance
         private StatusElement status;
 
         [Serialized] private bool hasPartInserted;
+        [Serialized] private float partDurability;
+        public float tickDurabilityDamage;
 
         public void Initialize()
         {
@@ -64,7 +66,19 @@ namespace Digits.DE_Maintenance
         
         public override void Tick()
         {
-            this.status.SetStatusMessage(false, Localizer.Format("Machine Parts are currently at %"));
+            this.DamagePart(tickDurabilityDamage);
+            this.status.SetStatusMessage(false, Localizer.Format("Machine Parts are currently at {0}%", Text.Info(partDurability)));
+        }
+
+        [RPC]
+        public void DamagePart(float damage)
+        {
+            if (hasPartInserted)
+            {
+                if (this.partDurability - damage > 0) { partDurability -= damage; }
+                else { partDurability = 0; }
+            }
+            
         }
 
         // Pop-out button
@@ -75,9 +89,12 @@ namespace Digits.DE_Maintenance
             {
                 if (player.User.Inventory.NonEmptyStacks.Count() < player.User.Inventory.Stacks.Count())
                 {
-                    Result result = player.User.Inventory.TryAddItem(new MachinePartsItem());
+                    RepairableItem item = new MachinePartsItem();
+                    item.Durability = this.partDurability;
+                    Result result = player.User.Inventory.TryAddItem(item);
                     if(result.Success) {
                         this.hasPartInserted = false;
+                        this.partDurability = 0f;
                         player.MsgLocStr("<color=green>Pulled out part");
                         return;
                     }
@@ -99,6 +116,8 @@ namespace Digits.DE_Maintenance
             if(isItemValid) {
                 if(!this.hasPartInserted)
                 {
+                    RepairableItem repItem = (RepairableItem) itemStack.Item;
+                    this.partDurability = repItem.Durability;
                     itemStack.TryModifyStack(player.User, -1); // Try to delete the item
                     this.hasPartInserted = true;
                     player.MsgLocStr("<color=green>Put in part");
