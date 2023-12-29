@@ -83,8 +83,9 @@ namespace Digits.DE_Maintenance
     [RepairRequiresSkill(typeof(SmeltingSkill), 0)]
     [Weight(500)]
     [Category("Chisels")]
-    [Tag("Chisels")]
-    [Ecopedia("Items", "Stone Chisels", createAsSubPage: true)]
+    [Tag("Maintenance Tool Chisels")]
+    [Tag("Maintenance Mat Stone")]
+    [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
     public partial class StoneChiselsItem : RepairableMachinePartsItem
     {
         public override Item RepairItem                 => Item.Get<IronBarItem>();
