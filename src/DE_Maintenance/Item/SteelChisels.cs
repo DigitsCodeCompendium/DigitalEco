@@ -84,7 +84,7 @@ namespace Digits.DE_Maintenance
     [Weight(500)]
     [Category("Chisels")]
     [Tag("Maintenance Tool Chisels")]
-    [Tag("Maintenance Mat Steel")]
+    [Tag("Maintenance Tier 3")]
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
     public partial class SteelChiselsItem : RepairableMachinePartsItem
     {

@@ -84,14 +84,14 @@ namespace Digits.DE_Maintenance
     [Weight(500)]
     [Category("Chisels")]
     [Tag("Maintenance Tool Chisels")]
-    [Tag("Maintenance Mat Iron")]
+    [Tag("Maintenance Tier 2")]
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
     public partial class IronChiselsItem : RepairableMachinePartsItem
     {
         public override Item RepairItem                 => Item.Get<IronBarItem>();
         public override int FullRepairAmount            => 4;
         //set durability by changing the denominator below
-        public override float DurabilityRate            => DurabilityMax / 500f;
+        public override float DurabilityRate            => DurabilityMax / 300f;
         public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(4, SmeltingSkill.MultiplicativeStrategy, typeof(SmeltingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

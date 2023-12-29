@@ -30,15 +30,15 @@ namespace Digits.DE_Maintenance
     /// </summary>
     [RequiresSkill(typeof(LoggingSkill), 1)]
     [ForceCreateView]
-    [Ecopedia("Items", "Products", subPageName: "Stone Chisels")]
-    public partial class StoneChiselsRecipe : RecipeFamily
+    [Ecopedia("Items", "Products", subPageName: "Modern Chisels")]
+    public partial class ModernChiselsRecipe : RecipeFamily
     {
-        public StoneChiselsRecipe()
+        public ModernChiselsRecipe()
         {
             var recipe = new Recipe();
             recipe.Init(
-                name: "StoneChisels",  //noloc
-                displayName: Localizer.DoStr("Stone Chisels"),
+                name: "ModernChisels",  //noloc
+                displayName: Localizer.DoStr("Modern Chisels"),
 
                 // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
                 // type of the item, the amount of the item, the skill required, and the talent used.
@@ -52,7 +52,7 @@ namespace Digits.DE_Maintenance
                 // to create.
                 items: new List<CraftingElement>
                 {
-                    new CraftingElement<StoneChiselsItem>()
+                    new CraftingElement<ModernChiselsItem>()
                 });
             this.Recipes = new List<Recipe> { recipe };
             this.ExperienceOnCraft = 20f;
@@ -60,7 +60,7 @@ namespace Digits.DE_Maintenance
             this.CraftMinutes = CreateCraftTimeValue(0.01f);
 
             this.ModsPreInitialize();
-            this.Initialize(Localizer.DoStr("Stone Chisels"), typeof(StoneChiselsRecipe));
+            this.Initialize(Localizer.DoStr("Modern Chisels"), typeof(ModernChiselsRecipe));
             this.ModsPostInitialize();
 
             CraftingComponent.AddRecipe(tableType: typeof(MaintenanceBenchObject), recipe: this);
@@ -73,25 +73,25 @@ namespace Digits.DE_Maintenance
     }
     
     /// <summary>
-    /// <para>Server side item definition for the "StoneChisels" item.</para>
+    /// <para>Server side item definition for the "ModernChisels" item.</para>
     /// <para>More information about Item objects can be found at https://docs.play.eco/api/server/eco.gameplay/Eco.Gameplay.Items.Item.html</para>
     /// </summary>
     [Serialized]
-    [LocDisplayName("Stone Chisels")]
-    [LocDescription("Stone chisels are primitive tools for shaping rock")]
+    [LocDisplayName("Modern Chisels")]
+    [LocDescription("Modern chisels are primitive tools for shaping rock")]
     [Tier(1)]
     [RepairRequiresSkill(typeof(SmeltingSkill), 0)]
     [Weight(500)]
     [Category("Chisels")]
     [Tag("Maintenance Tool Chisels")]
-    [Tag("Maintenance Tier 1")]
+    [Tag("Maintenance Tier 4")]
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
-    public partial class StoneChiselsItem : RepairableMachinePartsItem
+    public partial class ModernChiselsItem : RepairableMachinePartsItem
     {
         public override Item RepairItem                 => Item.Get<IronBarItem>();
         public override int FullRepairAmount            => 4;
         //set durability by changing the denominator below
-        public override float DurabilityRate            => DurabilityMax / 100f;
+        public override float DurabilityRate            => DurabilityMax / 1000f;
         public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(4, SmeltingSkill.MultiplicativeStrategy, typeof(SmeltingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }
