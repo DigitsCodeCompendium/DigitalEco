@@ -58,7 +58,7 @@ namespace Digits.DE_Maintenance
         [Serialized, SyncToView, PropReadOnly] public AuthorizationInventory? Inventory { get; private set; }
         Inventory IInventoryWorldObjectComponent.Inventory => this.Inventory!;
 
-        private int numSlots = 1; // TODO Make this not hardcoded
+        private int numSlots = 3; // TODO Make this not hardcoded
 
         public MaintenanceInventoryComponent() { }
 
@@ -86,9 +86,16 @@ namespace Digits.DE_Maintenance
 
         public void PutInSelected(Player player)
         {
+            
             ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;
             var isItemValid = itemStack?.Item != null && itemStack.Item is RepairableMachinePartsItem;
             if(isItemValid) {
+                if(CheckIfAlreadyInserted(itemStack)) //! TEST CODE
+                {
+                    player.MsgLocStr("<color=green>Contains item!");
+                } else {
+                    player.MsgLocStr("<color=red>Does not contain item");
+                }
                 Result result = player.User.Inventory.MoveItems(itemStack, this.Inventory, 1); // Try to move item
                 if(result.Success) {
                     player.MsgLocStr("<color=green>Put in part");
@@ -97,6 +104,20 @@ namespace Digits.DE_Maintenance
                 }
             } else {
                 player.MsgLocStr("<color=red>No valid part in hand");
+            }
+        }
+
+        // Checks if internal inventory already has item
+        public bool CheckIfAlreadyInserted(ItemStack itemStack)
+        {
+            // var enumerable = new [] {itemStack}
+            if(this.Inventory.Contains(new ItemStack[] {itemStack} )) // Fudgy way to force it to be an IEnumerable so I don't have to re-write their contains function to work with individual stacks...
+            {
+                return true;
+                // player.MsgLocStr("<color=green>Contains item!");
+            } else {
+                return false;
+                // player.MsgLocStr("<color=red>Does not contain item");
             }
         }
 
