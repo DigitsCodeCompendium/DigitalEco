@@ -83,8 +83,9 @@ namespace Digits.DE_Maintenance
     [RepairRequiresSkill(typeof(SmeltingSkill), 0)]
     [Weight(500)]
     [Category("Machine Frames")]
-    [Tag("Machine Frames")]
-    [Ecopedia("Items", "Tier 1 Machine Frame", createAsSubPage: true)]
+    [Tag("Maintenance Machine Frame")]
+    [Tag("Maintenance Tier 1")]
+    [Ecopedia("Maintenance Items", "Machine Frames", createAsSubPage: true)]
     public partial class Tier1MachineFrameItem : RepairableMachinePartsItem
     {
         public override Item RepairItem                 => Item.Get<IronBarItem>();
