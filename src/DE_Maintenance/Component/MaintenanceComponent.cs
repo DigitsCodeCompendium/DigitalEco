@@ -188,6 +188,14 @@ namespace Digits.DE_Maintenance
             // }
         }
 
+
+         // Pull out by tag
+        [RPC, Autogen]
+        public virtual void PullOutPartByTags(Player player)
+        {
+            maintInventory.PullOutByTags(player, new List<Tag> {TagManager.Tag("Maintenance Machine Frame"), TagManager.Tag("Maintenance Tier 1")});
+        }
+
         // Put-in button
         [RPC, Autogen]
         public virtual void PutInPart(Player player)
