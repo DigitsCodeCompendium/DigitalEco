@@ -44,7 +44,7 @@ namespace Eco.Mods.TechTree
     using Digits.DE_Maintenance;
 
     [RequireComponent(typeof(MaintenanceComponent))]
-    public partial class WorkbenchObject
+    public partial class MasonryTableObject
     {
         partial void ModsPreInitialize()
         {
@@ -52,7 +52,7 @@ namespace Eco.Mods.TechTree
             mComp.Initialize();
             mComp.tickDurabilityDamage = 100f/(24f*60f*60f);
 
-            mComp.CreatePartSlots(new string[] {"Machine Parts", "Wooden Frame", "Nails"});
+            mComp.CreatePartSlots(new string[] {"Tier 1 Machine Frame", "Chisels"});
 
         }
     }
