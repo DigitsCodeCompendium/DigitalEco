@@ -65,4 +65,27 @@ namespace Eco.Mods.TechTree
 
         }
     }
+
+    // [RequireComponent(typeof(MaintenanceComponent))]
+    // public partial class SteamTruckObject
+    // {
+    // void ModsPreInitialize()
+    //     {
+    //         var mComp = this.GetComponent<MaintenanceComponent>();
+    //         mComp.Initialize();
+    //         mComp.InitCraftingComponent();
+    //         mComp.InitOnOffComponent();
+
+    //         //mComp.CreatePartSlots(new string[] {"Tier 1 Machine Frame", "Chisels"});
+
+    //         mComp.CreatePartSlot("Machine Frame", 
+    //                              new TagCollection("Maintenance Machine Frame", new string[] {"Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3"}),
+    //                              new Dictionary<string, float>(){{"onTick", 100f/(60f)}, {"onTickWhileOn", 100f/(60f)}, {"onCraft", 100f/(1000f)}});
+            
+    //         mComp.CreatePartSlot("Chisels", 
+    //                              new TagCollection("Maintenance Tool Chisels", new string[] {"Maintenance Tier 1", "Maintenance Tier 2"}),
+    //                              new Dictionary<string, float>(){{"onCraft", 100f/(100f)}});
+
+    //     }
+    // }
 }
