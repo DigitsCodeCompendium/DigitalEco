@@ -59,10 +59,17 @@ namespace Digits.DE_Maintenance
     [AutogenClass]
     public class MaintenanceComponent : WorldObjectComponent, IController, IHasClientControlledContainers
     {
+        //required components
         private StatusElement status;
         private MaintenanceInventoryComponent maintInventoryComponent;
-        private OnOffComponent onOffComponent;
-        private CraftingComponent craftingComponent;
+
+        //optional components
+        private OnOffComponent?         onOffComponent;
+        private CraftingComponent?      craftingComponent;
+        private VehicleComponent?       vehicleComponent;
+        private FuelSupplyComponent?    fuelSupplyComponent;
+
+        //stuff
         private PartSlotCollection partSlotCollection;
 
         public MaintenanceComponent()
@@ -74,20 +81,16 @@ namespace Digits.DE_Maintenance
         {
             base.Initialize();
 
+            //grab possible components to monitor for damaging parts
+            this.onOffComponent         = this.Parent.GetComponent<OnOffComponent>();
+            this.vehicleComponent       = this.Parent.GetComponent<VehicleComponent>();
+            this.craftingComponent      = this.Parent.GetComponent<CraftingComponent>();
+            this.fuelSupplyComponent    = this.Parent.GetComponent<FuelSupplyComponent>();
+
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
             this.maintInventoryComponent = this.Parent.GetComponent<MaintenanceInventoryComponent>();
             this.partSlotCollection = new PartSlotCollection();
             this.partsList.Clear();
-        }
-
-        public void InitOnOffComponent()
-        {
-            this.onOffComponent = this.Parent.GetComponent<OnOffComponent>();
-        }
-
-        public void InitCraftingComponent()
-        {
-            this.craftingComponent = this.Parent.GetComponent<CraftingComponent>();
         }
         
         public override void Tick()
@@ -156,6 +159,7 @@ namespace Digits.DE_Maintenance
                     returnString += " " + partSlot.name + ": " + part.Durability.ToString("0") + "%";
                 }
             }
+            returnString += " " + craftingComponent.Operating;
             return returnString;
         }
 
@@ -164,11 +168,15 @@ namespace Digits.DE_Maintenance
             foreach (PartSlot partSlot in partSlotCollection.partSlots)
             {
                 float value;
-                if (!partSlot.slotDegradation.TryGetValue("onTickWhileOn", out value) /*&& (this.onOffComponent?.On ?? false)*/)
+                //onTick Damage and tickWhileOn Damage
+                if (!partSlot.slotDegradation.TryGetValue("onTickWhileOn", out value) && (this.onOffComponent?.On ?? false))
                 {
                     partSlot.slotDegradation.TryGetValue("onTickWhileOn", out value);   
                 }
                 else partSlot.slotDegradation.TryGetValue("onTick", out value);
+                
+                //Crafting Damage
+                //if ()
                 this.DamagePart(partSlot, value);
             }
         }
@@ -246,6 +254,7 @@ namespace Digits.DE_Maintenance
         [RPC, Autogen]
         public virtual void PullOutPartByTags(Player player)
         {
+            
             maintInventoryComponent.PullOutByTags(player, new List<Tag> {TagManager.Tag("Maintenance Machine Frame"), TagManager.Tag("Maintenance Tier 1")});
         }
 
