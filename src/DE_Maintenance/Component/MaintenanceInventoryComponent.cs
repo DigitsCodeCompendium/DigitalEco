@@ -73,6 +73,27 @@ namespace Digits.DE_Maintenance
 
         }
 
+        // Take a part slot from the maint component and get the corresponding item
+        // Return the item that corresponds to an occupied part slot
+
+        public Item getPartFromSlot(PartSlot partSlot)
+        {
+            // Find the corresponding item and return it or return null?
+            //! Only needs to search for generic tag, not tier!
+            var validStacks = this.Inventory.NonEmptyStacks.Where(stack => stack.Item.Type.HasTag(partSlot.tagCollection.genericTag));
+            if(validStacks != null && tmp.Any()) //! Returns what? Check validity and return or return null / error?
+            {
+                if(validStacks.Sum() == 1) // Check that we only found one matching item
+                {
+                    return validStacks.First().Item; // Return one item
+                } else {
+                    return null; //! Some error occurred, we found multiple items that match!
+                }
+            } else {
+                return null;
+            }
+        }
+
         // Pulls out all maintenance items
         public void PullOutAll(Player player)
         {
@@ -111,6 +132,22 @@ namespace Digits.DE_Maintenance
                 player.MsgLocStr("<color=green>Moved item stack");
             }
         }
+
+        // // Searches internal inventory by tag collection
+        // private IEnumerable<ItemStack> FindByTags(List<Tag> tags)
+        // {
+        //     IEnumerable<ItemStack> validStacks = this.Inventory.NonEmptyStacks;
+        //     foreach(var tag in tags) {
+        //         var tmp = validStacks.Where(stack => stack.Item.Type.HasTag(tag));
+        //         if(tmp != null && tmp.Any()) // Check if IEnumerable is not empty/null
+        //         {
+        //             validStacks = tmp;
+        //         } else {
+        //             return null; // Return null if nothing was found
+        //         }
+        //     }
+        //     return validStacks;
+        // }
 
         // Insert player's selected item into the maintenance inventory //! Does not currently check for duplicates
         public void PutInSelected(Player player)
