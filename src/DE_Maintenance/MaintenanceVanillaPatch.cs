@@ -57,7 +57,7 @@ namespace Eco.Mods.TechTree
 
             mComp.CreatePartSlot("Machine Frame", 
                                  new TagCollection("Maintenance Machine Frame", new string[] {"Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3"}),
-                                 new Dictionary<string, float>(){{"onTick", 100f/(48f*60f*60f)}, {"onCraft", 100f/(1000f)}});
+                                 new Dictionary<string, float>(){{"onTick", 100f/(60f)}, {"onTickWhileOn", 100f/(60f)}, {"onCraft", 100f/(1000f)}});
             
             mComp.CreatePartSlot("Chisels", 
                                  new TagCollection("Maintenance Tool Chisels", new string[] {"Maintenance Tier 1", "Maintenance Tier 2"}),

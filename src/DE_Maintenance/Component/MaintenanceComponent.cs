@@ -1,56 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text;
+using System.Linq;
+using Eco.Mods.TechTree;
+using Eco.Core.Items;
+using Eco.Gameplay.Blocks;
+using Eco.Gameplay.Components;
+using Eco.Gameplay.Components.Auth;
+using Eco.Gameplay.DynamicValues;
+using Eco.Gameplay.Economy;
+using Eco.Gameplay.Housing;
+using Eco.Gameplay.Interactions;
+using Eco.Gameplay.Items;
+using Eco.Gameplay.Modules;
+using Eco.Gameplay.Minimap;
+using Eco.Gameplay.Objects;
+using Eco.Gameplay.Occupancy;
+using Eco.Gameplay.Players;
+using Eco.Gameplay.Property;
+using Eco.Gameplay.Skills;
+using Eco.Gameplay.Systems;
+using Eco.Gameplay.Utils;
+using Eco.Gameplay.Systems.TextLinks;
+using Eco.Gameplay.Pipes.LiquidComponents;
+using Eco.Gameplay.Pipes.Gases;
+using Eco.Shared;
+using Eco.Shared.Math;
+using Eco.Shared.Localization;
+using Eco.Shared.Serialization;
+using Eco.Shared.Utils;
+using Eco.Shared.View;
+using Eco.Shared.Items;
+using Eco.Shared.Networking;
+using Eco.Gameplay.Pipes;
+using Eco.World.Blocks;
+using Eco.Gameplay.Housing.PropertyValues;
+using Eco.Gameplay.Civics.Objects;
+using Eco.Gameplay.Settlements;
+using Eco.Gameplay.Systems.NewTooltip;
+using Eco.Core.Controller;
+using Eco.Core.Utils;
+using Eco.Gameplay.Components.Storage;
+using Eco.Gameplay.Items.Recipes;
+using System.Collections;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using Eco.Mods.TechTree;
+
 namespace Digits.DE_Maintenance
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Text;
-    using System.Linq;
-    using Eco.Mods.TechTree;
-    using Eco.Core.Items;
-    using Eco.Gameplay.Blocks;
-    using Eco.Gameplay.Components;
-    using Eco.Gameplay.Components.Auth;
-    using Eco.Gameplay.DynamicValues;
-    using Eco.Gameplay.Economy;
-    using Eco.Gameplay.Housing;
-    using Eco.Gameplay.Interactions;
-    using Eco.Gameplay.Items;
-    using Eco.Gameplay.Modules;
-    using Eco.Gameplay.Minimap;
-    using Eco.Gameplay.Objects;
-    using Eco.Gameplay.Occupancy;
-    using Eco.Gameplay.Players;
-    using Eco.Gameplay.Property;
-    using Eco.Gameplay.Skills;
-    using Eco.Gameplay.Systems;
-    using Eco.Gameplay.Utils;
-    using Eco.Gameplay.Systems.TextLinks;
-    using Eco.Gameplay.Pipes.LiquidComponents;
-    using Eco.Gameplay.Pipes.Gases;
-    using Eco.Shared;
-    using Eco.Shared.Math;
-    using Eco.Shared.Localization;
-    using Eco.Shared.Serialization;
-    using Eco.Shared.Utils;
-    using Eco.Shared.View;
-    using Eco.Shared.Items;
-    using Eco.Shared.Networking;
-    using Eco.Gameplay.Pipes;
-    using Eco.World.Blocks;
-    using Eco.Gameplay.Housing.PropertyValues;
-    using Eco.Gameplay.Civics.Objects;
-    using Eco.Gameplay.Settlements;
-    using Eco.Gameplay.Systems.NewTooltip;
-    using Eco.Core.Controller;
-    using Eco.Core.Utils;
-	using Eco.Gameplay.Components.Storage;
-    using Eco.Gameplay.Items.Recipes;
-    using System.Collections;
-    using System.Linq;
-    using System.Reflection;
-    using System.Text;
-    using Eco.Mods.TechTree;
-
     [Serialized]
     [RequireComponent(typeof(StatusComponent))]
     [RequireComponent(typeof(MaintenanceInventoryComponent))]
@@ -60,15 +60,10 @@ namespace Digits.DE_Maintenance
     public class MaintenanceComponent : WorldObjectComponent, IController, IHasClientControlledContainers
     {
         private StatusElement status;
-        private MaintenanceInventoryComponent maintInventory;
+        private MaintenanceInventoryComponent maintInventoryComponent;
         private OnOffComponent onOffComponent;
         private CraftingComponent craftingComponent;
         private PartSlotCollection partSlotCollection;
-
-        [Serialized] enum partSlots {}
-        [Serialized] private bool hasPartInserted;
-        [Serialized] private float partDurability;
-        public float tickDurabilityDamage;
 
         public MaintenanceComponent()
         {
@@ -80,10 +75,9 @@ namespace Digits.DE_Maintenance
             base.Initialize();
 
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
-            this.maintInventory = this.Parent.GetComponent<MaintenanceInventoryComponent>();
+            this.maintInventoryComponent = this.Parent.GetComponent<MaintenanceInventoryComponent>();
             this.partSlotCollection = new PartSlotCollection();
             this.partsList.Clear();
-            hasPartInserted = true; // TODO NEEDS TO CHANGE / REMOVE
         }
 
         public void InitOnOffComponent()
@@ -98,8 +92,9 @@ namespace Digits.DE_Maintenance
         
         public override void Tick()
         {
-            this.DamagePart(tickDurabilityDamage);
-            this.status.SetStatusMessage(false, Localizer.Format("Machine Parts are currently at {0}%", Text.Info(partDurability)));
+            this.TickDamage();
+            this.status.SetStatusMessage(false, Localizer.Format(this.TickStatus()));
+            this.UpdateUI();
         }
 
         //ui List for showing components
@@ -126,15 +121,73 @@ namespace Digits.DE_Maintenance
             
         }
 
-        [RPC]
-        public void DamagePart(float damage)
-        {
-            if (hasPartInserted)
+        private void UpdateUI()
+        {   
+            Dictionary<string, PartSlot> uiLinkDict = new Dictionary<string, PartSlot>();
+
+            foreach (PartSlot partSlot in partSlotCollection.partSlots)
             {
-                if (this.partDurability - damage > 0) { partDurability -= damage; }
-                else { partDurability = 0; }
+                uiLinkDict[partSlot.name] = partSlot;
             }
-            
+            foreach (PartListElement partListElement in this.partsList)
+            {   
+                PartSlot partSlot = uiLinkDict[partListElement.partName];
+                if(maintInventoryComponent.IsSlotOccupied(partSlot))
+                {
+                    RepairableItem part = (RepairableItem) maintInventoryComponent.GetPartFromSlot(partSlot);
+                    partListElement.Status = part.Durability.ToString("0.0") + "%";
+                }
+                else
+                {
+                    partListElement.Status = "No part inserted in slot";
+                }
+            }
+        }
+
+        private string TickStatus()
+        {
+            string returnString = "";
+
+            foreach (PartSlot partSlot in partSlotCollection.partSlots)
+            {
+                RepairableItem part = (RepairableItem) maintInventoryComponent.GetPartFromSlot(partSlot);
+                if (part != null)
+                {
+                    returnString += " " + partSlot.name + ": " + part.Durability.ToString("0") + "%";
+                }
+            }
+            return returnString;
+        }
+
+        private void TickDamage()
+        {
+            foreach (PartSlot partSlot in partSlotCollection.partSlots)
+            {
+                float value;
+                if (!partSlot.slotDegradation.TryGetValue("onTickWhileOn", out value) /*&& (this.onOffComponent?.On ?? false)*/)
+                {
+                    partSlot.slotDegradation.TryGetValue("onTickWhileOn", out value);   
+                }
+                else partSlot.slotDegradation.TryGetValue("onTick", out value);
+                this.DamagePart(partSlot, value);
+            }
+        }
+
+        [RPC]
+        public void DamagePart(PartSlot partSlot, float damage)
+        {
+            RepairableItem part = (RepairableItem) maintInventoryComponent.GetPartFromSlot(partSlot);
+            if (part != null)
+            {
+                if (part.Durability - damage > 0)
+                {
+                    part.Durability -= part.DurabilityRate * damage;
+                }
+                else
+                {
+                    part.Durability = 0;
+                }
+            }
         }
 
         //selector for pulling out and inserting parts into slots
@@ -165,7 +218,7 @@ namespace Digits.DE_Maintenance
         [RPC, Autogen]
         public virtual void PullOutPart(Player player)
         {
-            maintInventory.PullOutAll(player);
+            maintInventoryComponent.PullOutAll(player);
             // if(this.hasPartInserted)
             // {
             //     if (player.User.Inventory.NonEmptyStacks.Count() < player.User.Inventory.Stacks.Count())
@@ -193,14 +246,14 @@ namespace Digits.DE_Maintenance
         [RPC, Autogen]
         public virtual void PullOutPartByTags(Player player)
         {
-            maintInventory.PullOutByTags(player, new List<Tag> {TagManager.Tag("Maintenance Machine Frame"), TagManager.Tag("Maintenance Tier 1")});
+            maintInventoryComponent.PullOutByTags(player, new List<Tag> {TagManager.Tag("Maintenance Machine Frame"), TagManager.Tag("Maintenance Tier 1")});
         }
 
         // Put-in button
         [RPC, Autogen]
         public virtual void PutInPart(Player player)
         {
-            maintInventory.PutInSelected(player);
+            maintInventoryComponent.PutInSelected(player);
             // ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;
             // var isItemValid = itemStack?.Item != null && itemStack.Item is RepairableMachinePartsItem;
             // if(isItemValid) {

@@ -79,13 +79,13 @@ namespace Digits.DE_Maintenance
     {
         public string name {get;}
         public TagCollection tagCollection {get;}
-        public Dictionary<string, float> slotDegadation {get;}
+        public Dictionary<string, float> slotDegradation {get;}
 
         public PartSlot(string name, TagCollection tagCollection, Dictionary<string, float> slotDegradation)
         {
             this.name = name;
             this.tagCollection = tagCollection;
-            this.slotDegadation = slotDegadation;
+            this.slotDegradation = slotDegradation;
         }
     }
 
