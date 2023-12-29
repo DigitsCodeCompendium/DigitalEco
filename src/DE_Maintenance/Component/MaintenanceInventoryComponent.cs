@@ -94,6 +94,18 @@ namespace Digits.DE_Maintenance
             }
         }
 
+        // Check if part slot is occupied
+        public bool IsSlotOccupied(PartSlot partSlot)
+        {
+            var validItemCountInSlot = this.Inventory.TotalNumberOfItems(partSlot.tagCollection.genericTag);
+            if(validItemCountInSlot > 0)
+            {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         // Pulls out all maintenance items
         public void PullOutAll(Player player)
         {
@@ -133,22 +145,6 @@ namespace Digits.DE_Maintenance
             }
         }
 
-        // // Searches internal inventory by tag collection
-        // private IEnumerable<ItemStack> FindByTags(List<Tag> tags)
-        // {
-        //     IEnumerable<ItemStack> validStacks = this.Inventory.NonEmptyStacks;
-        //     foreach(var tag in tags) {
-        //         var tmp = validStacks.Where(stack => stack.Item.Type.HasTag(tag));
-        //         if(tmp != null && tmp.Any()) // Check if IEnumerable is not empty/null
-        //         {
-        //             validStacks = tmp;
-        //         } else {
-        //             return null; // Return null if nothing was found
-        //         }
-        //     }
-        //     return validStacks;
-        // }
-
         // Insert player's selected item into the maintenance inventory //! Does not currently check for duplicates
         public void PutInSelected(Player player)
         {
@@ -173,69 +169,26 @@ namespace Digits.DE_Maintenance
             }
         }
 
-        // Checks if internal inventory already has item
-        private bool CheckIfAlreadyInserted(ItemStack itemStack)
-        {
-            if(this.Inventory.Contains(new ItemStack[] {itemStack} )) // Fudgy way to force it to be an IEnumerable so I don't have to re-write their contains function to work with individual stacks...
-            {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
         // Put into slot if available
-        public void PutIntoSlot(ItemStack itemStack, PartSlot slot)
+        public void PutIntoSlot(Player player, ItemStack itemStack, PartSlot partSlot)
         {
-            var validStacks = this.Inventory.NonEmptyStacks.Where(stack => stack.Item.Type.HasTag(partSlot.tagCollection.genericTag));
+            if(!IsSlotOccupied(partSlot))
+            {
+                Result result = player.User.Inventory.MoveItems(itemStack, this.Inventory, 1);
+                if(result.Success) {
+                    player.MsgLocStr("<color=green>Put in part");
+                } else {
+                    player.MsgLocStr("<color=red>Could not insert part!");
+                }
+            } else {
+                player.MsgLocStr("<color=red>Slot is already filled!");
+                return;
+            }
+            // var validStacks = this.Inventory.NonEmptyStacks.Where(stack => stack.Item.Type.HasTag(partSlot.tagCollection.genericTag));
+
+
         }
 
-        // // Keeping for easy debugging
-        // // Synthesize into
-        // [RPC, Autogen]
-        // public virtual void SynthesizeIntoInventory(Player player)
-        // {
-        //     if (this.Inventory.NonEmptyStacks.Count() < this.Inventory.Stacks.Count())
-        //     {
-        //         Result result = this.Inventory.TryAddItem(new MachinePartsItem());
-        //         if(result.Success) {
-        //             player.MsgLocStr("<color=green>Synthesized part into inventory");
-        //             return;
-        //         }
-        //     }
-        //     player.MsgLocStr("<color=red>No space in inventory to synthesize!");
-        //     return;
-        // }
-
-        // // Pull-out button
-        // [RPC, Autogen]
-        // public virtual void PullOutPart(Player player)
-        // {
-        //     this.PullOutAll(player);
-        //     // var itemStacks = this.Inventory.NonEmptyStacks;
-        //     // this.Inventory.MoveAsManyItemsAsPossible(player.User.Inventory, player.User); // This respects inventory space and weight!
-        //     // // TODO Find a way to check this result, but honestly we don't care, it's just doing its best that it can.
-        // }
-
-        
-        // // Put-in button
-        // [RPC, Autogen]
-        // public virtual void PutInPart(Player player)
-        // {
-        //     this.PutInSelected(player);
-        //     // ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;
-        //     // var isItemValid = itemStack?.Item != null && itemStack.Item is RepairableMachinePartsItem;
-        //     // if(isItemValid) {
-        //     //     Result result = player.User.Inventory.MoveItems(itemStack, this.Inventory, 1); // Try to move item
-        //     //     if(result.Success) {
-        //     //         player.MsgLocStr("<color=green>Put in part");
-        //     //     } else {
-        //     //         player.MsgLocStr("<color=red>Could not insert part!");
-        //     //     }
-        //     // } else {
-        //     //     player.MsgLocStr("<color=red>No valid part in hand");
-        //     // }
-        // }
 
         // Handle removal of items from inventory during pickup of world object
         public override InventoryMoveResult TryPickup(Player player, InventoryChangeSet playerInvChanges, Inventory targetInventory, bool force)
