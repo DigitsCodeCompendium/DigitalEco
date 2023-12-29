@@ -53,14 +53,17 @@ namespace Digits.DE_Maintenance
 
     [Serialized]
     [RequireComponent(typeof(StatusComponent))]
+    [RequireComponent(typeof(MaintenanceInventoryComponent))]
     [LocDisplayName("Maintenance"), LocDescription("Provides information about object maintenance")]
     [NoIcon]
     [AutogenClass]
     public class MaintenanceComponent : WorldObjectComponent, IController, IHasClientControlledContainers
     {
         private StatusElement status;
+        private MaintenanceInventoryComponent maintInventory;
         private OnOffComponent onOffComponent;
         private CraftingComponent craftingComponent;
+        private PartSlotCollection partSlotCollection;
 
         [Serialized] enum partSlots {}
         [Serialized] private bool hasPartInserted;
@@ -77,8 +80,10 @@ namespace Digits.DE_Maintenance
             base.Initialize();
 
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
-
-            hasPartInserted = true;
+            this.maintInventory = this.Parent.GetComponent<MaintenanceInventoryComponent>();
+            this.partSlotCollection = new PartSlotCollection();
+            this.partsList.Clear();
+            hasPartInserted = true; // TODO NEEDS TO CHANGE / REMOVE
         }
 
         public void InitOnOffComponent()
@@ -111,16 +116,14 @@ namespace Digits.DE_Maintenance
             }
         }
 
-        public void CreatePartSlots(string[] partSlotNames)
+        public void CreatePartSlot(string name, TagCollection tagCollection, Dictionary<string, float> slotDegradation)
         {
-            partsList.Clear();
-            foreach (string partSlotName in partSlotNames)
-            {
-                PartListElement partSlot = new PartListElement();
-                partSlot.partName = partSlotName;
-                partSlot.status = "Not Installed";
-                partsList.Add(partSlot);
-            }
+            this.partSlotCollection.CreatePartSlot(name, tagCollection, slotDegradation);
+            PartListElement partSlot = new PartListElement();
+            partSlot.partName = name;
+            partSlot.status = "Not Installed";
+            this.partsList.Add(partSlot);
+            
         }
 
         [RPC]
@@ -162,48 +165,58 @@ namespace Digits.DE_Maintenance
         [RPC, Autogen]
         public virtual void PullOutPart(Player player)
         {
-            if(this.hasPartInserted)
-            {
-                if (player.User.Inventory.NonEmptyStacks.Count() < player.User.Inventory.Stacks.Count())
-                {
-                    RepairableItem item = new MachinePartsItem();
-                    item.Durability = this.partDurability;
-                    Result result = player.User.Inventory.TryAddItem(item);
-                    if(result.Success) {
-                        this.hasPartInserted = false;
-                        this.partDurability = 0f;
-                        player.MsgLocStr("<color=green>Pulled out part");
-                        return;
-                    }
-                }
-                player.MsgLocStr("<color=red>No space in inventory to pull out parts!");
-                return;
-            } else {
-                player.MsgLocStr("<color=red>No parts to pull out!");
-                return;
-            }
+            maintInventory.PullOutAll(player);
+            // if(this.hasPartInserted)
+            // {
+            //     if (player.User.Inventory.NonEmptyStacks.Count() < player.User.Inventory.Stacks.Count())
+            //     {
+            //         RepairableItem item = new MachinePartsItem();
+            //         item.Durability = this.partDurability;
+            //         Result result = player.User.Inventory.TryAddItem(item);
+            //         if(result.Success) {
+            //             this.hasPartInserted = false;
+            //             this.partDurability = 0f;
+            //             player.MsgLocStr("<color=green>Pulled out part");
+            //             return;
+            //         }
+            //     }
+            //     player.MsgLocStr("<color=red>No space in inventory to pull out parts!");
+            //     return;
+            // } else {
+            //     player.MsgLocStr("<color=red>No parts to pull out!");
+            //     return;
+            // }
+        }
+
+
+         // Pull out by tag
+        [RPC, Autogen]
+        public virtual void PullOutPartByTags(Player player)
+        {
+            maintInventory.PullOutByTags(player, new List<Tag> {TagManager.Tag("Maintenance Machine Frame"), TagManager.Tag("Maintenance Tier 1")});
         }
 
         // Put-in button
         [RPC, Autogen]
         public virtual void PutInPart(Player player)
         {
-            ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;
-            var isItemValid = itemStack?.Item != null && itemStack.Item is RepairableMachinePartsItem;
-            if(isItemValid) {
-                if(!this.hasPartInserted)
-                {
-                    RepairableItem repItem = (RepairableItem) itemStack.Item;
-                    this.partDurability = repItem.Durability;
-                    itemStack.TryModifyStack(player.User, -1); // Try to delete the item
-                    this.hasPartInserted = true;
-                    player.MsgLocStr("<color=green>Put in part");
-                } else {
-                    player.MsgLocStr("<color=red>Could not put in part");
-                }
-            } else {
-                player.MsgLocStr("<color=red>No valid part in hand");
-            }
+            maintInventory.PutInSelected(player);
+            // ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;
+            // var isItemValid = itemStack?.Item != null && itemStack.Item is RepairableMachinePartsItem;
+            // if(isItemValid) {
+            //     if(!this.hasPartInserted)
+            //     {
+            //         RepairableItem repItem = (RepairableItem) itemStack.Item;
+            //         this.partDurability = repItem.Durability;
+            //         itemStack.TryModifyStack(player.User, -1); // Try to delete the item
+            //         this.hasPartInserted = true;
+            //         player.MsgLocStr("<color=green>Put in part");
+            //     } else {
+            //         player.MsgLocStr("<color=red>Could not put in part");
+            //     }
+            // } else {
+            //     player.MsgLocStr("<color=red>No valid part in hand");
+            // }
         }
     }
 }

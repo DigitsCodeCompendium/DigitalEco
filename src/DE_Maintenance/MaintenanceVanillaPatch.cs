@@ -44,15 +44,24 @@ namespace Eco.Mods.TechTree
     using Digits.DE_Maintenance;
 
     [RequireComponent(typeof(MaintenanceComponent))]
-    public partial class WorkbenchObject
+    public partial class MasonryTableObject
     {
         partial void ModsPreInitialize()
         {
             var mComp = this.GetComponent<MaintenanceComponent>();
             mComp.Initialize();
-            mComp.tickDurabilityDamage = 100f/(24f*60f*60f);
+            mComp.InitCraftingComponent();
+            mComp.InitOnOffComponent();
 
-            mComp.CreatePartSlots(new string[] {"Machine Parts", "Wooden Frame", "Nails"});
+            //mComp.CreatePartSlots(new string[] {"Tier 1 Machine Frame", "Chisels"});
+
+            mComp.CreatePartSlot("Machine Frame", 
+                                 new TagCollection("Maintenance Machine Frame", new string[] {"Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3"}),
+                                 new Dictionary<string, float>(){{"onTick", 100f/(48f*60f*60f)}, {"onCraft", 100f/(1000f)}});
+            
+            mComp.CreatePartSlot("Chisels", 
+                                 new TagCollection("Maintenance Tool Chisels", new string[] {"Maintenance Tier 1", "Maintenance Tier 2"}),
+                                 new Dictionary<string, float>(){{"onCraft", 100f/(100f)}});
 
         }
     }
