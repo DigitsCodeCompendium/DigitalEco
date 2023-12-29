@@ -44,7 +44,8 @@ namespace Digits.DE_Maintenance
                 // type of the item, the amount of the item, the skill required, and the talent used.
                 ingredients: new List<IngredientElement>
                 {
-                    new IngredientElement("Wood", 1, typeof(LoggingSkill)), //noloc
+                    new IngredientElement(typeof(IronBarItem), 4, typeof(LoggingSkill)),
+                    new IngredientElement("WoodBoard", 4, typeof(LoggingSkill)),
                 },
 
                 // Define our recipe output items.

@@ -63,6 +63,7 @@ namespace Digits.DE_Maintenance
         private MaintenanceInventoryComponent maintInventory;
         private OnOffComponent onOffComponent;
         private CraftingComponent craftingComponent;
+        private PartSlotCollection partSlotCollection;
 
         [Serialized] enum partSlots {}
         [Serialized] private bool hasPartInserted;
@@ -80,7 +81,8 @@ namespace Digits.DE_Maintenance
 
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
             this.maintInventory = this.Parent.GetComponent<MaintenanceInventoryComponent>();
-
+            this.partSlotCollection = new PartSlotCollection();
+            this.partsList.Clear();
             hasPartInserted = true; // TODO NEEDS TO CHANGE / REMOVE
         }
 
@@ -114,16 +116,14 @@ namespace Digits.DE_Maintenance
             }
         }
 
-        public void CreatePartSlots(string[] partSlotNames)
+        public void CreatePartSlot(string name, TagCollection tagCollection, Dictionary<string, float> slotDegradation)
         {
-            partsList.Clear();
-            foreach (string partSlotName in partSlotNames)
-            {
-                PartListElement partSlot = new PartListElement();
-                partSlot.partName = partSlotName;
-                partSlot.status = "Not Installed";
-                partsList.Add(partSlot);
-            }
+            this.partSlotCollection.CreatePartSlot(name, tagCollection, slotDegradation);
+            PartListElement partSlot = new PartListElement();
+            partSlot.partName = name;
+            partSlot.status = "Not Installed";
+            this.partsList.Add(partSlot);
+            
         }
 
         [RPC]
