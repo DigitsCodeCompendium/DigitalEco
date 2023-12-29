@@ -44,7 +44,8 @@ namespace Digits.DE_Maintenance
                 // type of the item, the amount of the item, the skill required, and the talent used.
                 ingredients: new List<IngredientElement>
                 {
-                    new IngredientElement("Wood", 1, typeof(LoggingSkill)), //noloc
+                    new IngredientElement(typeof(SteelBarItem), 15, typeof(LoggingSkill)), //noloc
+                    new IngredientElement(typeof(FiberglassItem), 10, typeof(LoggingSkill)),
                 },
 
                 // Define our recipe output items.
@@ -88,7 +89,7 @@ namespace Digits.DE_Maintenance
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
     public partial class ModernChiselsItem : RepairableMachinePartsItem
     {
-        public override Item RepairItem                 => Item.Get<IronBarItem>();
+        public override Item RepairItem                 => Item.Get<SteelBarItem>();
         public override int FullRepairAmount            => 4;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 1000f;
