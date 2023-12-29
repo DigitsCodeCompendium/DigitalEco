@@ -44,12 +44,9 @@ namespace Digits.DE_Maintenance
     using Eco.Gameplay.Items.Recipes; 
 
     using static Eco.Gameplay.Items.AuthorizationInventory;
+    using System.Linq;
 
-    // This is a good reference component for inventory
-    // [Serialized, CreateComponentTabLoc("MaintenanceInventory"), NoIcon]
-    // [LocDisplayName("MaintenanceInventory"), LocDescription("Provides maintenance inventory access")]
     [Serialized]
-    // [AutogenClass]
     public class MaintenanceInventoryComponent : WorldObjectComponent, IInventoryWorldObjectComponent
     {
         public readonly ThreadSafeAction OnChanged = new();
@@ -76,48 +73,77 @@ namespace Digits.DE_Maintenance
 
         }
 
-
+        // Pulls out all maintenance items
         public void PullOutAll(Player player)
         {
-             var itemStacks = this.Inventory.NonEmptyStacks;
+            var itemStacks = this.Inventory.NonEmptyStacks;
             this.Inventory.MoveAsManyItemsAsPossible(player.User.Inventory, player.User); // This respects inventory space and weight!
             // TODO Find a way to check this result, but honestly we don't care, it's just doing its best that it can.
         }
 
+        // Pull out items by list of tags
+        public void PullOutByTags(Player player, List<Tag> tags)
+        {
+            player.MsgLocStr("<color=green>Trying to pull by tag");
+            // var res = this.Inventory.MoveAsManyItemsAsPossible(player.User.Inventory, stack => stack.Item.Tags().Contains("Chisels"), player.User);
+            
+            IEnumerable<ItemStack> validStacks = this.Inventory.NonEmptyStacks;
+            foreach(var tag in tags) {
+                var tmp = validStacks.Where(stack => stack.Item.Type.HasTag(tag));
+                if(tmp != null && tmp.Any()) // Check if IEnumerable is not empty/null
+                {
+                    validStacks = tmp;
+                } else {
+                    player.MsgLocStr("<color=red>Could not meet all tag conditions");
+                    return;
+                }
+            }
+
+            // Now assume anything in validStacks is... well... valid...
+            foreach(var itemStack in validStacks)
+            {
+                var result = this.Inventory.MoveItems(itemStack, player.User.Inventory, -1, player.User);
+                if(!(result.Success))
+                {
+                    player.MsgLocStr("<color=red>Failed to move all items");
+                    return;
+                }
+                player.MsgLocStr("<color=green>Moved item stack");
+            }
+        }
+
+        // Insert player's selected item into the maintenance inventory //! Does not currently check for duplicates
         public void PutInSelected(Player player)
         {
-            
-            ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;
-            var isItemValid = itemStack?.Item != null && itemStack.Item is RepairableMachinePartsItem;
+            ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;                          // Get selected item
+            var isItemValid = itemStack?.Item != null && itemStack.Item is RepairableMachinePartsItem;  // Check validity
             if(isItemValid) {
-                if(CheckIfAlreadyInserted(itemStack)) //! TEST CODE
-                {
-                    player.MsgLocStr("<color=green>Contains item!");
-                } else {
-                    player.MsgLocStr("<color=red>Does not contain item");
-                }
-                Result result = player.User.Inventory.MoveItems(itemStack, this.Inventory, 1); // Try to move item
-                if(result.Success) {
-                    player.MsgLocStr("<color=green>Put in part");
-                } else {
-                    player.MsgLocStr("<color=red>Could not insert part!");
-                }
+                // var isItemAlreadyInserted = CheckIfAlreadyInserted(itemStack);                          // Check if already in machine
+                // if(isItemAlreadyInserted)
+                // {
+                    Result result = player.User.Inventory.MoveItems(itemStack, this.Inventory, 1);      // Try to move item
+                    if(result.Success) {
+                        player.MsgLocStr("<color=green>Put in part");
+                    } else {
+                        player.MsgLocStr("<color=red>Could not insert part!");
+                    }
+                // } else {
+                //     player.MsgLocStr("<color=red>Already contains this part type!");
+                //     return;
+                // }
             } else {
                 player.MsgLocStr("<color=red>No valid part in hand");
             }
         }
 
         // Checks if internal inventory already has item
-        public bool CheckIfAlreadyInserted(ItemStack itemStack)
+        private bool CheckIfAlreadyInserted(ItemStack itemStack)
         {
-            // var enumerable = new [] {itemStack}
             if(this.Inventory.Contains(new ItemStack[] {itemStack} )) // Fudgy way to force it to be an IEnumerable so I don't have to re-write their contains function to work with individual stacks...
             {
                 return true;
-                // player.MsgLocStr("<color=green>Contains item!");
             } else {
                 return false;
-                // player.MsgLocStr("<color=red>Does not contain item");
             }
         }
 
