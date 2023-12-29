@@ -81,9 +81,9 @@ namespace Digits.DE_Maintenance
             // Find the corresponding item and return it or return null?
             //! Only needs to search for generic tag, not tier!
             var validStacks = this.Inventory.NonEmptyStacks.Where(stack => stack.Item.Type.HasTag(partSlot.tagCollection.genericTag));
-            if(validStacks != null && tmp.Any()) //! Returns what? Check validity and return or return null / error?
+            if(validStacks != null && validStacks.Any())
             {
-                if(validStacks.Sum() == 1) // Check that we only found one matching item
+                if(validStacks.Sum(stack => stack.Quantity) == 1) // Check that we only found one matching item
                 {
                     return validStacks.First().Item; // Return one item
                 } else {
@@ -182,6 +182,12 @@ namespace Digits.DE_Maintenance
             } else {
                 return false;
             }
+        }
+
+        // Put into slot if available
+        public void PutIntoSlot(ItemStack itemStack, PartSlot slot)
+        {
+            var validStacks = this.Inventory.NonEmptyStacks.Where(stack => stack.Item.Type.HasTag(partSlot.tagCollection.genericTag));
         }
 
         // // Keeping for easy debugging
