@@ -25,20 +25,20 @@ using Eco.Gameplay.Items.Recipes;
 namespace Digits.DE_Maintenance
 {
     /// <summary>
-    /// <para>Server side recipe definition for "Tier 1 Machine Frames".</para>
+    /// <para>Server side recipe definition for "Tier 2 Machine Frames".</para>
     /// <para>Machine frames make up the core of most machines.</para>
     /// </summary>
     [RequiresSkill(typeof(LoggingSkill), 1)]
     [ForceCreateView]
-    [Ecopedia("Items", "Products", subPageName: "Stone Chisels")]
-    public partial class StoneChiselsRecipe : RecipeFamily
+    [Ecopedia("Items", "Products", subPageName: "Machine Parts Item")]
+    public partial class Tier2MachineFrameRecipe : RecipeFamily
     {
-        public StoneChiselsRecipe()
+        public Tier2MachineFrameRecipe()
         {
             var recipe = new Recipe();
             recipe.Init(
-                name: "StoneChisels",  //noloc
-                displayName: Localizer.DoStr("Stone Chisels"),
+                name: "Tier2MachineFrame",  //noloc
+                displayName: Localizer.DoStr("Tier 2 Machine Frame"),
 
                 // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
                 // type of the item, the amount of the item, the skill required, and the talent used.
@@ -52,7 +52,7 @@ namespace Digits.DE_Maintenance
                 // to create.
                 items: new List<CraftingElement>
                 {
-                    new CraftingElement<StoneChiselsItem>()
+                    new CraftingElement<Tier2MachineFrameItem>()
                 });
             this.Recipes = new List<Recipe> { recipe };
             this.ExperienceOnCraft = 20f;
@@ -60,7 +60,7 @@ namespace Digits.DE_Maintenance
             this.CraftMinutes = CreateCraftTimeValue(0.01f);
 
             this.ModsPreInitialize();
-            this.Initialize(Localizer.DoStr("Stone Chisels"), typeof(StoneChiselsRecipe));
+            this.Initialize(Localizer.DoStr("Tier 2 Machine Frame"), typeof(Tier2MachineFrameRecipe));
             this.ModsPostInitialize();
 
             CraftingComponent.AddRecipe(tableType: typeof(MaintenanceBenchObject), recipe: this);
@@ -73,25 +73,25 @@ namespace Digits.DE_Maintenance
     }
     
     /// <summary>
-    /// <para>Server side item definition for the "StoneChisels" item.</para>
+    /// <para>Server side item definition for the "Tier2MachineFrame" item.</para>
     /// <para>More information about Item objects can be found at https://docs.play.eco/api/server/eco.gameplay/Eco.Gameplay.Items.Item.html</para>
     /// </summary>
     [Serialized]
-    [LocDisplayName("Stone Chisels")]
-    [LocDescription("Stone chisels are primitive tools for shaping rock")]
+    [LocDisplayName("Tier 2 Machine Frame")]
+    [LocDescription("Machine Parts used for repairing and maintaining machines and workbenches.")]
     [Tier(1)]
     [RepairRequiresSkill(typeof(SmeltingSkill), 0)]
     [Weight(500)]
-    [Category("Chisels")]
-    [Tag("Maintenance Tool Chisels")]
-    [Tag("Maintenance Mat Stone")]
-    [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
-    public partial class StoneChiselsItem : RepairableMachinePartsItem
+    [Category("Machine Frames")]
+    [Tag("Maintenance Machine Frame")]
+    [Tag("Maintenance Tier 2")]
+    [Ecopedia("Maintenance Items", "Machine Frames", createAsSubPage: true)]
+    public partial class Tier2MachineFrameItem : RepairableMachinePartsItem
     {
         public override Item RepairItem                 => Item.Get<IronBarItem>();
         public override int FullRepairAmount            => 4;
         //set durability by changing the denominator below
-        public override float DurabilityRate            => DurabilityMax / 100f;
+        public override float DurabilityRate            => DurabilityMax / 500f;
         public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(4, SmeltingSkill.MultiplicativeStrategy, typeof(SmeltingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }
