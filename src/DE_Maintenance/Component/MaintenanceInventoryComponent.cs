@@ -76,7 +76,7 @@ namespace Digits.DE_Maintenance
         // Take a part slot from the maint component and get the corresponding item
         // Return the item that corresponds to an occupied part slot
 
-        public Item getPartFromSlot(PartSlot partSlot)
+        public Item GetPartFromSlot(PartSlot partSlot)
         {
             // Find the corresponding item and return it or return null?
             //! Only needs to search for generic tag, not tier!
