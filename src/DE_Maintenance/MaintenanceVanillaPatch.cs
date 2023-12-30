@@ -47,7 +47,6 @@ namespace Eco.Mods.TechTree
     //onTick -> applies this damage per object tick adjusted
     //onTickWhileOn -> applies this damage per object tick when onOff component is on. Stops onTick from applying when object is on
     //onCraftTick -> applies this damage per object tick while the crafting component is operating (the object is crafting something)
-    //onFuelTick -> applies this damage per object tick while the fuel supply component is operating (the object is consuming fuel)
     //onVehicleTick -> applies this damager per object tick while the vehicle component is operating (someone is mounted on the vehicle. I dont think this counts for passengers, only the driver)
     
 
