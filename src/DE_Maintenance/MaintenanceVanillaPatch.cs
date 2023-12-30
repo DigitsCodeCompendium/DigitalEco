@@ -48,7 +48,7 @@ namespace Eco.Mods.TechTree
     //onTickWhileOn -> applies this damage per object tick when onOff component is on. Stops onTick from applying when object is on
     //onCraftTick -> applies this damage per object tick while the crafting component is operating (the object is crafting something)
     //onVehicleTick -> applies this damager per object tick while the vehicle component is operating (someone is mounted on the vehicle. I dont think this counts for passengers, only the driver)
-    
+    //onPowerGridTick
 
     [RequireComponent(typeof(MaintenanceComponent))]
     public partial class MasonryTableObject
@@ -65,6 +65,25 @@ namespace Eco.Mods.TechTree
             mComp.CreatePartSlot("Chisels", 
                                  new TagCollection("Maintenance Tool Chisels", new string[] {"Maintenance Tier 1", "Maintenance Tier 2"}),
                                  new Dictionary<string, float>(){{"onCraftTick", 100f/(100f)}});
+
+        }
+    }
+
+    [RequireComponent(typeof(MaintenanceComponent))]
+    public partial class SteamEngineObject
+    {
+        partial void ModsPreInitialize()
+        {
+            var mComp = this.GetComponent<MaintenanceComponent>();
+            mComp.Initialize();
+
+            mComp.CreatePartSlot("Machine Frame", 
+                                 new TagCollection("Maintenance Machine Frame", new string[] {"Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3"}),
+                                 new Dictionary<string, float>(){{"onTick", 100f/(240f)}, {"onTickWhileOn", 100f/(60f)}});
+            
+            mComp.CreatePartSlot("Chisels", 
+                                 new TagCollection("Maintenance Tool Chisels", new string[] {"Maintenance Tier 1", "Maintenance Tier 2"}),
+                                 new Dictionary<string, float>(){{"onPowerGridTick", 100f/(100f)}});
 
         }
     }
