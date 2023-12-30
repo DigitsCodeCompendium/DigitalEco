@@ -67,7 +67,6 @@ namespace Digits.DE_Maintenance
         private OnOffComponent?         onOffComponent;
         private CraftingComponent?      craftingComponent;
         private VehicleComponent?       vehicleComponent;
-        private FuelSupplyComponent?    fuelSupplyComponent;
 
         //stuff
         private PartSlotCollection partSlotCollection;
@@ -85,7 +84,6 @@ namespace Digits.DE_Maintenance
             this.onOffComponent         = this.Parent.GetComponent<OnOffComponent>();
             this.vehicleComponent       = this.Parent.GetComponent<VehicleComponent>();
             this.craftingComponent      = this.Parent.GetComponent<CraftingComponent>();
-            this.fuelSupplyComponent    = this.Parent.GetComponent<FuelSupplyComponent>();
 
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
             this.maintInventoryComponent = this.Parent.GetComponent<MaintenanceInventoryComponent>();
@@ -167,17 +165,23 @@ namespace Digits.DE_Maintenance
         {
             foreach (PartSlot partSlot in partSlotCollection.partSlots)
             {
-                float value;
+                float damage;
+                float damageSum = 0;
                 //onTick Damage and tickWhileOn Damage
-                if (!partSlot.slotDegradation.TryGetValue("onTickWhileOn", out value) && (this.onOffComponent?.On ?? false))
-                {
-                    partSlot.slotDegradation.TryGetValue("onTickWhileOn", out value);   
-                }
-                else partSlot.slotDegradation.TryGetValue("onTick", out value);
+                if (this.onOffComponent?.On ?? false) partSlot.slotDegradation.TryGetValue("onTickWhileOn", out damage);   
+                else partSlot.slotDegradation.TryGetValue("onTick", out damage);
+                damageSum += damage;
                 
                 //Crafting Damage
-                //if ()
-                this.DamagePart(partSlot, value);
+                if (!partSlot.slotDegradation.TryGetValue("onCraftTick", out damage) && (this.craftingComponent?.Operating ?? false))
+                damageSum += damage;
+
+                //Vehicle Damage
+                if (!partSlot.slotDegradation.TryGetValue("onVehicleTick", out damage) && (this.vehicleComponent?.Operating ?? false))
+                damageSum += damage;
+
+                //Apply damage
+                this.DamagePart(partSlot, damageSum);
             }
         }
 
