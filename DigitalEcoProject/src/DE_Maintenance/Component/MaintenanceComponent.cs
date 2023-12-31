@@ -48,17 +48,19 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Eco.Mods.TechTree;
+using Eco.Shared.IoC;
 
 namespace Digits.DE_Maintenance
 {
     [Serialized]
     [RequireComponent(typeof(StatusComponent))]
     [RequireComponent(typeof(MaintenanceInventoryComponent))]
-    [LocDisplayName("Maintenance"), LocDescription("Provides information about object maintenance")]
+    [LocDescription("Provides information about object maintenance"), CreateComponentTabLoc("Maintenance", true)]
     [NoIcon]
     [AutogenClass]
     public class MaintenanceComponent : WorldObjectComponent, IController, IHasClientControlledContainers
     {
+        public override WorldObjectComponentClientAvailability Availability => WorldObjectComponentClientAvailability.UI;
         //required components
         private StatusElement status;
         private MaintenanceInventoryComponent maintInventoryComponent;
@@ -67,6 +69,7 @@ namespace Digits.DE_Maintenance
         private OnOffComponent?         onOffComponent;
         private CraftingComponent?      craftingComponent;
         private VehicleComponent?       vehicleComponent;
+        private PowerGridComponent?     powerGridComponent;
 
         //stuff
         // private PartSlotCollection partSlotCollection;
@@ -84,6 +87,7 @@ namespace Digits.DE_Maintenance
             this.onOffComponent         = this.Parent.GetComponent<OnOffComponent>();
             this.vehicleComponent       = this.Parent.GetComponent<VehicleComponent>();
             this.craftingComponent      = this.Parent.GetComponent<CraftingComponent>();
+            this.powerGridComponent     = this.Parent.GetComponent<PowerGridComponent>();
 
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
             this.maintInventoryComponent = this.Parent.GetComponent<MaintenanceInventoryComponent>();
@@ -94,7 +98,7 @@ namespace Digits.DE_Maintenance
         public override void Tick()
         {
             this.TickDamage();
-            this.status.SetStatusMessage(false, Localizer.Format(this.TickStatus()));
+            //this.status.SetStatusMessage(false, Localizer.Format(this.TickStatus()));
             this.UpdateUI();
         }
 
@@ -157,7 +161,7 @@ namespace Digits.DE_Maintenance
                     returnString += " " + partSlot.name + ": " + part.Durability.ToString("0") + "%";
                 }
             }
-            returnString += " " + craftingComponent.Operating;
+            if (this.powerGridComponent?.Enabled ?? false) returnString += this.powerGridComponent.Enabled;
             return returnString;
         }
 
@@ -173,15 +177,29 @@ namespace Digits.DE_Maintenance
                 damageSum += damage;
                 
                 //Crafting Damage
-                if (!partSlot.slotDegradation.TryGetValue("onCraftTick", out damage) && (this.craftingComponent?.Operating ?? false))
-                damageSum += damage;
+                if (this.craftingComponent?.Operating ?? false) 
+                {
+                    partSlot.slotDegradation.TryGetValue("onCraftTick", out damage);
+                    damageSum += damage;
+                }
 
                 //Vehicle Damage
-                if (!partSlot.slotDegradation.TryGetValue("onVehicleTick", out damage) && (this.vehicleComponent?.Operating ?? false))
-                damageSum += damage;
+                if (this.vehicleComponent?.Operating ?? false);
+                {
+                    partSlot.slotDegradation.TryGetValue("onVehicleTick", out damage);
+                    damageSum += damage;
+                }
+
+                //PowerGrid Damage
+                if (this.powerGridComponent?.Enabled ?? false)
+                {
+                    partSlot.slotDegradation.TryGetValue("onPowerGridTick", out damage);
+                    damageSum += damage;
+                }
 
                 //Apply damage
-                this.DamagePart(partSlot, damageSum);
+                var tickTime = ServiceHolder<IWorldObjectManager>.Obj.TickDeltaTime;
+                this.DamagePart(partSlot, damageSum * tickTime);
             }
         }
 
