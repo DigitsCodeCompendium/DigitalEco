@@ -69,7 +69,7 @@ namespace Digits.DE_Maintenance
         private VehicleComponent?       vehicleComponent;
 
         //stuff
-        private PartSlotCollection partSlotCollection;
+        // private PartSlotCollection partSlotCollection;
 
         public MaintenanceComponent()
         {
@@ -87,7 +87,7 @@ namespace Digits.DE_Maintenance
 
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
             this.maintInventoryComponent = this.Parent.GetComponent<MaintenanceInventoryComponent>();
-            this.partSlotCollection = new PartSlotCollection();
+            // this.partSlotCollection = new PartSlotCollection();
             this.partsList.Clear();
         }
         
@@ -114,7 +114,7 @@ namespace Digits.DE_Maintenance
 
         public void CreatePartSlot(string name, TagCollection tagCollection, Dictionary<string, float> slotDegradation)
         {
-            this.partSlotCollection.CreatePartSlot(name, tagCollection, slotDegradation);
+            this.maintInventoryComponent.partSlotCollection.CreatePartSlot(name, tagCollection, slotDegradation);
             PartListElement partSlot = new PartListElement();
             partSlot.partName = name;
             partSlot.status = "Not Installed";
@@ -126,7 +126,7 @@ namespace Digits.DE_Maintenance
         {   
             Dictionary<string, PartSlot> uiLinkDict = new Dictionary<string, PartSlot>();
 
-            foreach (PartSlot partSlot in partSlotCollection.partSlots)
+            foreach (PartSlot partSlot in maintInventoryComponent.partSlotCollection.partSlots)
             {
                 uiLinkDict[partSlot.name] = partSlot;
             }
@@ -149,7 +149,7 @@ namespace Digits.DE_Maintenance
         {
             string returnString = "";
 
-            foreach (PartSlot partSlot in partSlotCollection.partSlots)
+            foreach (PartSlot partSlot in maintInventoryComponent.partSlotCollection.partSlots)
             {
                 RepairableItem part = (RepairableItem) maintInventoryComponent.GetPartFromSlot(partSlot);
                 if (part != null)
@@ -163,7 +163,7 @@ namespace Digits.DE_Maintenance
 
         private void TickDamage()
         {
-            foreach (PartSlot partSlot in partSlotCollection.partSlots)
+            foreach (PartSlot partSlot in maintInventoryComponent.partSlotCollection.partSlots)
             {
                 float damage;
                 float damageSum = 0;

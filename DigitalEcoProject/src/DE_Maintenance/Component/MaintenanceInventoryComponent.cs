@@ -57,10 +57,17 @@ namespace Digits.DE_Maintenance
 
         private int numSlots = 3; // TODO Make this not hardcoded
 
-        public MaintenanceInventoryComponent() { }
+        public PartSlotCollection partSlotCollection;
 
-        public override void Initialize()
+        public MaintenanceInventoryComponent() { this.Initialize(); }
+
+        public void Initialize()
         {
+            if(this.partSlotCollection == null)
+            {
+                this.partSlotCollection = new PartSlotCollection();
+            }
+
             if (this.Inventory == null)
                 this.Inventory = new AuthorizationInventory(numSlots, AuthorizationFlags.AuthedMayAdd | AuthorizationFlags.AuthedMayRemove, AccessType.FullAccess);
             this.Inventory.SetOwner(this.Parent);

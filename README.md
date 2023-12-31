@@ -1,5 +1,34 @@
 DIGITAL ECO MODKIT
 
+-- Things done for visual studio setup (INCOMPLETE)
+
+Setup is a multistep process.
+1) If you have devtier, check the readme in the `CoreDependencies` folder
+2) Check the readme in the `CoreReference` folder
+3) If you're doing unity asset -anything- and already have the modkit setup in your unity project, use the modkit to export your `.unity3d` file into `DigitalEcoProject/src`
+4) Make a directory symlink with the following: (Note, this allows your source changes to be seen immediately by ECO when it launches a server)
+4a) target: `C:\Program Files (x86)\Steam\steamapps\common\Eco\Eco_Data\Server\Mods\UserCode\DigitalEco`
+4b) source: `<wherever_your_repository_is>\DigitalEco\DigitalEcoProject\src`
+4*) For example, I execute this on my machine in cmd prompt in administrator mode: `mklink /D "C:\Program Files (x86)\Steam\steamapps\common\Eco\Eco_Data\Server\Mods\UserCode\DigitalEco" "C:\Modding\Eco\DigitalEco\DigitalEcoProject\src"`
+5) Dive into modding with your grubby modder fingers.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- THIS IS ALL OUTDATED FOR THE VISUAL STUDIO SETUP, KEEPING FOR REFERENCE FOR NOW... --
+
 Setup Instructions:
 1) Install Unity
 2) Create Unity Project for DigitalEco modding environment
