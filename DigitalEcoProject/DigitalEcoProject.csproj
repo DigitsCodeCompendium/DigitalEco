@@ -8,6 +8,34 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="src\DE_Maintenance\Component\MaintenanceComponent.cs" />
+    <Compile Remove="src\DE_Maintenance\Component\MaintenanceInventoryComponent.cs" />
+    <Compile Remove="src\DE_Maintenance\Component\PartListElement.cs" />
+    <Compile Remove="src\DE_Maintenance\Component\PartSlotCollection.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="src\DE_Maintenance\Item\IronChisels.old" />
+    <None Remove="src\DE_Maintenance\Item\MachineParts.old" />
+    <None Remove="src\DE_Maintenance\Item\ModernChisels.cold" />
+    <None Remove="src\DE_Maintenance\Item\ModernChisels.old" />
+    <None Remove="src\DE_Maintenance\Item\RepairableMachineParts.old" />
+    <None Remove="src\DE_Maintenance\Item\SteelChisels.old" />
+    <None Remove="src\DE_Maintenance\Item\StoneChisels.old" />
+    <None Remove="src\DE_Maintenance\Item\Tier1MachineFrame.old" />
+    <None Remove="src\DE_Maintenance\Item\Tier2MachineFrame.old" />
+    <None Remove="src\DE_Maintenance\MaintenanceVanillaPatch.old" />
+    <None Remove="src\DE_Maintenance\WorldObject\MaintenanceBench.old" />
+    <None Remove="src\DE_Maintenance\WorldObject\TestBench.old" />
+    <None Remove="src\PartSlotting\Component\NewFile1.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="src\DE_Maintenance\MaintenanceVanillaPatch.old" />
+    <Compile Include="src\DE_Maintenance\WorldObject\TestBench.old" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CoreReference\CoreReference.csproj" />
   </ItemGroup>
 
