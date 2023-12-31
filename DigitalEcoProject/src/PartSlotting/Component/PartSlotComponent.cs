@@ -154,8 +154,7 @@ namespace Digits.PartSlotting
                 PartSlot partSlot = uiLinkDict[partListElement.partName];
                 if (this.IsSlotOccupied(partSlot))
                 {
-                    RepairableItem part = (RepairableItem) this.GetPartFromSlot(partSlot);
-                    partListElement.Status = part.Durability.ToString("0.0") + "%";
+                    partListElement.Status = "Part Inserted";
                 }
                 else
                 {
