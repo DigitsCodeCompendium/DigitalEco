@@ -1,0 +1,1 @@
+When exporting unity project ".unity3d" files, copy them into here.
