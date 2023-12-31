@@ -83,7 +83,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 
-*.unity3d
+# *.unity3d
 *.meta
 
 
