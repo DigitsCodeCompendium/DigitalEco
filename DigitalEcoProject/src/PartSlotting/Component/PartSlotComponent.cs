@@ -280,14 +280,14 @@ namespace Digits.PartSlotting
         public virtual void PutIntoSlot(Player player)
         {
             ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;
-            if(!isItemValid) return;
+            var isItemValid = itemStack?.Item != null && itemStack.Item is ISlottableItem;
+            if (!isItemValid) return;
 
             // TODO Following steps:
             // Get list of all possible valid generic tags for all slots on this machine
             List<Tag> validTags = GetValidGenericTags();
             Tag? slotTag = null;
             foreach(Tag tag in itemStack.Item.Tags())
-            var isItemValid = itemStack?.Item != null && itemStack.Item is ISlottableItem;
             {
                 if(validTags.Contains(tag))
                 {
