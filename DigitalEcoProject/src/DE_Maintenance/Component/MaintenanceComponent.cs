@@ -159,7 +159,7 @@ namespace Digits.DE_Maintenance
 
 		private void TickStatus()
         {
-			this.status.SetStatusMessage(true, Localizer.Format("Everything okay! (this currently will always say things are okay)");
+			this.status.SetStatusMessage(true, Localizer.Format("Everything okay! (this currently will always say things are okay)"));
 		}
 
 		private void TickDamage()
