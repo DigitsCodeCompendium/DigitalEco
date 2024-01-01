@@ -96,7 +96,7 @@ namespace Digits.DE_Maintenance
         public override void Tick()
         {
             this.TickDamage();
-            //this.status.SetStatusMessage(false, Localizer.Format(this.TickStatus()));
+            this.TickStatus();
             this.UpdateUI();
         }
 
@@ -157,21 +157,10 @@ namespace Digits.DE_Maintenance
 			this.partsListUIElements.Add(partListElement);
 		}
 
-		/*private string TickStatus()
+		private void TickStatus()
         {
-            string returnString = "";
-
-            foreach (PartSlot partSlot in partSlotComponent.partSlotCollection.partSlots)
-            {
-                RepairableItem part = (RepairableItem) partSlotComponent.GetPartFromSlot(partSlot);
-                if (part != null)
-                {
-                    returnString += " " + partSlot.name + ": " + part.Durability.ToString("0") + "%";
-                }
-            }
-            if (this.powerGridComponent?.Enabled ?? false) returnString += this.powerGridComponent.Enabled;
-            return returnString;
-        }*/
+			this.status.SetStatusMessage(true, Localizer.Format("Everything okay! (this currently will always say things are okay)");
+		}
 
 		private void TickDamage()
         {
