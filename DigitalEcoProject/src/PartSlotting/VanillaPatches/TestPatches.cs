@@ -18,26 +18,48 @@
     [RequireComponent(typeof(PartSlotComponent))]
     public partial class MasonryTableObject
     {
+        public PartSlotCollection partSlotCollection;
         partial void ModsPreInitialize()
         {
             var partSlotComponent = this.GetComponent<PartSlotComponent>();
             partSlotComponent.Initialize();
-            PartSlotCollection partSlotCollection = new PartSlotCollection();
+            if(partSlotCollection == null)
+            {
+                this.partSlotCollection = new PartSlotCollection();
+            }
             //partSlotComponent.Initialize();
 
-            partSlotCollection.CreatePartSlot(  "Machine Frame",
+            this.partSlotCollection.CreatePartSlot(  "Machine Frame",
                                                 new TagCollection("Maintenance Machine Frame", 
                                                     new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3" }));
 
-            partSlotCollection.CreatePartSlot(  "Chisels",
+            this.partSlotCollection.CreatePartSlot(  "Chisels",
                                                 new TagCollection("Maintenance Tool Chisels", 
                                                     new string[] { "Maintenance Tier 1", "Maintenance Tier 2" }),
                                                 new Dictionary<string, float>() { { "degOnTick", 100f/(60f) }, { "disableOnBroken", 1} });
 
+            //partSlotCollection.CreatePartSlot("Chisels", (nuclearprops, maintprops, etcprops) =>
+            //{
+            //    nuclearproperties.append({ "degOnTick", 100f / (60f) });
+            //    if(maint)
+            //    properties.append({ "degOnTick", 100f / (60f) });
+            //}
+
+            // 
+
+
+            //partSlotComponent.FinalizePartSlots(partSlotCollection);
+
+            //this.GetComponent<MaintenanceComponent>().Initialize();
+
+        }
+
+        partial void ModsPostInitialize()
+        {
+            var partSlotComponent = this.GetComponent<PartSlotComponent>();
             partSlotComponent.FinalizePartSlots(partSlotCollection);
 
             this.GetComponent<MaintenanceComponent>().Initialize();
-
         }
     }
 
