@@ -270,7 +270,7 @@ namespace Digits.PartSlotting
         public virtual void PutIntoSlotHARDCODED(Player player)
         {
             ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;
-            var isItemValid = itemStack?.Item != null && itemStack.Item is RepairableMachinePartsItem;
+            var isItemValid = itemStack?.Item != null && itemStack.Item is ISlottableItem;
             if (isItemValid)
             {
                 PartSlot partSlot = this.partSlotCollection.partSlots[0]; // TODO Make this NOT hardcoded!

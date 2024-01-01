@@ -87,7 +87,7 @@ namespace Digits.DE_Maintenance
     [Tag("Maintenance Tool Chisels")]
     [Tag("Maintenance Tier 4")]
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
-    public partial class ModernChiselsItem : RepairableMachinePartsItem
+    public partial class ModernChiselsItem : RepairableSlottableItem
     {
         public override Item RepairItem                 => Item.Get<SteelBarItem>();
         public override int FullRepairAmount            => 4;

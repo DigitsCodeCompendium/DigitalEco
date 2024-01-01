@@ -86,7 +86,7 @@ namespace Digits.DE_Maintenance
     [Tag("Maintenance Machine Frame")]
     [Tag("Maintenance Tier 1")]
     [Ecopedia("Maintenance Items", "Machine Frames", createAsSubPage: true)]
-    public partial class Tier1MachineFrameItem : RepairableMachinePartsItem
+    public partial class Tier1MachineFrameItem : RepairableSlottableItem
     {
         public override Item RepairItem                 => Item.Get<IronBarItem>();
         public override int FullRepairAmount            => 4;

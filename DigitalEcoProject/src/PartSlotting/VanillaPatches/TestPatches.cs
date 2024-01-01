@@ -32,7 +32,7 @@
             partSlotCollection.CreatePartSlot(  "Chisels",
                                                 new TagCollection("Maintenance Tool Chisels", 
                                                     new string[] { "Maintenance Tier 1", "Maintenance Tier 2" }),
-                                                new Dictionary<string, float>() { { "degOnTick", 100f/(60f) } });
+                                                new Dictionary<string, float>() { { "degOnTick", 100f/(60f) }, { "disableOnBroken", 1} });
 
             partSlotComponent.FinalizePartSlots(partSlotCollection);
 
