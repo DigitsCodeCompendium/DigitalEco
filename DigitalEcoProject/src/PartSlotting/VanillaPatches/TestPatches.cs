@@ -5,14 +5,16 @@
     using Eco.Gameplay.Objects;
     using Eco.Core.Utils;
     using Digits.PartSlotting;
+    using Digits.DE_Maintenance;
+    using System.Runtime.InteropServices;
 
     //Possible degradation types
-    //onTick -> applies this damage per object tick adjusted
-    //onTickWhileOn -> applies this damage per object tick when onOff component is on. Stops onTick from applying when object is on
-    //onCraftTick -> applies this damage per object tick while the crafting component is operating (the object is crafting something)
-    //onVehicleTick -> applies this damager per object tick while the vehicle component is operating (someone is mounted on the vehicle. I dont think this counts for passengers, only the driver)
-    //onPowerGridTick
-
+    //degOnTick -> applies this damage per object tick adjusted
+    //degOnTickWhileOn -> applies this damage per object tick when onOff component is on. Stops onTick from applying when object is on
+    //degOnCraftTick -> applies this damage per object tick while the crafting component is operating (the object is crafting something)
+    //degOnVehicleTick -> applies this damager per object tick while the vehicle component is operating (someone is mounted on the vehicle. I dont think this counts for passengers, only the driver)
+    //degOnPowerGridTick
+    [RequireComponent(typeof(MaintenanceComponent))]
     [RequireComponent(typeof(PartSlotComponent))]
     public partial class MasonryTableObject
     {
@@ -23,15 +25,18 @@
             PartSlotCollection partSlotCollection = new PartSlotCollection();
             //partSlotComponent.Initialize();
 
-            partSlotCollection.CreatePartSlot("Machine Frame",
-                                 new TagCollection("Maintenance Machine Frame",
-                                    new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3" }));
+            partSlotCollection.CreatePartSlot(  "Machine Frame",
+                                                new TagCollection("Maintenance Machine Frame", 
+                                                    new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3" }));
 
-            partSlotCollection.CreatePartSlot("Chisels",
-                                 new TagCollection("Maintenance Tool Chisels",
-                                    new string[] { "Maintenance Tier 1", "Maintenance Tier 2" }));
+            partSlotCollection.CreatePartSlot(  "Chisels",
+                                                new TagCollection("Maintenance Tool Chisels", 
+                                                    new string[] { "Maintenance Tier 1", "Maintenance Tier 2" }),
+                                                new Dictionary<string, float>() { { "degOnTick", 100f/(60f) } });
 
             partSlotComponent.FinalizePartSlots(partSlotCollection);
+
+            this.GetComponent<MaintenanceComponent>().Initialize();
 
         }
     }

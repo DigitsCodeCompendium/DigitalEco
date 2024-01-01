@@ -22,6 +22,11 @@ namespace Digits.PartSlotting
         {
             this.partSlots.Add(new PartSlot(name, tagCollection));
         }
+
+        public void CreatePartSlot(string name, TagCollection tagCollection, Dictionary<string, float> properties)
+        {
+            this.partSlots.Add(new PartSlot(name, tagCollection, properties));
+        }
     }
 
     //! Keep this here for reference of how to define
@@ -37,11 +42,19 @@ namespace Digits.PartSlotting
     {
         public string name { get; }
         public TagCollection tagCollection { get; }
+        public Dictionary<string,float> properties { get;}
 
+        public PartSlot(string name, TagCollection tagCollection, Dictionary<string, float> properties)
+        {
+            this.name = name;
+            this.tagCollection = tagCollection;
+            this.properties = properties;
+        }
         public PartSlot(string name, TagCollection tagCollection)
         {
             this.name = name;
             this.tagCollection = tagCollection;
+            this.properties = new Dictionary<string, float>();
         }
     }
 

@@ -31,8 +31,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="src\DE_Maintenance\MaintenanceVanillaPatch.old" />
+    <Compile Include="src\DE_Maintenance\VanillaPatches\MaintenanceVanillaPatch.old" />
     <Compile Include="src\DE_Maintenance\WorldObject\TestBench.old" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="src\DE_Maintenance\Component\MaintenanceComponent.cs" />
   </ItemGroup>
 
   <ItemGroup>
