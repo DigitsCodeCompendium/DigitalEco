@@ -16,10 +16,9 @@
         partial void ModsPreInitialize()
         {
             var partSlotComponent = this.GetComponent<PartSlotComponent>();
+            partSlotComponent.Setup(20);  // Initialize with 20 part slots
             var mComp = this.GetComponent<MaintenanceComponent>();
-            partSlotComponent.Initialize();
             mComp.Initialize();
-            //partSlotComponent.Initialize();
 
             mComp.CreatePartSlot(                   "Machine Frame",
                                                     new TagCollection("Maintenance Machine Frame", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3" }),
@@ -28,6 +27,8 @@
             mComp.CreatePartSlot(                   "Chisels",
                                                     new TagCollection("Maintenance Tool Chisels", new string[] { "Maintenance Tier 1", "Maintenance Tier 2" }),
                                                     new Dictionary<string, float>() { });
+
+            partSlotComponent.FinalizeUI();
 
             //partSlotCollection.CreatePartSlot("Chisels", (nuclearprops, maintprops, etcprops) =>
             //{
@@ -39,18 +40,6 @@
             // 
 
 
-            //partSlotComponent.FinalizePartSlots(partSlotCollection);
-
-            //this.GetComponent<MaintenanceComponent>().Initialize();
-
-        }
-
-        partial void ModsPostInitialize()
-        {
-            var partSlotComponent = this.GetComponent<PartSlotComponent>();
-            partSlotComponent.FinalizePartSlots();
-
-            //this.GetComponent<MaintenanceComponent>().Initialize();
 
         }
     }
@@ -62,20 +51,30 @@
         {
 
             var partSlotComponent = this.GetComponent<PartSlotComponent>();
-            partSlotComponent.Initialize();
+            partSlotComponent.Setup(20);  // Initialize with 20 part slots
+            //partSlotComponent.Initialize();
 
-            PartSlotCollection partSlotCollection = new PartSlotCollection();
+            //PartSlotCollection partSlotCollection = new PartSlotCollection();
 
-            partSlotCollection.CreatePartSlot("Machine Frame",
+            partSlotComponent.CreatePartSlot("Machine Frame",
                                  new TagCollection("Maintenance Machine Frame",
                                     new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3" }));
 
-            partSlotCollection.CreatePartSlot("Chisels",
+            partSlotComponent.CreatePartSlot("Chisels",
                                  new TagCollection("Maintenance Tool Chisels",
                                     new string[] { "Maintenance Tier 1", "Maintenance Tier 2" }));
 
-            partSlotComponent.FinalizePartSlots();
+            //? Example of how to define a part slot using already existing items
+            //partSlotComponent.CreatePartSlot("Basic Upgrade",
+            //                     new TagCollection("BasicUpgrade",
+            //                        new string[] { "BasicUpgrade" }));
+
+            partSlotComponent.FinalizeUI();
+
 
         }
     }
+
+    //? Example of how to define a part slot using already existing items
+    public partial class BasicUpgradeLvl1Item : ISlottableItem {  }
 }

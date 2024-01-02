@@ -34,17 +34,22 @@ namespace Digits.PartSlotting
 
         public PartSlotComponent()
         {
-            // this needs to be here for some reason. Dont know why
+            //? this needs to be here for some reason. Dont know why
             this.PartsListUIElements ??= new ControllerList<PartListElement>(this, nameof(PartsListUIElements));
         }
 
-        public void FinalizePartSlots()
+        public void Setup(int numSlots)
         {
-            this.Inventory = new AuthorizationInventory(this.partSlotCollection.partSlots.Count, AuthorizationFlags.AuthedMayAdd | AuthorizationFlags.AuthedMayRemove, AccessType.FullAccess);
+            // Check that the inventory has not already been set up (i.e. from a previous server launch)
+            if(this.Inventory == null)
+            {
+                this.Inventory = new AuthorizationInventory(numSlots, AuthorizationFlags.AuthedMayAdd | AuthorizationFlags.AuthedMayRemove, AccessType.FullAccess);
+
+            }
+            // Important for Pickup on break
             this.Inventory.SetOwner(this.Parent);
             this.Inventory.OnChanged.Add(_ => this.OnChanged.Invoke());
 
-            this.FinalizeUI();
         }
 
         public override void Tick()
@@ -108,6 +113,7 @@ namespace Digits.PartSlotting
         public bool IsSlotOccupied(PartSlot partSlot)
         {
             var validItemCountInSlot = this.Inventory.TotalNumberOfItems(partSlot.tagCollection.genericTag);
+            // TODO Add tier check as well
             if (validItemCountInSlot > 0)
             {
                 return true;
@@ -143,24 +149,23 @@ namespace Digits.PartSlotting
 
         }
 
-
-        // Handle removal of items from inventory during pickup of world object
-        // This is a necessary override, do not edit.
+        // Handler for moving all items to player inventory on break.
         public override InventoryMoveResult TryPickup(Player player, InventoryChangeSet playerInvChanges, Inventory targetInventory, bool force)
         {
-            // if no modules are installed object can be picked up
-            if (this.Inventory?.IsEmpty != false) return Result.Succeeded;
+            if (!force) return playerInvChanges.MoveAsManyItemsAsPossible(this.Inventory, targetInventory); // if we are not forcing, return move result
 
-            // if force is set to true then pick up object and installed modules
-            if (force)
+            //If it's not empty and we're forcing, move those too.
+            if (!this.Inventory.IsEmpty && force)
             {
-                foreach ((var type, var amount) in this.Inventory.TypeToCount)
-                    playerInvChanges.AddItems(type, amount, targetInventory);
-
-                return Result.Succeeded;
+                foreach (var stack in this.Inventory.NonEmptyStacks)
+                {
+                    if (stack.Empty()) continue;
+                    playerInvChanges.ClearStack(stack);
+                    playerInvChanges.AddItem(stack.Item, stack.Quantity, targetInventory);
+                }
             }
 
-            return playerInvChanges.MoveAsManyItemsAsPossible(this.Inventory, targetInventory); // if we are not forcing, return move result
+            return base.TryPickup(player, playerInvChanges, targetInventory, force);
         }
 
 
@@ -190,7 +195,7 @@ namespace Digits.PartSlotting
             }
         }
         
-        private void FinalizeUI()
+        public void FinalizeUI()
         {
             this.partsListUIElements.Clear();
             if (this.partSlotCollection != null)
@@ -255,42 +260,42 @@ namespace Digits.PartSlotting
         }
 
 
-        // Pop-out button
-        [RPC, Autogen]
-        public virtual void PullOutPart(Player player)
-        {
-            //this.PullOutAll(player);
+        //// Pop-out button
+        //[RPC, Autogen]
+        //public virtual void PullOutPart(Player player)
+        //{
+        //    //this.PullOutAll(player);
 
-            // if(this.hasPartInserted)
-            // {
-            //     if (player.User.Inventory.NonEmptyStacks.Count() < player.User.Inventory.Stacks.Count())
-            //     {
-            //         RepairableItem item = new MachinePartsItem();
-            //         item.Durability = this.partDurability;
-            //         Result result = player.User.Inventory.TryAddItem(item);
-            //         if(result.Success) {
-            //             this.hasPartInserted = false;
-            //             this.partDurability = 0f;
-            //             player.MsgLocStr("<color=green>Pulled out part");
-            //             return;
-            //         }
-            //     }
-            //     player.MsgLocStr("<color=red>No space in inventory to pull out parts!");
-            //     return;
-            // } else {
-            //     player.MsgLocStr("<color=red>No parts to pull out!");
-            //     return;
-            // }
-        }
+        //    // if(this.hasPartInserted)
+        //    // {
+        //    //     if (player.User.Inventory.NonEmptyStacks.Count() < player.User.Inventory.Stacks.Count())
+        //    //     {
+        //    //         RepairableItem item = new MachinePartsItem();
+        //    //         item.Durability = this.partDurability;
+        //    //         Result result = player.User.Inventory.TryAddItem(item);
+        //    //         if(result.Success) {
+        //    //             this.hasPartInserted = false;
+        //    //             this.partDurability = 0f;
+        //    //             player.MsgLocStr("<color=green>Pulled out part");
+        //    //             return;
+        //    //         }
+        //    //     }
+        //    //     player.MsgLocStr("<color=red>No space in inventory to pull out parts!");
+        //    //     return;
+        //    // } else {
+        //    //     player.MsgLocStr("<color=red>No parts to pull out!");
+        //    //     return;
+        //    // }
+        //}
 
 
-        // Pull out by tag
-        [RPC, Autogen]
-        public virtual void PullOutPartByTags(Player player)
-        {
+        //// Pull out by tag
+        //[RPC, Autogen]
+        //public virtual void PullOutPartByTags(Player player)
+        //{
 
-            //this.PullOutByTags(player, new List<Tag> { TagManager.Tag("Maintenance Machine Frame"), TagManager.Tag("Maintenance Tier 1") });
-        }
+        //    //this.PullOutByTags(player, new List<Tag> { TagManager.Tag("Maintenance Machine Frame"), TagManager.Tag("Maintenance Tier 1") });
+        //}
 
         // Put-in button
         [RPC, Autogen]
@@ -306,12 +311,16 @@ namespace Digits.PartSlotting
             Tag? slotTag = null;
             foreach(Tag tag in itemStack.Item.Tags())
             {
-                if(validTags.Contains(tag))
+                player.MsgLocStr("<color=white>checking tag:" + tag);
+                if (validTags.Contains(tag))
                 {
                     slotTag = tag; // We found the corresponding tag that links the part to a slot within the part slot collection
                     break;
                 }
             }
+
+
+            player.MsgLocStr("<color=white>Slot tag found?:" + slotTag?.Name ?? "False");
 
             if (slotTag != null)
             {
@@ -333,6 +342,7 @@ namespace Digits.PartSlotting
                             return;
                         }
                     }
+                    player.MsgLocStr("<color=red>No match for:" + partSlot.tagCollection.genericTag);
                 }
                 player.MsgLocStr("<color=red>Failed to do reverse lookup of slot tag to find valid partSlot! RUH ROH");
             } else {
