@@ -55,6 +55,18 @@ namespace Digits.PartSlotting
             this.name = name;
             this.tagCollection = tagCollection;
         }
+
+        public bool isPartCompatible(Item item)
+        {
+            foreach(Tag tierTag in this.tagCollection.tierTags)
+            {
+                foreach(Tag partTag in item.Tags())
+                {
+                    if (tierTag == partTag) return true;
+                }
+            }
+            return false;
+        }
     }
 
     [Serialized]

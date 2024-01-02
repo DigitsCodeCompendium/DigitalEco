@@ -62,7 +62,7 @@
 
             partSlotComponent.CreatePartSlot("Chisels",
                                  new TagCollection("Maintenance Tool Chisels",
-                                    new string[] { "Maintenance Tier 1", "Maintenance Tier 2" }));
+                                    new string[] { "Maintenance Tier 2" }));
 
             //? Example of how to define a part slot using already existing items
             //partSlotComponent.CreatePartSlot("Basic Upgrade",
