@@ -3,51 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Linq;
-using Eco.Mods.TechTree;
-using Eco.Core.Items;
-using Eco.Gameplay.Blocks;
 using Eco.Gameplay.Components;
-using Eco.Gameplay.Components.Auth;
-using Eco.Gameplay.DynamicValues;
-using Eco.Gameplay.Economy;
-using Eco.Gameplay.Housing;
-using Eco.Gameplay.Interactions;
 using Eco.Gameplay.Items;
-using Eco.Gameplay.Modules;
-using Eco.Gameplay.Minimap;
 using Eco.Gameplay.Objects;
-using Eco.Gameplay.Occupancy;
-using Eco.Gameplay.Players;
-using Eco.Gameplay.Property;
-using Eco.Gameplay.Skills;
-using Eco.Gameplay.Systems;
 using Eco.Gameplay.Utils;
-using Eco.Gameplay.Systems.TextLinks;
-using Eco.Gameplay.Pipes;
-using Eco.Gameplay.Pipes.LiquidComponents;
-using Eco.Gameplay.Pipes.Gases;
-using Eco.Shared;
-using Eco.Shared.Math;
 using Eco.Shared.Localization;
 using Eco.Shared.Serialization;
-using Eco.Shared.Utils;
-using Eco.Shared.View;
-using Eco.Shared.Items;
 using Eco.Shared.Networking;
 using Eco.Shared.IoC;
-using Eco.World.Blocks;
-using Eco.Gameplay.Housing.PropertyValues;
-using Eco.Gameplay.Civics.Objects;
-using Eco.Gameplay.Settlements;
-using Eco.Gameplay.Systems.NewTooltip;
 using Eco.Core.Controller;
 using Eco.Core.Utils;
-using Eco.Gameplay.Components.Storage;
-using Eco.Gameplay.Items.Recipes;
 using Digits.PartSlotting;
-using System.Xml.Linq;
 
-namespace Digits.DE_Maintenance
+namespace Digits.Maintenance
 {
     [Serialized]
     [RequireComponent(typeof(StatusComponent))]
@@ -82,7 +50,7 @@ namespace Digits.DE_Maintenance
         public void Initialize()
         {
             base.Initialize();
-
+            //dictionaries that handle data storage for properties and linking partSlots with the names of the part slots
             partSlotsByName = new Dictionary<string, PartSlot>();
             slotProperties = new Dictionary<string, Dictionary<string, float>>();
 

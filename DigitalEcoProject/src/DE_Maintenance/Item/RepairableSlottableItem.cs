@@ -2,7 +2,7 @@ using Eco.Gameplay.Items;
 using Eco.Shared.Serialization;
 using Digits.PartSlotting;
 
-namespace Digits.DE_Maintenance
+namespace Digits.Maintenance
 {
     [Serialized]
     [MaxStackSize(1)]

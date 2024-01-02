@@ -22,7 +22,7 @@ using Eco.Gameplay.Pipes;
 using Eco.Core.Controller;
 using Eco.Gameplay.Items.Recipes;
 
-namespace Digits.DE_Maintenance
+namespace Digits.Maintenance
 {
     /// <summary>
     /// <para>Server side recipe definition for "Tier 2 Machine Frames".</para>

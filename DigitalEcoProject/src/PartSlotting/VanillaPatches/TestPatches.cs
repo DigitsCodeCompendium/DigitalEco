@@ -5,16 +5,10 @@
     using Eco.Gameplay.Objects;
     using Eco.Core.Utils;
     using Digits.PartSlotting;
-    using Digits.DE_Maintenance;
+    using Digits.Maintenance;
     using System.Runtime.InteropServices;
     using Eco.Core.Items;
 
-    //Possible degradation types
-    //degOnTick -> applies this damage per object tick adjusted
-    //degOnTickWhileOn -> applies this damage per object tick when onOff component is on. Stops onTick from applying when object is on
-    //degOnCraftTick -> applies this damage per object tick while the crafting component is operating (the object is crafting something)
-    //degOnVehicleTick -> applies this damager per object tick while the vehicle component is operating (someone is mounted on the vehicle. I dont think this counts for passengers, only the driver)
-    //degOnPowerGridTick
     [RequireComponent(typeof(MaintenanceComponent))]
     [RequireComponent(typeof(PartSlotComponent))]
     public partial class MasonryTableObject
