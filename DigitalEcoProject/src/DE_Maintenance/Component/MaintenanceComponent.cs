@@ -87,7 +87,7 @@ namespace Digits.Maintenance
                 PartSlot partSlot = uiLinkDict[partListElement.partName];
                 if(partSlotComponent.IsSlotOccupied(partSlot))
                 {
-                    RepairableItem? part = partSlotComponent.GetPartFromSlot(partSlot) as RepairableItem;
+                    RepairableItem? part = partSlotComponent.GetPartFromSlot(partSlot)?.Item as RepairableItem;
                     if(part != null) partListElement.Status = part.Durability.ToString("0.0") + "%";
                     else partListElement.Status = "Null error";
                 }
@@ -138,7 +138,7 @@ namespace Digits.Maintenance
         {
             foreach (PartSlot partSlot in partSlotsByName.Values)
             {
-                RepairableItem? durItem = partSlotComponent.GetPartFromSlot(partSlot) as RepairableItem;
+                RepairableItem? durItem = partSlotComponent.GetPartFromSlot(partSlot)?.Item as RepairableItem;
                 if (slotProperties[partSlot.name].TryGetValue("disableOnBroken", out float threshold))
                 {
                     if (durItem != null)
@@ -210,7 +210,7 @@ namespace Digits.Maintenance
 		[RPC]
         public void DamagePart(PartSlot partSlot, float damage)
         {
-            RepairableItem? part = partSlotComponent.GetPartFromSlot(partSlot) as RepairableItem;
+            RepairableItem? part = partSlotComponent.GetPartFromSlot(partSlot)?.Item as RepairableItem;
             if (part != null)
             {
                 if (part.Durability - (part.DurabilityRate * damage) > 0)

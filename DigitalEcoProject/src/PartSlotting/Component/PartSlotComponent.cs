@@ -86,8 +86,9 @@ namespace Digits.PartSlotting
             return null;
         }
 
-        public Item? GetPartFromSlot(PartSlot partSlot)
+        public ItemStack? GetPartFromSlot(PartSlot partSlot)
         {
+            if (partSlot == null) return null;
             // Find the corresponding item and return it or return null?
             //! Only needs to search for generic tag, not tier!
             var validStacks = this.Inventory.NonEmptyStacks.Where(stack => stack.Item.Type.HasTag(partSlot.tagCollection.genericTag));
@@ -95,7 +96,7 @@ namespace Digits.PartSlotting
             {
                 if (validStacks.Sum(stack => stack.Quantity) > 0) // Check that we only found one matching item
                 {
-                    return validStacks.First().Item; // Return one item
+                    return validStacks.First(); // Return one item
                 }
                 else
                 {
@@ -107,7 +108,6 @@ namespace Digits.PartSlotting
                 return null;
             }
         }
-
 
         // Check if part slot is occupied
         // TODO See if we can move this into PartSlot class
@@ -187,31 +187,6 @@ namespace Digits.PartSlotting
             player.MsgLocStr("<color=red>Failed to do reverse lookup of slot tag to find valid partSlot! RUH ROH");
         }
 
-        //// Put into slot if available
-        //public void PutIntoSlot(Player player, ItemStack itemStack, PartSlot partSlot)
-        //{
-        //    if (!IsSlotOccupied(partSlot))
-        //    {
-        //        Result result = player.User.Inventory.MoveItems(itemStack, this.Inventory, 1);
-        //        if (result.Success)
-        //        {
-        //            player.MsgLocStr("<color=green>Put in part");
-        //        }
-        //        else
-        //        {
-        //            player.MsgLocStr("<color=red>Could not insert part!");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        player.MsgLocStr("<color=red>Slot is already filled!");
-        //        return;
-        //    }
-        //    // var validStacks = this.Inventory.NonEmptyStacks.Where(stack => stack.Item.Type.HasTag(partSlot.tagCollection.genericTag));
-
-
-        //}
-
         // Handler for moving all items to player inventory on break.
         public override InventoryMoveResult TryPickup(Player player, InventoryChangeSet playerInvChanges, Inventory targetInventory, bool force)
         {
@@ -230,10 +205,6 @@ namespace Digits.PartSlotting
 
             return base.TryPickup(player, playerInvChanges, targetInventory, force);
         }
-
-
-
-
 
         // Function that updates ui components
         private void UpdateUI()
@@ -278,7 +249,6 @@ namespace Digits.PartSlotting
             this.partsListUIElements.Add(partListElement);
         }
         
-
         //-------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------
         //! UI AUTOGEN STUFF, do not edit anything under this line unless it is UI stuff.
@@ -322,108 +292,32 @@ namespace Digits.PartSlotting
             }
         }
 
+        // Take-out button
+        [RPC, Autogen]
+        public virtual void TakeOutOfSlot(Player player)
+        {
+            if(this.partSlotCollection == null) return;
+            ItemStack? itemStack = GetPartFromSlot(partSlotCollection.partSlots[(int)enumSelection]);
+            if (itemStack == null) return;
 
-        //// Pop-out button
-        //[RPC, Autogen]
-        //public virtual void PullOutPart(Player player)
-        //{
-        //    //this.PullOutAll(player);
+            Result result = this.Inventory.MoveItems(itemStack, player.User.Inventory, 1);
+            if(result.Success)
+            {
+                player.MsgLocStr("<color=green>Put in part");
+                return;
+            }
+            else
+            {
+                player.MsgLocStr("<color=red>Could not insert part!");
+                return;
+            }
 
-        //    // if(this.hasPartInserted)
-        //    // {
-        //    //     if (player.User.Inventory.NonEmptyStacks.Count() < player.User.Inventory.Stacks.Count())
-        //    //     {
-        //    //         RepairableItem item = new MachinePartsItem();
-        //    //         item.Durability = this.partDurability;
-        //    //         Result result = player.User.Inventory.TryAddItem(item);
-        //    //         if(result.Success) {
-        //    //             this.hasPartInserted = false;
-        //    //             this.partDurability = 0f;
-        //    //             player.MsgLocStr("<color=green>Pulled out part");
-        //    //             return;
-        //    //         }
-        //    //     }
-        //    //     player.MsgLocStr("<color=red>No space in inventory to pull out parts!");
-        //    //     return;
-        //    // } else {
-        //    //     player.MsgLocStr("<color=red>No parts to pull out!");
-        //    //     return;
-        //    // }
-        //}
-
-
-        //// Pull out by tag
-        //[RPC, Autogen]
-        //public virtual void PullOutPartByTags(Player player)
-        //{
-
-        //    //this.PullOutByTags(player, new List<Tag> { TagManager.Tag("Maintenance Machine Frame"), TagManager.Tag("Maintenance Tier 1") });
-        //}
-
+        }
         // Put-in button
         [RPC, Autogen]
         public virtual void PutIntoSlot(Player player)
         {
             PutPlayerSelectedItemIntoPartSlot(player);
-            //ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;
-            //var isItemValid = itemStack?.Item != null && itemStack.Item is ISlottableItem;
-            //if (!isItemValid) return;
-
-            //// Get list of all possible valid generic tags for all slots on this machine
-            //List<Tag> validTags = GetValidGenericTags();
-            //Tag? genericSlotTag = null;
-            //foreach(Tag tag in itemStack.Item.Tags())
-            //{
-            //    player.MsgLocStr("<color=white>checking tag:" + tag);
-            //    if (validTags.Contains(tag))
-            //    {
-            //        genericSlotTag = tag; // We found the corresponding tag that links the part to a slot within the part slot collection
-            //        break;
-            //    }
-            //}
-
-            //// Return if we could not find a matching generic tag
-            //if(genericSlotTag == null)
-            //{
-            //    player.MsgLocStr("<color=red>Could not find a matching generic tag");
-            //    return;
-            //}
-
-            //// Debug print
-            //player.MsgLocStr("<color=white>Slot tag found?:" + genericSlotTag?.Name ?? "False");
-
-            //// Get the exact partslot based on this tag
-            //foreach (PartSlot partSlot in this.partSlotCollection.partSlots)
-            //{
-            //    if (partSlot.tagCollection.genericTag == genericSlotTag) // We found the matching part slot
-            //    {
-            //        bool isSlotOccupied = this.IsSlotOccupied(partSlot);
-            //        bool isCompatible = partSlot.isPartCompatible(itemStack.Item);
-            //        player.MsgLocStr("<color=yellow> Occupied?" + isSlotOccupied);
-            //        if (!isSlotOccupied && isCompatible)
-            //        {
-            //            //this.PutIntoSlot(player, itemStack, partSlot);
-            //            Result result = player.User.Inventory.MoveItems(itemStack, this.Inventory, 1);
-            //            if (result.Success)
-            //            {
-            //                player.MsgLocStr("<color=green>Put in part");
-            //                return;
-            //            }
-            //            else
-            //            {
-            //                player.MsgLocStr("<color=red>Could not insert part!");
-            //                return;
-            //            }
-            //        } else
-            //        {
-            //            player.MsgLocStr("<color=red>Part slot is occupied or of incompatible tier, could not insert");
-            //            return;
-            //        }
-            //    }
-            //    player.MsgLocStr("<color=red>No match for:" + partSlot.tagCollection.genericTag);
-            //}
-            //player.MsgLocStr("<color=red>Failed to do reverse lookup of slot tag to find valid partSlot! RUH ROH");
         }
-
     }
 }

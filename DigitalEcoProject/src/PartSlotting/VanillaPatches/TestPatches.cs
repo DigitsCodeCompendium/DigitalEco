@@ -37,11 +37,7 @@
             //    if(maint)
             //    properties.append({ "degOnTick", 100f / (60f) });
             //}
-
             // 
-
-
-
         }
     }
 
@@ -53,13 +49,10 @@
 
             var partSlotComponent = this.GetComponent<PartSlotComponent>();
             partSlotComponent.Setup(20);  // Initialize with 20 part slots
-            //partSlotComponent.Initialize();
-
-            //PartSlotCollection partSlotCollection = new PartSlotCollection();
 
             partSlotComponent.CreatePartSlot("Machine Frame",
                                  new TagCollection("Maintenance Machine Frame",
-                                    new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3" }));
+                                    new string[] { }));
 
             partSlotComponent.CreatePartSlot("Chisels",
                                  new TagCollection("Maintenance Tool Chisels",
