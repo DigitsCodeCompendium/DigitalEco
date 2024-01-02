@@ -25,7 +25,8 @@ namespace Digits.Maintenance
     [AutogenClass]
     public class MaintenanceComponent : WorldObjectComponent, IController, IHasClientControlledContainers
     {
-        public bool Enabled { get; set; }
+        private bool enabled;
+        public override bool Enabled => enabled;
 
         public override WorldObjectComponentClientAvailability Availability => WorldObjectComponentClientAvailability.UI;
         //required components
@@ -44,12 +45,12 @@ namespace Digits.Maintenance
         public MaintenanceComponent()
         {
             this.PartsListUIElements ??= new ControllerList<PartListElement>(this, nameof(PartsListUIElements));
-            this.Enabled = true;
+            this.enabled = true;
         }
 
         public void Initialize()
         {
-            base.Initialize();
+            this.partsListUIElements.Clear();
             //dictionaries that handle data storage for properties and linking partSlots with the names of the part slots
             partSlotsByName = new Dictionary<string, PartSlot>();
             slotProperties = new Dictionary<string, Dictionary<string, float>>();
@@ -62,7 +63,6 @@ namespace Digits.Maintenance
 
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
             this.partSlotComponent = this.Parent.GetComponent<PartSlotComponent>();
-            //this.FinalizeUI();
 		}
         
         public override void Tick()
@@ -98,18 +98,6 @@ namespace Digits.Maintenance
             }
         }
 
-		private void FinalizeUI()
-		{
-			this.partsListUIElements.Clear();
-			if (this.partSlotComponent.partSlotCollection != null)
-			{
-				foreach (var partSlot in this.partSlotComponent.partSlotCollection.partSlots)
-				{
-                    if (partSlot != null) CreatePartSlotUIElement(partSlot);
-				}
-			}
-		}
-
         public void CreatePartSlot(string name, TagCollection tagCollection, Dictionary<string, float> degradationTypes, bool disableMachineWhenBroken = false)
         {
             this.CreatePartSlotUIElement(name);
@@ -125,15 +113,6 @@ namespace Digits.Maintenance
             partSlotsByName[name] = this.partSlotComponent.GetPartSlot(name);
         }
 
-        private void CreatePartSlotUIElement(PartSlot partSlot) //=> CreatePartSlotUIElement(partSlot.name);
-        {
-            partSlotsByName[partSlot.name] = partSlot;
-            PartListElement partListElement = new PartListElement();
-            partListElement.partName = partSlot.name;
-            partListElement.status = "Not Installed";
-            this.partsListUIElements.Add(partListElement);
-        }
-
         private void CreatePartSlotUIElement(string name)
         {
             PartListElement partListElement = new PartListElement();
@@ -144,7 +123,7 @@ namespace Digits.Maintenance
 
         private void TickStatus()
         {
-            if (this.Enabled)
+            if (this.enabled)
             {
                 this.status.SetStatusMessage(true, Localizer.Format("Machine maintenance is okay"));
             }
@@ -162,8 +141,20 @@ namespace Digits.Maintenance
                 RepairableItem? durItem = partSlotComponent.GetPartFromSlot(partSlot) as RepairableItem;
                 if (slotProperties[partSlot.name].TryGetValue("disableOnBroken", out float threshold))
                 {
-                    if (durItem != null) if (durItem.Durability <= threshold) this.Enabled = false;
-                    else this.Enabled = true;
+                    if (durItem != null)
+                    {
+                        if (durItem.Durability <= threshold)
+                        {
+                            this.enabled = false;
+                            return;
+                        }
+                        else this.enabled = true;
+                    }
+                    else
+                    {
+                        this.enabled = false;
+                        return;
+                    }
                 }
             }
         }
@@ -222,7 +213,7 @@ namespace Digits.Maintenance
             RepairableItem? part = partSlotComponent.GetPartFromSlot(partSlot) as RepairableItem;
             if (part != null)
             {
-                if (part.Durability - damage > 0)
+                if (part.Durability - (part.DurabilityRate * damage) > 0)
                 {
                     part.Durability -= part.DurabilityRate * damage;
                 }

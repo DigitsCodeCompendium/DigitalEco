@@ -23,11 +23,12 @@
 
             mComp.CreatePartSlot(                   "Machine Frame",
                                                     new TagCollection("Maintenance Machine Frame", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3" }),
-                                                    new Dictionary<string, float>() { });
+                                                    new Dictionary<string, float>() { { "degOnTick", 100f / 10f } },
+                                                    true);
 
             mComp.CreatePartSlot(                   "Chisels",
                                                     new TagCollection("Maintenance Tool Chisels", new string[] { "Maintenance Tier 1", "Maintenance Tier 2" }),
-                                                    new Dictionary<string, float>() { });
+                                                    new Dictionary<string, float>() { { "degOnCraftTick", 100f / (100f) } });
 
             //partSlotCollection.CreatePartSlot("Chisels", (nuclearprops, maintprops, etcprops) =>
             //{
