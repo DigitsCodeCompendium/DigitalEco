@@ -8,13 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="src\DE_Maintenance\VanillaPatches\MaintenanceVanillaPatch.old" />
+    <Compile Remove="src\DE_Maintenance\VanillaPatches\MaintenanceVPVehicles.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="src\DE_Maintenance\WorldObject\TestBench.old" />
+    <Compile Include="src\PartSlotting\VanillaPatches\TestPatches.old" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="C:\Users\binar\Documents\Workshop\Modding\Eco\DigitalEco\DigitalEcoProject\src\DE_Maintenance\.editorconfig" />
     <None Include="src\DE_Maintenance\Component\MaintenanceComponent.cs" />
+    <None Include="src\DE_Maintenance\VanillaPatches\MaintenanceVPVehicles.cs" />
+    <None Include="src\DE_Maintenance\VanillaPatches\MaintenanceVPCraftingTables.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +59,10 @@
 
   <ItemGroup>
     <EditorConfigFiles Remove="C:\Users\binar\Documents\Workshop\Modding\Eco\DigitalEco\DigitalEcoProject\src\DE_Maintenance\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="src\PartSlotting\VanillaPatches\TestPatches.old" />
   </ItemGroup>
 
 </Project>

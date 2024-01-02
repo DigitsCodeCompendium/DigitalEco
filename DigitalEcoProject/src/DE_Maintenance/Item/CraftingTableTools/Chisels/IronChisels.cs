@@ -22,6 +22,7 @@ using Eco.Gameplay.Pipes;
 using Eco.Core.Controller;
 using Eco.Gameplay.Items.Recipes;
 using System.Diagnostics.CodeAnalysis;
+using Digits.PartSlotting;
 
 namespace Digits.Maintenance
 {
@@ -88,7 +89,7 @@ namespace Digits.Maintenance
     [Tag("Maintenance Tool Chisels")]
     [Tag("Maintenance Tier 2")]
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
-    public partial class IronChiselsItem : RepairableSlottableItem
+    public partial class IronChiselsItem : RepairableItem, ISlottableItem
     {
         public override Item RepairItem                 => Item.Get<IronBarItem>();
         public override int FullRepairAmount            => 4;

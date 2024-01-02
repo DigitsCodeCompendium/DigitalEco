@@ -2,49 +2,40 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Eco.Mods.TechTree;
-using Eco.Gameplay.Blocks;
 using Eco.Gameplay.Components;
 using Eco.Gameplay.DynamicValues;
 using Eco.Gameplay.Items;
-using Eco.Gameplay.Objects;
-using Eco.Gameplay.Players;
 using Eco.Gameplay.Skills;
-using Eco.Gameplay.Settlements;
-using Eco.Gameplay.Systems;
-using Eco.Gameplay.Systems.TextLinks;
 using Eco.Shared.Localization;
 using Eco.Shared.Serialization;
-using Eco.Shared.Utils;
 using Eco.Core.Items;
-using Eco.World;
-using Eco.World.Blocks;
-using Eco.Gameplay.Pipes;
 using Eco.Core.Controller;
 using Eco.Gameplay.Items.Recipes;
+using Digits.PartSlotting;
 
 namespace Digits.Maintenance
 {
     /// <summary>
-    /// <para>Server side recipe definition for "Tier 2 Machine Frames".</para>
+    /// <para>Server side recipe definition for "Tier 1 Machine Frames".</para>
     /// <para>Machine frames make up the core of most machines.</para>
     /// </summary>
     [RequiresSkill(typeof(LoggingSkill), 1)]
     [ForceCreateView]
     [Ecopedia("Items", "Products", subPageName: "Machine Parts Item")]
-    public partial class Tier2MachineFrameRecipe : RecipeFamily
+    public partial class CompositeMachineFrameRecipe : RecipeFamily
     {
-        public Tier2MachineFrameRecipe()
+        public CompositeMachineFrameRecipe()
         {
             var recipe = new Recipe();
             recipe.Init(
-                name: "Tier2MachineFrame",  //noloc
-                displayName: Localizer.DoStr("Tier 2 Machine Frame"),
+                name: "CompositeMachineFrame",  //noloc
+                displayName: Localizer.DoStr("Composite Machine Frame"),
 
                 // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
                 // type of the item, the amount of the item, the skill required, and the talent used.
                 ingredients: new List<IngredientElement>
                 {
-                    new IngredientElement("Wood", 1, typeof(LoggingSkill)), //noloc
+                    new IngredientElement("Lumber", 1, typeof(LoggingSkill)), //noloc
                 },
 
                 // Define our recipe output items.
@@ -52,7 +43,7 @@ namespace Digits.Maintenance
                 // to create.
                 items: new List<CraftingElement>
                 {
-                    new CraftingElement<Tier2MachineFrameItem>()
+                    new CraftingElement<CompositeMachineFrameItem>()
                 });
             this.Recipes = new List<Recipe> { recipe };
             this.ExperienceOnCraft = 20f;
@@ -60,7 +51,7 @@ namespace Digits.Maintenance
             this.CraftMinutes = CreateCraftTimeValue(0.01f);
 
             this.ModsPreInitialize();
-            this.Initialize(Localizer.DoStr("Tier 2 Machine Frame"), typeof(Tier2MachineFrameRecipe));
+            this.Initialize(Localizer.DoStr("Composite Machine Frame"), typeof(CompositeMachineFrameRecipe));
             this.ModsPostInitialize();
 
             CraftingComponent.AddRecipe(tableType: typeof(MaintenanceBenchObject), recipe: this);
@@ -73,25 +64,23 @@ namespace Digits.Maintenance
     }
     
     /// <summary>
-    /// <para>Server side item definition for the "Tier2MachineFrame" item.</para>
+    /// <para>Server side item definition for the "Tier1MachineFrame" item.</para>
     /// <para>More information about Item objects can be found at https://docs.play.eco/api/server/eco.gameplay/Eco.Gameplay.Items.Item.html</para>
     /// </summary>
     [Serialized]
-    [LocDisplayName("Tier 2 Machine Frame")]
-    [LocDescription("Machine Parts used for repairing and maintaining machines and workbenches.")]
-    [Tier(1)]
+    [LocDisplayName("Composite Machine Frame"), LocDescription("A machine frame keeps everything together and in place")]
+    [Tier(4)]
     [RepairRequiresSkill(typeof(SmeltingSkill), 0)]
     [Weight(500)]
     [Category("Machine Frames")]
-    [Tag("Maintenance Machine Frame")]
-    [Tag("Maintenance Tier 2")]
+    [Tag("Maintenance Machine Frame"), Tag("Maintenance Tier 4")]
     [Ecopedia("Maintenance Items", "Machine Frames", createAsSubPage: true)]
-    public partial class Tier2MachineFrameItem : RepairableSlottableItem
+    public partial class CompositeMachineFrameItem : RepairableItem, ISlottableItem
     {
         public override Item RepairItem                 => Item.Get<IronBarItem>();
         public override int FullRepairAmount            => 4;
         //set durability by changing the denominator below
-        public override float DurabilityRate            => DurabilityMax / 500f;
+        public override float DurabilityRate            => DurabilityMax / 1000f;
         public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(4, SmeltingSkill.MultiplicativeStrategy, typeof(SmeltingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }
