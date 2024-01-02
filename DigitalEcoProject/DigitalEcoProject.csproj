@@ -8,13 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="src\DE_Maintenance\VanillaPatches\MaintenanceVanillaPatch.old" />
     <Compile Include="src\DE_Maintenance\WorldObject\TestBench.old" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="C:\Users\binar\Documents\Workshop\Modding\Eco\DigitalEco\DigitalEcoProject\src\DE_Maintenance\.editorconfig" />
     <None Include="src\DE_Maintenance\Component\MaintenanceComponent.cs" />
+    <None Include="src\DE_Maintenance\VanillaPatches\MaintenanceVanillaPatch.cs" />
   </ItemGroup>
 
   <ItemGroup>
