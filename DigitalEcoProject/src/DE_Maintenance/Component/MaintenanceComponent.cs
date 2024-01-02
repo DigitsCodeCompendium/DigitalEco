@@ -88,7 +88,7 @@ namespace Digits.Maintenance
                 if(partSlotComponent.IsSlotOccupied(partSlot))
                 {
                     RepairableItem? part = partSlotComponent.GetPartFromSlot(partSlot)?.Item as RepairableItem;
-                    if(part != null) partListElement.Status = part.Durability.ToString("0.0") + "%";
+                    if(part != null) partListElement.Status = part.Durability.ToString("0.0") + "% -> " + part.DisplayName;
                     else partListElement.Status = "Null error";
                 }
                 else
@@ -129,7 +129,7 @@ namespace Digits.Maintenance
             }
             else
             {
-                this.status.SetStatusMessage(false, Localizer.Format("A part is broken, preventing this machine from functioning"));
+                this.status.SetStatusMessage(false, Localizer.Format("A part is broken or not inserted, preventing this machine from functioning"));
             }
 			
 		}

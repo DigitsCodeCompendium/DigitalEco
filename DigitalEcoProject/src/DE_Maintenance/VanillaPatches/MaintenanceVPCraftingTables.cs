@@ -198,24 +198,4 @@ namespace Eco.Mods.TechTree
                                     true);
         }
     }
-
-    [RequireComponent(typeof(MaintenanceComponent))]
-    public partial class AnvilObject
-    {
-        partial void ModsPreInitialize()
-        {
-            var mComp = this.GetComponent<MaintenanceComponent>();
-            mComp.Initialize();
-
-            mComp.CreatePartSlot("Machine Frame",
-                                    new TagCollection("Maintenance Machine Frame", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
-                                    new Dictionary<string, float>() { { "degOnTick", 300f / (60f * 60f * 24f) } },
-                                    true);
-
-            mComp.CreatePartSlot("Smith Tools",
-                                    new TagCollection("Maintenance Tool Smith", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
-                                    new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } },
-                                    true);
-        }
-    }
 }
