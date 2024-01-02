@@ -110,9 +110,9 @@ namespace Digits.Maintenance
 			}
 		}
 
-        public void CreatePartSlot(string name, Dictionary<string, float> degradationTypes, TagCollection tagCollection, bool disableMachineWhenBroken = false)
+        public void CreatePartSlot(string name, TagCollection tagCollection, Dictionary<string, float> degradationTypes, bool disableMachineWhenBroken = false)
         {
-            //this.CreatePartSlotUIElement(name);
+            this.CreatePartSlotUIElement(name);
 
             if (disableMachineWhenBroken)
             {
@@ -120,10 +120,9 @@ namespace Digits.Maintenance
             }
             this.slotProperties[name] = degradationTypes;
 
-            //TODO PUT FUNCTION HERE THAT MAKES PartSlot IN PartSlotComponent
-
             //Get that part slot then add it to this dict to keep track of it by name
-            //partSlotsByName[name] = partSlot
+            this.partSlotComponent.CreatePartSlot(name, tagCollection);
+            partSlotsByName[name] = this.partSlotComponent.GetPartSlot(name);
         }
 
         private void CreatePartSlotUIElement(PartSlot partSlot) //=> CreatePartSlotUIElement(partSlot.name);
