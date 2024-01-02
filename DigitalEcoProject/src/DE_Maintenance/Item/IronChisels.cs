@@ -23,7 +23,7 @@ using Eco.Core.Controller;
 using Eco.Gameplay.Items.Recipes;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Digits.DE_Maintenance
+namespace Digits.Maintenance
 {
     /// <summary>
     /// <para>Server side recipe definition for "Tier 1 Machine Frames".</para>

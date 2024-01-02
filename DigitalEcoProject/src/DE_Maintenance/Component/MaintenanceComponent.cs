@@ -3,55 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Linq;
-using Eco.Mods.TechTree;
-using Eco.Core.Items;
-using Eco.Gameplay.Blocks;
 using Eco.Gameplay.Components;
-using Eco.Gameplay.Components.Auth;
-using Eco.Gameplay.DynamicValues;
-using Eco.Gameplay.Economy;
-using Eco.Gameplay.Housing;
-using Eco.Gameplay.Interactions;
 using Eco.Gameplay.Items;
-using Eco.Gameplay.Modules;
-using Eco.Gameplay.Minimap;
 using Eco.Gameplay.Objects;
-using Eco.Gameplay.Occupancy;
-using Eco.Gameplay.Players;
-using Eco.Gameplay.Property;
-using Eco.Gameplay.Skills;
-using Eco.Gameplay.Systems;
 using Eco.Gameplay.Utils;
-using Eco.Gameplay.Systems.TextLinks;
-using Eco.Gameplay.Pipes.LiquidComponents;
-using Eco.Gameplay.Pipes.Gases;
-using Eco.Shared;
-using Eco.Shared.Math;
 using Eco.Shared.Localization;
 using Eco.Shared.Serialization;
-using Eco.Shared.Utils;
-using Eco.Shared.View;
-using Eco.Shared.Items;
 using Eco.Shared.Networking;
-using Eco.Gameplay.Pipes;
-using Eco.World.Blocks;
-using Eco.Gameplay.Housing.PropertyValues;
-using Eco.Gameplay.Civics.Objects;
-using Eco.Gameplay.Settlements;
-using Eco.Gameplay.Systems.NewTooltip;
+using Eco.Shared.IoC;
 using Eco.Core.Controller;
 using Eco.Core.Utils;
-using Eco.Gameplay.Components.Storage;
-using Eco.Gameplay.Items.Recipes;
-using System.Collections;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using Eco.Mods.TechTree;
-using Eco.Shared.IoC;
 using Digits.PartSlotting;
 
-namespace Digits.DE_Maintenance
+namespace Digits.Maintenance
 {
     [Serialized]
     [RequireComponent(typeof(StatusComponent))]
@@ -61,7 +25,9 @@ namespace Digits.DE_Maintenance
     [AutogenClass]
     public class MaintenanceComponent : WorldObjectComponent, IController, IHasClientControlledContainers
     {
-		public override WorldObjectComponentClientAvailability Availability => WorldObjectComponentClientAvailability.UI;
+        public bool Enabled { get; set; }
+
+        public override WorldObjectComponentClientAvailability Availability => WorldObjectComponentClientAvailability.UI;
         //required components
         private StatusElement status;
         private PartSlotComponent partSlotComponent;
@@ -72,14 +38,21 @@ namespace Digits.DE_Maintenance
         private VehicleComponent?       vehicleComponent;
         private PowerGridComponent?     powerGridComponent;
 
+        public Dictionary<string, Dictionary<string, float>> slotProperties;
+        private Dictionary<string, PartSlot> partSlotsByName;
+
         public MaintenanceComponent()
         {
             this.PartsListUIElements ??= new ControllerList<PartListElement>(this, nameof(PartsListUIElements));
+            this.Enabled = true;
         }
 
         public void Initialize()
         {
             base.Initialize();
+            //dictionaries that handle data storage for properties and linking partSlots with the names of the part slots
+            partSlotsByName = new Dictionary<string, PartSlot>();
+            slotProperties = new Dictionary<string, Dictionary<string, float>>();
 
             //grab possible components to monitor for damaging parts
             this.onOffComponent         = this.Parent.GetComponent<OnOffComponent>();
@@ -89,32 +62,18 @@ namespace Digits.DE_Maintenance
 
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
             this.partSlotComponent = this.Parent.GetComponent<PartSlotComponent>();
-            this.FinalizeUI();
-
+            //this.FinalizeUI();
 		}
         
         public override void Tick()
         {
             this.TickDamage();
             this.TickStatus();
-            this.CheckDisableCondition();
+            this.CheckDisableConditions();
             this.UpdateUI();
         }
-
-        //ui List for showing components
-        ControllerList<PartListElement> partsListUIElements { get; set; }
-        [Eco, ClientInterfaceProperty, GuestHidden, PropReadOnly, LocDisplayName("Parts Overview")]
-        public ControllerList<PartListElement> PartsListUIElements
-        {
-            get => partsListUIElements;
-            set
-            {
-                if (value == partsListUIElements) return;
-                partsListUIElements = value;
-                this.Changed(nameof(PartsListUIElements));
-            }
-        }
-
+        
+        //Updates UI status in the autogen ui
         private void UpdateUI()
         {   
             Dictionary<string, PartSlot> uiLinkDict = new Dictionary<string, PartSlot>();
@@ -128,8 +87,9 @@ namespace Digits.DE_Maintenance
                 PartSlot partSlot = uiLinkDict[partListElement.partName];
                 if(partSlotComponent.IsSlotOccupied(partSlot))
                 {
-                    RepairableItem part = (RepairableItem) partSlotComponent.GetPartFromSlot(partSlot);
-                    partListElement.Status = part.Durability.ToString("0.0") + "%";
+                    RepairableItem? part = partSlotComponent.GetPartFromSlot(partSlot) as RepairableItem;
+                    if(part != null) partListElement.Status = part.Durability.ToString("0.0") + "%";
+                    else partListElement.Status = "Null error";
                 }
                 else
                 {
@@ -145,71 +105,109 @@ namespace Digits.DE_Maintenance
 			{
 				foreach (var partSlot in this.partSlotComponent.partSlotCollection.partSlots)
 				{
-					CreatePartSlotUIElement(partSlot);
+                    if (partSlot != null) CreatePartSlotUIElement(partSlot);
 				}
 			}
 		}
 
-		private void CreatePartSlotUIElement(PartSlot partSlot)
-		{
-			PartListElement partListElement = new PartListElement();
-			partListElement.partName = partSlot.name;
-			partListElement.status = "Not Installed";
-			this.partsListUIElements.Add(partListElement);
-		}
-
-		private void TickStatus()
+        public void CreatePartSlot(string name, Dictionary<string, float> degradationTypes, TagCollection tagCollection, bool disableMachineWhenBroken = false)
         {
-			this.status.SetStatusMessage(true, Localizer.Format("Everything okay! (this currently will always say things are okay)"));
-		}
+            //this.CreatePartSlotUIElement(name);
 
-        private void CheckDisableCondition()
-        {
-            foreach (PartSlot partSlot in partSlotComponent.partSlotCollection.partSlots)
+            if (disableMachineWhenBroken)
             {
-                if (partSlotComponent.GetPartFromSlot(partSlot) is RepairableSlottableItem)
+                degradationTypes["disableOnBroken"] = 0f;
+            }
+            this.slotProperties[name] = degradationTypes;
+
+            //TODO PUT FUNCTION HERE THAT MAKES PartSlot IN PartSlotComponent
+
+            //Get that part slot then add it to this dict to keep track of it by name
+            //partSlotsByName[name] = partSlot
+        }
+
+        private void CreatePartSlotUIElement(PartSlot partSlot) //=> CreatePartSlotUIElement(partSlot.name);
+        {
+            partSlotsByName[partSlot.name] = partSlot;
+            PartListElement partListElement = new PartListElement();
+            partListElement.partName = partSlot.name;
+            partListElement.status = "Not Installed";
+            this.partsListUIElements.Add(partListElement);
+        }
+
+        private void CreatePartSlotUIElement(string name)
+        {
+            PartListElement partListElement = new PartListElement();
+            partListElement.partName = name;
+            partListElement.status = "Not Installed";
+            this.partsListUIElements.Add(partListElement);
+        }
+
+        private void TickStatus()
+        {
+            if (this.Enabled)
+            {
+                this.status.SetStatusMessage(true, Localizer.Format("Machine maintenance is okay"));
+            }
+            else
+            {
+                this.status.SetStatusMessage(false, Localizer.Format("A part is broken, preventing this machine from functioning"));
+            }
+			
+		}
+
+        private void CheckDisableConditions()
+        {
+            foreach (PartSlot partSlot in partSlotsByName.Values)
+            {
+                RepairableItem? durItem = partSlotComponent.GetPartFromSlot(partSlot) as RepairableItem;
+                if (slotProperties[partSlot.name].TryGetValue("disableOnBroken", out float threshold))
                 {
-                    
+                    if (durItem != null) if (durItem.Durability <= threshold) this.Enabled = false;
+                    else this.Enabled = true;
                 }
             }
         }
 
 		private void TickDamage()
         {
-            foreach (PartSlot partSlot in partSlotComponent.partSlotCollection.partSlots)
+            foreach (string partSlotName in partSlotsByName.Keys)
             {
+                PartSlot partSlot = partSlotsByName[partSlotName];
+                Dictionary<string, float> properties = slotProperties[partSlotName];
+
                 float damage;
                 float damageSum = 0;
 
                 //onTick Damage
-                partSlot.properties.TryGetValue("degOnTick", out damage);
+                properties.TryGetValue("degOnTick", out damage);
                 damageSum += damage;
 
                 //onTick Damage and tickWhileOn Damage
                 if (this.onOffComponent?.On ?? false)
                 {
-					partSlot.properties.TryGetValue("degOnTickWhileOn", out damage);
+					properties.TryGetValue("degOnTickWhileOn", out damage);
 					damageSum += damage;
 				}
 
                 //Crafting Damage
                 if (this.craftingComponent?.Operating ?? false)
                 {
-                    partSlot.properties.TryGetValue("degOnCraftTick", out damage);
+                    properties.TryGetValue("degOnCraftTick", out damage);
                     damageSum += damage;
                 }
 
                 //Vehicle Damage
                 if (this.vehicleComponent?.Operating ?? false)
                 {
-                    partSlot.properties.TryGetValue("degOnVehicleTick", out damage);
+                    properties.TryGetValue("degOnVehicleTick", out damage);
                     damageSum += damage;
                 }
 
                 //PowerGrid Damage
                 if (this.powerGridComponent?.Enabled ?? false)
                 {
-                    partSlot.properties.TryGetValue("degOnPowerGridTick", out damage);
+                    properties.TryGetValue("degOnPowerGridTick", out damage);
                     damageSum += damage;
                 }
 
@@ -222,7 +220,7 @@ namespace Digits.DE_Maintenance
 		[RPC]
         public void DamagePart(PartSlot partSlot, float damage)
         {
-            RepairableItem part = (RepairableItem) partSlotComponent.GetPartFromSlot(partSlot);
+            RepairableItem? part = partSlotComponent.GetPartFromSlot(partSlot) as RepairableItem;
             if (part != null)
             {
                 if (part.Durability - damage > 0)
@@ -236,34 +234,53 @@ namespace Digits.DE_Maintenance
             }
         }
 
-        /*
-		//selector for pulling out and inserting parts into slots
-		[Eco]
-        public enum enumOptions2
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
+        //! UI AUTOGEN STUFF, do not edit anything under this line unless it is UI stuff.
+        //currently buttons are disabled until partSlotComponent is better developed
+
+        //ui List for showing components
+        ControllerList<PartListElement> partsListUIElements { get; set; }
+        [Eco, ClientInterfaceProperty, GuestHidden, PropReadOnly, LocDisplayName("Parts Overview")]
+        public ControllerList<PartListElement> PartsListUIElements
         {
-            Slot1,
-            Slot2,
-            Slot3,
-            Slot4,
-            Slot5
-        };
-        enumOptions2 enumSelection {get; set;}
-        [Eco, ClientInterfaceProperty, LocDisplayName("Slot Select")]
-        public enumOptions2 EnumSelector
-        {
-            get => enumSelection;
+            get => partsListUIElements;
             set
             {
-                if(value == enumSelection) return;
-                enumSelection = value;
-                this.Changed(nameof(EnumSelector)); 
+                if (value == partsListUIElements) return;
+                partsListUIElements = value;
+                this.Changed(nameof(PartsListUIElements));
             }
         }
-        */
-        
 
-		// Pop-out button
-		[RPC, Autogen]
+        /*
+       //selector for pulling out and inserting parts into slots
+       [Eco]
+       public enum enumOptions2
+       {
+           Slot1,
+           Slot2,
+           Slot3,
+           Slot4,
+           Slot5
+       };
+       enumOptions2 enumSelection {get; set;}
+       [Eco, ClientInterfaceProperty, LocDisplayName("Slot Select")]
+       public enumOptions2 EnumSelector
+       {
+           get => enumSelection;
+           set
+           {
+               if(value == enumSelection) return;
+               enumSelection = value;
+               this.Changed(nameof(EnumSelector)); 
+           }
+       }
+       */
+
+        /*
+        // Pop-out button
+        [RPC, Autogen]
         public virtual void PullOutPart(Player player)
         {
             // partSlotComponent.PullOutAll(player);
@@ -288,8 +305,9 @@ namespace Digits.DE_Maintenance
             //     return;
             // }
         }
+        */
 
-        
+        /*
          // Pull out by tag
         [RPC, Autogen]
         public virtual void PullOutPartByTags(Player player)
@@ -297,8 +315,9 @@ namespace Digits.DE_Maintenance
             
             //partSlotComponent.PullOutByTags(player, new List<Tag> {TagManager.Tag("Maintenance Machine Frame"), TagManager.Tag("Maintenance Tier 1")});
         }
+        */
         
-
+        /*
         // Put-in button
         [RPC, Autogen]
         public virtual void PutInPart(Player player)
@@ -321,5 +340,6 @@ namespace Digits.DE_Maintenance
             //     player.MsgLocStr("<color=red>No valid part in hand");
             // }
         }
+        */
     }
 }
