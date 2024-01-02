@@ -4,6 +4,7 @@ using Eco.Gameplay.Items;
 using Eco.Shared.Serialization;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 
 namespace Digits.PartSlotting
@@ -22,6 +23,17 @@ namespace Digits.PartSlotting
         {
             this.partSlots.Add(new PartSlot(name, tagCollection));
         }
+
+        public bool DoesSlotExist(string name)
+        {
+            foreach (var slot in this.partSlots)
+            {
+                if (slot.name == name) return true;
+            }
+            return false;
+        }
+
+        public bool DoesSlotExist(PartSlot partSlot) { return DoesSlotExist(partSlot.name); }
     }
 
     //! Keep this here for reference of how to define

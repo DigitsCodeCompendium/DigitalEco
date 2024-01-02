@@ -38,9 +38,8 @@ namespace Digits.PartSlotting
             this.PartsListUIElements ??= new ControllerList<PartListElement>(this, nameof(PartsListUIElements));
         }
 
-        public void FinalizePartSlots(PartSlotCollection partSlotCollection_in)
+        public void FinalizePartSlots()
         {
-            this.partSlotCollection = partSlotCollection_in;
             this.Inventory = new AuthorizationInventory(this.partSlotCollection.partSlots.Count, AuthorizationFlags.AuthedMayAdd | AuthorizationFlags.AuthedMayRemove, AccessType.FullAccess);
             this.Inventory.SetOwner(this.Parent);
             this.Inventory.OnChanged.Add(_ => this.OnChanged.Invoke());
@@ -61,6 +60,25 @@ namespace Digits.PartSlotting
                 tags.Add(partSlot.tagCollection.genericTag);
             }
             return tags;
+        }
+
+        public void CreatePartSlot(string name, TagCollection tagCollection)
+        {
+            if (this.partSlotCollection == null) this.partSlotCollection = new PartSlotCollection();
+            if (!this.partSlotCollection.DoesSlotExist(name))
+            {
+                this.partSlotCollection.CreatePartSlot(name, tagCollection);
+            } 
+        }
+
+        public PartSlot? GetPartSlot(string name)
+        {
+            if (this.partSlotCollection == null) return null;
+            foreach (PartSlot partSlot in this.partSlotCollection.partSlots)
+            {
+                if (partSlot.name == name) return partSlot;
+            }
+            return null;
         }
 
         public Item? GetPartFromSlot(PartSlot partSlot)

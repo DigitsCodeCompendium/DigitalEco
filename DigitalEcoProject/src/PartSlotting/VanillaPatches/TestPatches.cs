@@ -13,24 +13,21 @@
     [RequireComponent(typeof(PartSlotComponent))]
     public partial class MasonryTableObject
     {
-        public PartSlotCollection partSlotCollection;
         partial void ModsPreInitialize()
         {
             var partSlotComponent = this.GetComponent<PartSlotComponent>();
+            var mComp = this.GetComponent<MaintenanceComponent>();
             partSlotComponent.Initialize();
-            if(partSlotCollection == null)
-            {
-                this.partSlotCollection = new PartSlotCollection();
-            }
+            mComp.Initialize();
             //partSlotComponent.Initialize();
 
-            this.partSlotCollection.CreatePartSlot( "Machine Frame",
-                                                    new TagCollection("Maintenance Machine Frame", 
-                                                        new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3" }));
+            mComp.CreatePartSlot(                   "Machine Frame",
+                                                    new TagCollection("Maintenance Machine Frame", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3" }),
+                                                    new Dictionary<string, float>() { });
 
-            this.partSlotCollection.CreatePartSlot( "Chisels",
-                                                    new TagCollection("Maintenance Tool Chisels", 
-                                                        new string[] { "Maintenance Tier 1", "Maintenance Tier 2" }));
+            mComp.CreatePartSlot(                   "Chisels",
+                                                    new TagCollection("Maintenance Tool Chisels", new string[] { "Maintenance Tier 1", "Maintenance Tier 2" }),
+                                                    new Dictionary<string, float>() { });
 
             //partSlotCollection.CreatePartSlot("Chisels", (nuclearprops, maintprops, etcprops) =>
             //{
@@ -51,9 +48,9 @@
         partial void ModsPostInitialize()
         {
             var partSlotComponent = this.GetComponent<PartSlotComponent>();
-            partSlotComponent.FinalizePartSlots(partSlotCollection);
+            partSlotComponent.FinalizePartSlots();
 
-            this.GetComponent<MaintenanceComponent>().Initialize();
+            //this.GetComponent<MaintenanceComponent>().Initialize();
 
         }
     }
@@ -77,7 +74,7 @@
                                  new TagCollection("Maintenance Tool Chisels",
                                     new string[] { "Maintenance Tier 1", "Maintenance Tier 2" }));
 
-            partSlotComponent.FinalizePartSlots(partSlotCollection);
+            partSlotComponent.FinalizePartSlots();
 
         }
     }
