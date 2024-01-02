@@ -58,7 +58,11 @@ namespace Digits.PartSlotting
 
         public bool isPartCompatible(Item item)
         {
-            foreach(Tag tierTag in this.tagCollection.tierTags)
+            // Check if accepts any tier (tags are blank)
+            if (this.tagCollection.tierTags.Count == 0) return true;
+
+            // Otherwise iterate and check tier requirements
+            foreach (Tag tierTag in this.tagCollection.tierTags)
             {
                 foreach(Tag partTag in item.Tags())
                 {
