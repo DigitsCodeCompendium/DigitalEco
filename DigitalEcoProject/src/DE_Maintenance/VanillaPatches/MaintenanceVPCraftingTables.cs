@@ -35,8 +35,6 @@ namespace Eco.Mods.TechTree
                                     new TagCollection("Maintenance Tool Chisels", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
                                     new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } },
                                     true);
-
-            this.GetComponent<PartSlotComponent>().FinalizePartSlots();
         }
     }
 
@@ -57,8 +55,6 @@ namespace Eco.Mods.TechTree
                                     new TagCollection("Maintenance Tool Chisels", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
                                     new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } },
                                     true);
-
-            this.GetComponent<PartSlotComponent>().FinalizePartSlots();
         }
     }
 
@@ -79,8 +75,6 @@ namespace Eco.Mods.TechTree
                                     new TagCollection("Maintenance Tool Crushing Wheels", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
                                     new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } },
                                     true);
-
-            this.GetComponent<PartSlotComponent>().FinalizePartSlots();
         }
     }
 
@@ -101,8 +95,6 @@ namespace Eco.Mods.TechTree
                                     new TagCollection("Maintenance Tool Sieving Mesh", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
                                     new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } },
                                     true);
-
-            this.GetComponent<PartSlotComponent>().FinalizePartSlots();
         }
     }
 
@@ -123,8 +115,6 @@ namespace Eco.Mods.TechTree
                                     new TagCollection("Maintenance Tool Sieving Mesh", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
                                     new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } },
                                     true);
-
-            this.GetComponent<PartSlotComponent>().FinalizePartSlots();
         }
     }
 
@@ -145,8 +135,6 @@ namespace Eco.Mods.TechTree
                                     new TagCollection("Maintenance Tool Butchery", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
                                     new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } },
                                     true);
-
-            this.GetComponent<PartSlotComponent>().FinalizePartSlots();
         }
     }
 
@@ -158,7 +146,6 @@ namespace Eco.Mods.TechTree
         {
             var mComp = this.GetComponent<MaintenanceComponent>();
             mComp.Initialize();
-            //partSlotComponent.Initialize();
 
             mComp.CreatePartSlot(   "Machine Frame",
                                     new TagCollection("Maintenance Machine Frame", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
@@ -169,8 +156,66 @@ namespace Eco.Mods.TechTree
                                     new TagCollection("Maintenance Steam Valves", new string[] { "Maintenance Tier 2", "Maintenance Tier 3" }),
                                     new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } },
                                     true);
+        }
+    }
 
-            this.GetComponent<PartSlotComponent>().FinalizePartSlots();
+    [RequireComponent(typeof(MaintenanceComponent))]
+    public partial class WainwrightTableObject
+    {
+        partial void ModsPreInitialize()
+        {
+            var mComp = this.GetComponent<MaintenanceComponent>();
+            mComp.Initialize();
+
+            mComp.CreatePartSlot("Machine Frame",
+                                    new TagCollection("Maintenance Machine Frame", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
+                                    new Dictionary<string, float>() { { "degOnTick", 300f / (60f * 60f * 24f) } },
+                                    true);
+
+            mComp.CreatePartSlot("Smith Tools",
+                                    new TagCollection("Maintenance Tool Smith", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
+                                    new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } },
+                                    true);
+        }
+    }
+
+    [RequireComponent(typeof(MaintenanceComponent))]
+    public partial class AnvilObject
+    {
+        partial void ModsPreInitialize()
+        {
+            var mComp = this.GetComponent<MaintenanceComponent>();
+            mComp.Initialize();
+
+            mComp.CreatePartSlot("Machine Frame",
+                                    new TagCollection("Maintenance Machine Frame", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
+                                    new Dictionary<string, float>() { { "degOnTick", 300f / (60f * 60f * 24f) } },
+                                    true);
+
+            mComp.CreatePartSlot("Smith Tools",
+                                    new TagCollection("Maintenance Tool Smith", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
+                                    new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } },
+                                    true);
+        }
+    }
+
+    [RequireComponent(typeof(MaintenanceComponent))]
+    public partial class AnvilObject
+    {
+        partial void ModsPreInitialize()
+        {
+            var mComp = this.GetComponent<MaintenanceComponent>();
+            mComp.Initialize();
+
+            mComp.CreatePartSlot("Machine Frame",
+                                    new TagCollection("Maintenance Machine Frame", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
+                                    new Dictionary<string, float>() { { "degOnTick", 300f / (60f * 60f * 24f) } },
+                                    true);
+
+            mComp.CreatePartSlot("Smith Tools",
+                                    new TagCollection("Maintenance Tool Smith", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
+                                    new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } },
+                                    true);
         }
     }
 }
