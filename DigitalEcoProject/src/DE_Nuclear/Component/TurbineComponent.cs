@@ -40,6 +40,7 @@ using Eco.Core.Utils;
 using Eco.Gameplay.Components.Storage;
 using static Eco.Gameplay.Housing.PropertyValues.HomeFurnishingValue;
 using Eco.Gameplay.Items.Recipes;
+using Eco.Mods.TechTree;
 
 namespace Digits.Nuclear
 {
