@@ -21,7 +21,6 @@ using Eco.World.Blocks;
 using Eco.Gameplay.Pipes;
 using Eco.Core.Controller;
 using Eco.Gameplay.Items.Recipes;
-using System.Diagnostics.CodeAnalysis;
 using Digits.PartSlotting;
 
 namespace Digits.Maintenance
@@ -32,22 +31,22 @@ namespace Digits.Maintenance
     /// </summary>
     [RequiresSkill(typeof(LoggingSkill), 1)]
     [ForceCreateView]
-    [Ecopedia("Items", "Products", subPageName: "Iron Chisels")]
-    public partial class IronChiselsRecipe : RecipeFamily
+    [Ecopedia("Items", "Products", subPageName: "Modern Chisel")]
+    public partial class ModernChiselRecipe : RecipeFamily
     {
-        public IronChiselsRecipe()
+        public ModernChiselRecipe()
         {
             var recipe = new Recipe();
             recipe.Init(
-                name: "IronChisels",  //noloc
-                displayName: Localizer.DoStr("Iron Chisels"),
+                name: "ModernChisel",  //noloc
+                displayName: Localizer.DoStr("Modern Chisel"),
 
                 // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
                 // type of the item, the amount of the item, the skill required, and the talent used.
                 ingredients: new List<IngredientElement>
                 {
-                    new IngredientElement(typeof(IronBarItem), 4, typeof(LoggingSkill)),
-                    new IngredientElement("WoodBoard", 4, typeof(LoggingSkill)),
+                    new IngredientElement(typeof(SteelBarItem), 15, typeof(LoggingSkill)), //noloc
+                    new IngredientElement(typeof(FiberglassItem), 10, typeof(LoggingSkill)),
                 },
 
                 // Define our recipe output items.
@@ -55,7 +54,7 @@ namespace Digits.Maintenance
                 // to create.
                 items: new List<CraftingElement>
                 {
-                    new CraftingElement<IronChiselsItem>()
+                    new CraftingElement<ModernChiselItem>()
                 });
             this.Recipes = new List<Recipe> { recipe };
             this.ExperienceOnCraft = 20f;
@@ -63,7 +62,7 @@ namespace Digits.Maintenance
             this.CraftMinutes = CreateCraftTimeValue(0.01f);
 
             this.ModsPreInitialize();
-            this.Initialize(Localizer.DoStr("Iron Chisels"), typeof(IronChiselsRecipe));
+            this.Initialize(Localizer.DoStr("Modern Chisel"), typeof(ModernChiselRecipe));
             this.ModsPostInitialize();
 
             CraftingComponent.AddRecipe(tableType: typeof(MaintenanceBenchObject), recipe: this);
@@ -76,25 +75,25 @@ namespace Digits.Maintenance
     }
     
     /// <summary>
-    /// <para>Server side item definition for the "IronChisels" item.</para>
+    /// <para>Server side item definition for the "ModernChisel" item.</para>
     /// <para>More information about Item objects can be found at https://docs.play.eco/api/server/eco.gameplay/Eco.Gameplay.Items.Item.html</para>
     /// </summary>
     [Serialized]
-    [LocDisplayName("Iron Chisels")]
-    [LocDescription("Iron chisels are a more refined way to shape rock")]
+    [LocDisplayName("Modern Chisel")]
+    [LocDescription("Modern Chisel are primitive tools for shaping rock")]
     [Tier(1)]
     [RepairRequiresSkill(typeof(SmeltingSkill), 0)]
     [Weight(500)]
-    [Category("Chisels")]
-    [Tag("Maintenance Tool Chisels")]
-    [Tag("Maintenance Tier 2")]
+    [Category("Chisel")]
+    [Tag("Maintenance Tool Chisel")]
+    [Tag("Maintenance Tier 4")]
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
-    public partial class IronChiselsItem : RepairableItem, ISlottableItem
+    public partial class ModernChiselItem : RepairableItem, ISlottableItem
     {
-        public override Item RepairItem                 => Item.Get<IronBarItem>();
+        public override Item RepairItem                 => Item.Get<SteelBarItem>();
         public override int FullRepairAmount            => 4;
         //set durability by changing the denominator below
-        public override float DurabilityRate            => DurabilityMax / 300f;
+        public override float DurabilityRate            => DurabilityMax / 1000f;
         public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(4, SmeltingSkill.MultiplicativeStrategy, typeof(SmeltingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

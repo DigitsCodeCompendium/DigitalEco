@@ -31,8 +31,8 @@ namespace Eco.Mods.TechTree
                                     new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } },
                                     true);
 
-            mComp.CreatePartSlot(   "Chisels",
-                                    new TagCollection("Maintenance Tool Chisels", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
+            mComp.CreatePartSlot(   "Chisel",
+                                    new TagCollection("Maintenance Tool Chisel", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
                                     new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } },
                                     true);
         }
@@ -51,8 +51,8 @@ namespace Eco.Mods.TechTree
                                     new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } },
                                     true);
 
-            mComp.CreatePartSlot("Chisels",
-                                    new TagCollection("Maintenance Tool Chisels", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
+            mComp.CreatePartSlot("Chisel",
+                                    new TagCollection("Maintenance Tool Chisel", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
                                     new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } },
                                     true);
         }

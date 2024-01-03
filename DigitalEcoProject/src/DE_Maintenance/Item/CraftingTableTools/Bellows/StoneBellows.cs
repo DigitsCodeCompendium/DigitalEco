@@ -31,22 +31,22 @@ namespace Digits.Maintenance
     /// </summary>
     [RequiresSkill(typeof(LoggingSkill), 1)]
     [ForceCreateView]
-    [Ecopedia("Items", "Products", subPageName: "Steel Chisels")]
-    public partial class SteelChiselsRecipe : RecipeFamily
+    [Ecopedia("Items", "Products", subPageName: "Stone Bellows")]
+    public partial class StoneBellowsRecipe : RecipeFamily
     {
-        public SteelChiselsRecipe()
+        public StoneBellowsRecipe()
         {
             var recipe = new Recipe();
             recipe.Init(
-                name: "SteelChisels",  //noloc
-                displayName: Localizer.DoStr("Steel Chisels"),
+                name: "StoneBellows",  //noloc
+                displayName: Localizer.DoStr("Stone Bellows"),
 
                 // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
                 // type of the item, the amount of the item, the skill required, and the talent used.
                 ingredients: new List<IngredientElement>
                 {
-                    new IngredientElement(typeof(SteelBarItem), 10, typeof(LoggingSkill)), //noloc
-                    new IngredientElement("Lumber", 5, typeof(LoggingSkill)),
+                    new IngredientElement("Wood", 4, typeof(LoggingSkill)),
+                    new IngredientElement("Rock", 10, typeof(LoggingSkill)),
                 },
 
                 // Define our recipe output items.
@@ -54,7 +54,7 @@ namespace Digits.Maintenance
                 // to create.
                 items: new List<CraftingElement>
                 {
-                    new CraftingElement<SteelChiselsItem>()
+                    new CraftingElement<StoneBellowsItem>()
                 });
             this.Recipes = new List<Recipe> { recipe };
             this.ExperienceOnCraft = 20f;
@@ -62,7 +62,7 @@ namespace Digits.Maintenance
             this.CraftMinutes = CreateCraftTimeValue(0.01f);
 
             this.ModsPreInitialize();
-            this.Initialize(Localizer.DoStr("Steel Chisels"), typeof(SteelChiselsRecipe));
+            this.Initialize(Localizer.DoStr("Stone Bellows"), typeof(StoneBellowsRecipe));
             this.ModsPostInitialize();
 
             CraftingComponent.AddRecipe(tableType: typeof(MaintenanceBenchObject), recipe: this);
@@ -75,25 +75,26 @@ namespace Digits.Maintenance
     }
     
     /// <summary>
-    /// <para>Server side item definition for the "SteelChisels" item.</para>
+    /// <para>Server side item definition for the "StoneBellows" item.</para>
     /// <para>More information about Item objects can be found at https://docs.play.eco/api/server/eco.gameplay/Eco.Gameplay.Items.Item.html</para>
     /// </summary>
     [Serialized]
-    [LocDisplayName("Steel Chisels")]
-    [LocDescription("Steel chisels are primitive tools for shaping rock")]
+    [LocDisplayName("Stone Bellows")]
+    [LocDescription("Stone Bellows are primitive tools for shaping rock")]
     [Tier(1)]
     [RepairRequiresSkill(typeof(SmeltingSkill), 0)]
     [Weight(500)]
-    [Category("Chisels")]
-    [Tag("Maintenance Tool Chisels")]
-    [Tag("Maintenance Tier 3")]
+    [Category("Bellows")]
+    [Tag("Maintenance Tool Bellows")]
+    [Tag("Maintenance Tier 1")]
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
-    public partial class SteelChiselsItem : RepairableItem, ISlottableItem
+    public partial class StoneBellowsItem : RepairableItem, ISlottableItem
     {
-        public override Item RepairItem                 => Item.Get<SteelBarItem>();
+        public override Item RepairItem                 => Item.Get<Item>();
+        public override Tag RepairTag                   => TagManager.Tag("Rock");
         public override int FullRepairAmount            => 4;
         //set durability by changing the denominator below
-        public override float DurabilityRate            => DurabilityMax / 500f;
+        public override float DurabilityRate            => DurabilityMax / 100f;
         public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(4, SmeltingSkill.MultiplicativeStrategy, typeof(SmeltingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }
