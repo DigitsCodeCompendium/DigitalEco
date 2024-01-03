@@ -14,6 +14,8 @@ using Eco.Shared.IoC;
 using Eco.Core.Controller;
 using Eco.Core.Utils;
 using Digits.PartSlotting;
+using Eco.Gameplay.Players;
+using Eco.Gameplay.EcopediaRoot;
 
 namespace Digits.Maintenance
 {
@@ -243,7 +245,7 @@ namespace Digits.Maintenance
             }
         }
 
-        /*
+       
        //selector for pulling out and inserting parts into slots
        [Eco]
        public enum enumOptions2
@@ -266,70 +268,36 @@ namespace Digits.Maintenance
                this.Changed(nameof(EnumSelector)); 
            }
        }
-       */
+       
 
-        /*
-        // Pop-out button
-        [RPC, Autogen]
-        public virtual void PullOutPart(Player player)
-        {
-            // partSlotComponent.PullOutAll(player);
-            // if(this.hasPartInserted)
-            // {
-            //     if (player.User.Inventory.NonEmptyStacks.Count() < player.User.Inventory.Stacks.Count())
-            //     {
-            //         RepairableItem item = new MachinePartsItem();
-            //         item.Durability = this.partDurability;
-            //         Result result = player.User.Inventory.TryAddItem(item);
-            //         if(result.Success) {
-            //             this.hasPartInserted = false;
-            //             this.partDurability = 0f;
-            //             player.MsgLocStr("<color=green>Pulled out part");
-            //             return;
-            //         }
-            //     }
-            //     player.MsgLocStr("<color=red>No space in inventory to pull out parts!");
-            //     return;
-            // } else {
-            //     player.MsgLocStr("<color=red>No parts to pull out!");
-            //     return;
-            // }
-        }
-        */
 
-        /*
-         // Pull out by tag
+        // Take-out button
         [RPC, Autogen]
-        public virtual void PullOutPartByTags(Player player)
+        public virtual void TakeOutOfSlot(Player player)
         {
-            
-            //partSlotComponent.PullOutByTags(player, new List<Tag> {TagManager.Tag("Maintenance Machine Frame"), TagManager.Tag("Maintenance Tier 1")});
+            if (this.partSlotsByName.Values == null) return;
+            ItemStack? itemStack = this.partSlotComponent.GetPartFromSlot(this.partSlotsByName.Values.ToList()[(int)enumSelection]);
+            if (itemStack == null) return;
+
+            Result result = this.partSlotComponent.Inventory.MoveItems(itemStack, player.User.Inventory, 1);
+            if (result.Success)
+            {
+                player.MsgLocStr("<color=green>Put in part");
+                return;
+            }
+            else
+            {
+                player.MsgLocStr("<color=red>Could not insert part!");
+                return;
+            }
+
         }
-        */
-        
-        /*
+
         // Put-in button
         [RPC, Autogen]
-        public virtual void PutInPart(Player player)
+        public virtual void PutIntoSlot(Player player)
         {
-            //partSlotComponent.PutInSelected(player);
-            // ItemStack itemStack = player.User.Inventory.Toolbar.SelectedStack;
-            // var isItemValid = itemStack?.Item != null && itemStack.Item is RepairableMachinePartsItem;
-            // if(isItemValid) {
-            //     if(!this.hasPartInserted)
-            //     {
-            //         RepairableItem repItem = (RepairableItem) itemStack.Item;
-            //         this.partDurability = repItem.Durability;
-            //         itemStack.TryModifyStack(player.User, -1); // Try to delete the item
-            //         this.hasPartInserted = true;
-            //         player.MsgLocStr("<color=green>Put in part");
-            //     } else {
-            //         player.MsgLocStr("<color=red>Could not put in part");
-            //     }
-            // } else {
-            //     player.MsgLocStr("<color=red>No valid part in hand");
-            // }
+            this.partSlotComponent.PutPlayerSelectedItemIntoPartSlot(player);
         }
-        */
     }
 }

@@ -1,9 +1,11 @@
 using Eco.Core.Controller;
 using Eco.Core.Utils;
+using Eco.Gameplay.EcopediaRoot;
 using Eco.Gameplay.Items;
 using Eco.Gameplay.Objects;
 using Eco.Gameplay.Players;
 using Eco.Gameplay.Utils;
+using Eco.Mods.TechTree;
 using Eco.Shared.Items;
 using Eco.Shared.Localization;
 using Eco.Shared.Networking;
@@ -18,10 +20,10 @@ using static Eco.Gameplay.Items.AuthorizationInventory;
 namespace Digits.PartSlotting
 {
     [Serialized]
-    [CreateComponentTabLoc("Partslots", true), LocDescription("Provides information about parts slotted into this machine")]
+    //[CreateComponentTabLoc("Partslots", true), LocDescription("Provides information about parts slotted into this machine")]
     [NoIcon]
-    [AutogenClass]
-    public class PartSlotComponent : WorldObjectComponent, IInventoryWorldObjectComponent, IHasClientControlledContainers
+    //[AutogenClass]
+    public class PartSlotComponent : WorldObjectComponent, IInventoryWorldObjectComponent//, IHasClientControlledContainers
     {
         public readonly ThreadSafeAction OnChanged = new();
 
@@ -206,6 +208,8 @@ namespace Digits.PartSlotting
             return base.TryPickup(player, playerInvChanges, targetInventory, force);
         }
 
+        //!UI FUNCTIONS
+        
         // Function that updates ui components
         private void UpdateUI()
         {
@@ -254,7 +258,7 @@ namespace Digits.PartSlotting
         //! UI AUTOGEN STUFF, do not edit anything under this line unless it is UI stuff.
 
 
-
+        
         //ui List for showing components
         ControllerList<PartListElement> partsListUIElements { get; set; }
         [Eco, ClientInterfaceProperty, GuestHidden, PropReadOnly, LocDisplayName("Parts Overview")]
