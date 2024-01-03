@@ -79,7 +79,7 @@ namespace Digits.DE_Maintenance
         {
 
         }
-
+        
         // Take a part slot from the maint component and get the corresponding item
         // Return the item that corresponds to an occupied part slot
 
