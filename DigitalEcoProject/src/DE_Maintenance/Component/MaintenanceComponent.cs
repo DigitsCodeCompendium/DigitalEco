@@ -277,6 +277,8 @@ namespace Digits.Maintenance
         public virtual void TakeOutOfSlot(Player player)
         {
             if (this.partSlotsByName.Values == null) return;
+            var possiblePartSlots = this.partSlotsByName.Values.ToList();
+            if (possiblePartSlots.Count() <= (int)enumSelection) return; // Make sure enum selection is valid for list of parts (and not out of range)
             ItemStack? itemStack = this.partSlotComponent.GetPartFromSlot(this.partSlotsByName.Values.ToList()[(int)enumSelection]);
             if (itemStack == null) return;
 

@@ -317,6 +317,7 @@ namespace Digits.PartSlotting
         public virtual void TakeOutOfSlotDEBUG(Player player)
         {
             if(this.partSlotCollection == null) return;
+            if (partSlotCollection.partSlots.Count() <= (int)enumSelection) return; // Make sure enum selection is valid for list of parts (and not out of range)
             ItemStack? itemStack = GetPartFromSlot(partSlotCollection.partSlots[(int)enumSelection]);
             if (itemStack == null) return;
 
