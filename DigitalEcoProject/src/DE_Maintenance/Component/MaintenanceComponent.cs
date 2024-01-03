@@ -65,6 +65,7 @@ namespace Digits.Maintenance
 
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
             this.partSlotComponent = this.Parent.GetComponent<PartSlotComponent>();
+            this.partSlotComponent.Setup(10); // Create inventory of size 10
 		}
         
         public override void Tick()
