@@ -32,15 +32,15 @@ namespace Digits.Maintenance
     /// </summary>
     [RequiresSkill(typeof(LoggingSkill), 1)]
     [ForceCreateView]
-    [Ecopedia("Items", "Products", subPageName: "Iron Chisel")]
-    public partial class IronChiselRecipe : RecipeFamily
+    [Ecopedia("Items", "Products", subPageName: "Iron Sieving Mesh")]
+    public partial class IronSievingMeshRecipe : RecipeFamily
     {
-        public IronChiselRecipe()
+        public IronSievingMeshRecipe()
         {
             var recipe = new Recipe();
             recipe.Init(
-                name: "IronChisel",  //noloc
-                displayName: Localizer.DoStr("Iron Chisel"),
+                name: "IronSieving Mesh",  //noloc
+                displayName: Localizer.DoStr("Iron Sieving Mesh"),
 
                 // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
                 // type of the item, the amount of the item, the skill required, and the talent used.
@@ -55,7 +55,7 @@ namespace Digits.Maintenance
                 // to create.
                 items: new List<CraftingElement>
                 {
-                    new CraftingElement<IronChiselItem>()
+                    new CraftingElement<IronSievingMeshItem>()
                 });
             this.Recipes = new List<Recipe> { recipe };
             this.ExperienceOnCraft = 20f;
@@ -63,7 +63,7 @@ namespace Digits.Maintenance
             this.CraftMinutes = CreateCraftTimeValue(0.01f);
 
             this.ModsPreInitialize();
-            this.Initialize(Localizer.DoStr("Iron Chisel"), typeof(IronChiselRecipe));
+            this.Initialize(Localizer.DoStr("Iron Sieving Mesh"), typeof(IronSievingMeshRecipe));
             this.ModsPostInitialize();
 
             CraftingComponent.AddRecipe(tableType: typeof(MaintenanceBenchObject), recipe: this);
@@ -76,20 +76,20 @@ namespace Digits.Maintenance
     }
     
     /// <summary>
-    /// <para>Server side item definition for the "IronChisel" item.</para>
+    /// <para>Server side item definition for the "IronSieving Mesh" item.</para>
     /// <para>More information about Item objects can be found at https://docs.play.eco/api/server/eco.gameplay/Eco.Gameplay.Items.Item.html</para>
     /// </summary>
     [Serialized]
-    [LocDisplayName("Iron Chisel")]
-    [LocDescription("Iron Chisel are a more refined way to shape rock")]
+    [LocDisplayName("Iron Sieving Mesh")]
+    [LocDescription("Iron Sieving Mesh are a more refined way to shape rock")]
     [Tier(1)]
     [RepairRequiresSkill(typeof(SmeltingSkill), 0)]
     [Weight(500)]
-    [Category("Tool")]
-    [Tag("Maintenance Tool Chisel")]
+    [Category("Sieving Mesh")]
+    [Tag("Maintenance Tool Sieving Mesh")]
     [Tag("Maintenance Tier 2")]
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
-    public partial class IronChiselItem : RepairableItem, ISlottableItem
+    public partial class IronSievingMeshItem : RepairableItem, ISlottableItem
     {
         public override Item RepairItem                 => Item.Get<IronBarItem>();
         public override int FullRepairAmount            => 4;
