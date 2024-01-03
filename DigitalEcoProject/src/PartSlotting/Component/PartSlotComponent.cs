@@ -29,7 +29,7 @@ namespace Digits.PartSlotting
 
         // Set up Inventory requirements
         [Serialized, SyncToView, PropReadOnly] public AuthorizationInventory? Inventory { get; private set; }
-        Inventory IInventoryWorldObjectComponent.Inventory => this.Inventory;
+        Inventory? IInventoryWorldObjectComponent.Inventory => this.Inventory;
         public override WorldObjectComponentClientAvailability Availability => WorldObjectComponentClientAvailability.UI;
 
         public PartSlotCollection? partSlotCollection;
@@ -189,6 +189,22 @@ namespace Digits.PartSlotting
             player.MsgLocStr("<color=red>Failed to do reverse lookup of slot tag to find valid partSlot! RUH ROH");
         }
 
+        // Moves items from the slot to the player's inventory
+        public void TakePartFromSlot(Player player, ItemStack itemStack)
+        {
+            Result result = this.Inventory.MoveItems(itemStack, player.User.Inventory, 1);
+            if (result.Success)
+            {
+                player.MsgLocStr("<color=green>Put in part");
+                return;
+            }
+            else
+            {
+                player.MsgLocStr("<color=red>Could not insert part!");
+                return;
+            }
+        }
+
         // Handler for moving all items to player inventory on break.
         public override InventoryMoveResult TryPickup(Player player, InventoryChangeSet playerInvChanges, Inventory targetInventory, bool force)
         {
@@ -298,28 +314,18 @@ namespace Digits.PartSlotting
 
         // Take-out button
         [RPC, Autogen]
-        public virtual void TakeOutOfSlot(Player player)
+        public virtual void TakeOutOfSlotDEBUG(Player player)
         {
             if(this.partSlotCollection == null) return;
             ItemStack? itemStack = GetPartFromSlot(partSlotCollection.partSlots[(int)enumSelection]);
             if (itemStack == null) return;
 
-            Result result = this.Inventory.MoveItems(itemStack, player.User.Inventory, 1);
-            if(result.Success)
-            {
-                player.MsgLocStr("<color=green>Put in part");
-                return;
-            }
-            else
-            {
-                player.MsgLocStr("<color=red>Could not insert part!");
-                return;
-            }
+            TakePartFromSlot(player, itemStack);
 
         }
         // Put-in button
         [RPC, Autogen]
-        public virtual void PutIntoSlot(Player player)
+        public virtual void PutIntoSlotDEBUG(Player player)
         {
             PutPlayerSelectedItemIntoPartSlot(player);
         }

@@ -280,17 +280,7 @@ namespace Digits.Maintenance
             ItemStack? itemStack = this.partSlotComponent.GetPartFromSlot(this.partSlotsByName.Values.ToList()[(int)enumSelection]);
             if (itemStack == null) return;
 
-            Result result = this.partSlotComponent.Inventory.MoveItems(itemStack, player.User.Inventory, 1);
-            if (result.Success)
-            {
-                player.MsgLocStr("<color=green>Put in part");
-                return;
-            }
-            else
-            {
-                player.MsgLocStr("<color=red>Could not insert part!");
-                return;
-            }
+            this.partSlotComponent.TakePartFromSlot(player, itemStack);
 
         }
 
