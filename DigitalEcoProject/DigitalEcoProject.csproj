@@ -65,4 +65,13 @@
     <None Remove="src\PartSlotting\VanillaPatches\TestPatches.old" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="src\DE_Maintenance\Item\CraftingTableTools\CrushingWheel\" />
+    <Folder Include="src\DE_Maintenance\Item\CraftingTableTools\KnifeSet\" />
+    <Folder Include="src\DE_Maintenance\Item\CraftingTableTools\ScribeSet\" />
+    <Folder Include="src\DE_Maintenance\Item\CraftingTableTools\Refractory\" />
+    <Folder Include="src\DE_Maintenance\Item\CraftingTableTools\SewingKit\" />
+    <Folder Include="src\DE_Maintenance\Item\CraftingTableTools\SmithsTools\" />
+  </ItemGroup>
+
 </Project>
