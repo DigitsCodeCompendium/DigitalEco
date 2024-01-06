@@ -73,7 +73,7 @@ namespace Digits.Nuclear
             this.grid = this.Parent.GetComponent<PowerGridComponent>();
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
 
-            this.converter.Setup(typeof(SteamItem), typeof(WaterItem), BlockOccupancyType.WaterInputPort, BlockOccupancyType.OutputPort, this.maximumFlow, 0.1f);
+            this.converter.Setup(typeof(SteamItem), typeof(WaterItem), BlockOccupancyType.WaterInputPort, BlockOccupancyType.OutputPort, this.maximumFlow, 0f);
             this.converter.In.BufferSize = maximumFlow;
             this.converter.OnConvert += this.Converted;
 

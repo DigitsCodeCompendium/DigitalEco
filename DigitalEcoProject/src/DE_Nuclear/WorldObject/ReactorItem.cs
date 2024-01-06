@@ -51,13 +51,9 @@ namespace Digits.Nuclear
     [RequireComponent(typeof(PropertyAuthComponent))]
     [RequireComponent(typeof(MinimapComponent))]
     [RequireComponent(typeof(LinkComponent))]
-    [RequireComponent(typeof(FuelSupplyComponent))]
-    [RequireComponent(typeof(PluginModulesComponent))]
-    [RequireComponent(typeof(FuelConsumptionComponent))]
     [RequireComponent(typeof(HousingComponent))]
     [RequireComponent(typeof(OccupancyRequirementComponent))]
-    [RequireComponent(typeof(ReactorComponent))]
-    [RequireComponent(typeof(ForSaleComponent))]
+    [RequireComponent(typeof(AdvancedReactorComponent))]
     [Tag("Usable")]
 
     public partial class ReactorObject : WorldObject, IRepresentsItem
@@ -66,16 +62,12 @@ namespace Digits.Nuclear
         public override LocString DisplayName => Localizer.DoStr("Nuclear Reactor");
         public override TableTextureMode TableTexture => TableTextureMode.Metal;
 
-        private static string[] fuelTagList = new string[] { "Uranium Fuel" };
-
         protected override void Initialize()
         {
             this.ModsPreInitialize();
-            this.GetComponent<MinimapComponent>().SetCategory(Localizer.DoStr("Power"));
-            this.GetComponent<FuelSupplyComponent>().Initialize(2, fuelTagList);                            
-            this.GetComponent<FuelConsumptionComponent>().Initialize(1000);                                         
+            this.GetComponent<MinimapComponent>().SetCategory(Localizer.DoStr("Power"));                     
             this.GetComponent<HousingComponent>().HomeValue = SteamEngineItem.homeValue;
-            this.GetComponent<ReactorComponent>().Initialize(900, 400, 1);
+            this.GetComponent<AdvancedReactorComponent>().Initialize(BlockOccupancyType.InputPort, BlockOccupancyType.OutputPort);
             this.ModsPostInitialize();
         }
 

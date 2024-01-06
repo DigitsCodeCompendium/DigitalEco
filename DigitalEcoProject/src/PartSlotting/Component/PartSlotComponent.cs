@@ -37,8 +37,10 @@ namespace Digits.PartSlotting
         public PartSlotComponent()
         {
             //? this needs to be here for some reason. Dont know why
-            this.PartsListUIElements ??= new ControllerList<PartListElement>(this, nameof(PartsListUIElements));
+            //this.PartsListUIElements ??= new ControllerList<PartListElement>(this, nameof(PartsListUIElements));
         }
+
+        public void Setup() => Setup(10);
 
         public void Setup(int numSlots)
         {
@@ -56,7 +58,7 @@ namespace Digits.PartSlotting
 
         public override void Tick()
         {
-            this.UpdateUI();
+            //this.UpdateUI();
         }
 
         public List<Tag> GetValidGenericTags()
@@ -225,6 +227,7 @@ namespace Digits.PartSlotting
         }
 
         //!UI FUNCTIONS
+        /*
         
         // Function that updates ui components
         private void UpdateUI()
@@ -330,5 +333,6 @@ namespace Digits.PartSlotting
         {
             PutPlayerSelectedItemIntoPartSlot(player);
         }
+        */
     }
 }

@@ -22,6 +22,7 @@ using Eco.Gameplay.Pipes;
 using Eco.Core.Controller;
 using Eco.Gameplay.Items.Recipes;
 using Eco.Mods.TechTree;
+using Digits.PartSlotting;
 
 namespace Digits.Nuclear
 {
@@ -67,12 +68,14 @@ namespace Digits.Nuclear
     [Serialized]
     [LocDisplayName("Fuel Cell")]
     [Weight(100)]
-    [Fuel(8000000)][Tag("Fuel")]                      
+    [Fuel(8000000)][Tag("Fuel"), Tag("Fuel Cell")]                      
     //[Ecopedia("Items", "Tools", createAsSubPage: true, display: InPageTooltip.DynamicTooltip)]                                                                           
     [Tag("Uranium Fuel")]         
     [LocDescription("A highly shielded cell of uranium which contains a very large amount of energy.")]                        
-    public partial class FuelCellItem : Item
+    public partial class FuelCellItem : RepairableItem, ISlottableItem
     {
-
+        //set durability by changing the denominator below
+        public override float DurabilityRate => DurabilityMax / 100f;
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(4, SmeltingSkill.MultiplicativeStrategy, typeof(SmeltingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

@@ -16,6 +16,7 @@ using Eco.Core.Utils;
 using Digits.PartSlotting;
 using Eco.Gameplay.Players;
 using Eco.Gameplay.EcopediaRoot;
+using System.Diagnostics.Contracts;
 
 namespace Digits.Maintenance
 {
@@ -101,7 +102,12 @@ namespace Digits.Maintenance
             }
         }
 
-        public void CreatePartSlot(string name, TagCollection tagCollection, Dictionary<string, float> degradationTypes, bool disableMachineWhenBroken = false)
+        public void CreatePartSlot(string name, TagCollection tagCollection, bool disableMachineWhenBroken = true)
+        {
+            Dictionary<string, float> degradationTypes = new Dictionary<string, float>() { };
+            CreatePartSlot(name, tagCollection, degradationTypes, disableMachineWhenBroken);
+        }
+        public void CreatePartSlot(string name, TagCollection tagCollection, Dictionary<string, float> degradationTypes, bool disableMachineWhenBroken = true)
         {
             this.CreatePartSlotUIElement(name);
 
@@ -210,7 +216,11 @@ namespace Digits.Maintenance
             }
         }
 
-		[RPC]
+        public void DamagePart(string name, float damage)
+        {
+            this.DamagePart(this.partSlotsByName[name], damage);
+        }
+
         public void DamagePart(PartSlot partSlot, float damage)
         {
             RepairableItem? part = partSlotComponent.GetPartFromSlot(partSlot)?.Item as RepairableItem;
@@ -225,6 +235,11 @@ namespace Digits.Maintenance
                     part.Durability = 0;
                 }
             }
+        }
+
+        public PartSlot GetPartSlot(string name)
+        {
+            return this.partSlotsByName[name];
         }
 
         //-------------------------------------------------------------------------------
@@ -270,8 +285,6 @@ namespace Digits.Maintenance
            }
        }
        
-
-
         // Take-out button
         [RPC, Autogen]
         public virtual void TakeOutOfSlot(Player player)
@@ -293,4 +306,5 @@ namespace Digits.Maintenance
             this.partSlotComponent.PutPlayerSelectedItemIntoPartSlot(player);
         }
     }
+
 }

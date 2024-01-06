@@ -62,7 +62,7 @@ namespace Digits.Nuclear
 
         protected override void Initialize()
         {                                      
-            this.GetComponent<TurbineComponent>().Initialize(1000, 1, 0.5f);
+            this.GetComponent<TurbineComponent>().Initialize(1000, 100f, 0.1f);
         }  
         
         static SteamTurbineObject()

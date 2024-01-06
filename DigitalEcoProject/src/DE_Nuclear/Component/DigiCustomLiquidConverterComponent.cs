@@ -31,7 +31,7 @@ namespace Digits.Nuclear
         Type receivesType;
         Type outputsType;
         LiquidProducerComponent producer;
-        DigiCustomLiquidConsumerComponent consumer;
+        public DigiCustomLiquidConsumerComponent consumer;
         StatusElement status;
 
         public override bool Enabled => this.enabled;
@@ -52,7 +52,7 @@ namespace Digits.Nuclear
 
             this.consumer.Setup(inputType, consumptionRate, inputBlockType, requiredFlow, this);
             this.consumer.OnCanReceive += this.OnCanReceive;
-            this.consumer.ShouldConsumeLiquid = () => this.ShouldConvertLiquid?.Invoke() ?? true;
+            this.consumer.ShouldConsumeLiquid = () => true;
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
         }
 
@@ -63,10 +63,14 @@ namespace Digits.Nuclear
 
         internal float Convert(PipePayload input)
         {
-            var convertedAmount = this.producer.Produce(input.Amount, input.Time);
-            if (convertedAmount > 0)
-                this.OnConvert?.Invoke(convertedAmount);
-            return convertedAmount;
+            if (this.ShouldConvertLiquid.Invoke())
+            {
+                var convertedAmount = this.producer.Produce(input.Amount, input.Time);
+                if (convertedAmount > 0)
+                    this.OnConvert?.Invoke(convertedAmount);
+                return convertedAmount;
+            }
+            return 0;
         }
 
         private float EnsureMaxCanReceive()
