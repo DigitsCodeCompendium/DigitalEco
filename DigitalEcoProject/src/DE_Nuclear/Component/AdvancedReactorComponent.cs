@@ -46,6 +46,7 @@ using Eco.Gameplay.Civics.Elections;
 using System.Reflection;
 using Digits.Maintenance;
 using Eco.Shared.IoC;
+using Eco.World;
 
 namespace Digits.Nuclear
 {
@@ -143,7 +144,20 @@ namespace Digits.Nuclear
             UpdateReactorDynamics();
             LocString statusMsg = Localizer.Format("{0}, {1}, {2}", Text.Info(this.coreTemperature), Text.Info(this.casingTemperature), Text.Info(this.freeNeutrons));
             this.status.SetStatusMessage(true, statusMsg);
-            
+
+            Type type = typeof(WireConnection);
+            FieldInfo fieldInfo = type.GetField("<WireRefs>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance);
+
+            ThreadSafeList<WeakReference<WireConnection>> value = (ThreadSafeList < WeakReference < WireConnection >> ) fieldInfo.GetValue(this.Parent.GetComponent<DigiCustomLiquidConverterComponent>().producer.OutputPipe);
+
+            if (value is ThreadSafeList<WeakReference<WireConnection>> threadSafeList)
+            {
+                foreach (var thing in threadSafeList.Refs())
+                {
+                    thing.Owner.GetComponent<TurbineComponent>().temperature = 1000;
+                    Log.Write(Localizer.Format(thing.Owner.ToString()));
+                }
+            }    
         }
 
         private float CalculateControlRodInsertion(float targetNeutronRate, float currentNeutrons)

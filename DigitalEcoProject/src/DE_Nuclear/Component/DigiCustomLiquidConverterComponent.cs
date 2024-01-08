@@ -30,7 +30,7 @@ namespace Digits.Nuclear
         private float maxCanReceive;
         Type receivesType;
         Type outputsType;
-        LiquidProducerComponent producer;
+        public LiquidProducerComponent producer;
         public DigiCustomLiquidConsumerComponent consumer;
         StatusElement status;
 

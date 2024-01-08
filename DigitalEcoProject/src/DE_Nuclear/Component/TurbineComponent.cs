@@ -1,51 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Eco.Core.Items;
-using Eco.Gameplay.Blocks;
 using Eco.Gameplay.Components;
-using Eco.Gameplay.Components.Auth;
-using Eco.Gameplay.DynamicValues;
-using Eco.Gameplay.Economy;
-using Eco.Gameplay.Housing;
-using Eco.Gameplay.Interactions;
-using Eco.Gameplay.Items;
-using Eco.Gameplay.Modules;
-using Eco.Gameplay.Minimap;
 using Eco.Gameplay.Objects;
 using Eco.Gameplay.Occupancy;
-using Eco.Gameplay.Players;
-using Eco.Gameplay.Property;
-using Eco.Gameplay.Skills;
-using Eco.Gameplay.Systems;
-using Eco.Gameplay.Systems.TextLinks;
 using Eco.Gameplay.Pipes.LiquidComponents;
-using Eco.Gameplay.Pipes.Gases;
-using Eco.Shared;
-using Eco.Shared.Math;
 using Eco.Shared.Localization;
 using Eco.Shared.Serialization;
 using Eco.Shared.Utils;
-using Eco.Shared.View;
-using Eco.Shared.Items;
-using Eco.Shared.Networking;
-using Eco.Gameplay.Pipes;
-using Eco.World.Blocks;
-using Eco.Gameplay.Housing.PropertyValues;
-using Eco.Gameplay.Civics.Objects;
-using Eco.Gameplay.Settlements;
-using Eco.Gameplay.Systems.NewTooltip;
 using Eco.Core.Controller;
-using Eco.Core.Utils;
-using Eco.Gameplay.Components.Storage;
-using static Eco.Gameplay.Housing.PropertyValues.HomeFurnishingValue;
-using Eco.Gameplay.Items.Recipes;
 using Eco.Mods.TechTree;
 
 namespace Digits.Nuclear
 {
-
-        [Serialized, LocDisplayName("Toll")]
+    [Serialized, LocDisplayName("Turbine")]
     [RequireComponent(typeof(LiquidConverterComponent))]
     [RequireComponent(typeof(PowerGridComponent))] 
     [RequireComponent(typeof(StatusComponent))]
@@ -60,7 +28,8 @@ namespace Digits.Nuclear
         private float maximumFlow;
         private float minimumFlow;
         
-        private double buffer;
+        public double buffer;
+        public float temperature;
 
         public void Initialize(float powerPerFlow, float maximumFlow, float minimumFlow)
         {
@@ -109,7 +78,9 @@ namespace Digits.Nuclear
             double output = (double)this.powerPerFlow * this.buffer;
             this.grid.EnergySupply = (float)output;
 
-            this.status.SetStatusMessage(false, Localizer.Format("Buffer {0}, Power Output {1}", Text.Info(this.buffer), Text.Info(output)));
+            this.status.SetStatusMessage(false, Localizer.Format("Buffer {0}, Power Output {1}, Temperature {2}", Text.Info(this.buffer), Text.Info(output), Text.Info(temperature)));
         }
+
+
     }
 }
