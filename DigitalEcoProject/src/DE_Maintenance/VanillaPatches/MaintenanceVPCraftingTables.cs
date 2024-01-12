@@ -6,6 +6,7 @@ using Digits.PartSlotting;
 using Digits.Maintenance;
 using System.Runtime.InteropServices;
 using Eco.Core.Items;
+using Eco.Gameplay.Items;
 
 //Possible degradation types
 //onTick -> applies this damage per object tick adjusted
@@ -18,23 +19,23 @@ using Eco.Core.Items;
 
 namespace Eco.Mods.TechTree
 {
-    [RequireComponent(typeof(MaintenanceComponent))]
+    [RequireComponent(typeof(MaintenanceComponent2))]
     public partial class MasonryTableObject
     {
         partial void ModsPreInitialize()
         {
-            var mComp = this.GetComponent<MaintenanceComponent>();
+            MaintenanceComponent2 mComp = this.GetComponent<MaintenanceComponent2>();
             mComp.Initialize();
 
-            mComp.CreatePartSlot(   "Machine Frame",
-                                    new TagCollection("Maintenance Machine Frame", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
-                                    new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } },
-                                    true);
+            mComp.CreatePartSlot("Machine Frame");
+            mComp.AddPartSlotRestriction("Machine Frame", 
+                new SpecificItemTypesRestriction(new System.Type[] { typeof(Tier1MachineFrameItem), typeof(Tier2MachineFrameItem) }));
+            mComp.AddPartSlotDegradation("Machine Frame",
+                new Dictionary<string, float>() { { "degOnTick", 100f / 60f } });
 
-            mComp.CreatePartSlot(   "Chisel",
-                                    new TagCollection("Maintenance Tool Chisel", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
-                                    new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } },
-                                    true);
+            mComp.CreatePartSlot("Chisels");
+            mComp.AddPartSlotRestriction("Chisels", 
+                new SpecificItemTypesRestriction(new System.Type[] { typeof(TroutItem), typeof(SalmonItem) }));
         }
     }
 
@@ -51,8 +52,8 @@ namespace Eco.Mods.TechTree
                                     new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } },
                                     true);
 
-            mComp.CreatePartSlot("Chisel",
-                                    new TagCollection("Maintenance Tool Chisel", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
+            mComp.CreatePartSlot("Chisels",
+                                    new TagCollection("Maintenance Tool Chisels", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }),
                                     new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } },
                                     true);
         }

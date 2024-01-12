@@ -1,44 +1,33 @@
-using Eco.Core.Controller;
+﻿using Eco.Core.Controller;
 using Eco.Core.Systems;
 using Eco.Gameplay.Items;
 using Eco.Shared.Networking;
 using Eco.Shared.Serialization;
 using System.ComponentModel;
-using System.Xml.Linq;
 
-namespace Digits.PartSlotting
+namespace Digits.Maintenance
 {
     [Serialized]
-    public class PartListElement : IController, INotifyPropertyChanged
+    public class MPartSlot : IController, INotifyPropertyChanged
     {
-        public PartListElement()
+        public MPartSlot() { }
+
+        public MPartSlot(string name)
         {
+            this.PartName = name;
             Inventory ??= new LimitedInventory(1);
         }
 
         public string partName { get; set; }
-        [Eco, ClientInterfaceProperty, PropReadOnly]
+        [Eco, ClientInterfaceProperty, PropReadOnly, UITypeName("StringTitle")]
         public string PartName
         {
-            get => this.partName; 
+            get => this.partName;
             set
             {
                 if (value == this.partName) return;
                 this.partName = value;
                 this.Changed(nameof(this.PartName));
-            }
-        }
-
-        public string status { get; set; }
-        [Eco, ClientInterfaceProperty, PropReadOnly]
-        public string Status
-        {
-            get => this.status;
-            set
-            {
-                if (value == this.status) return;
-                this.status = value;
-                this.Changed(nameof(this.Status));
             }
         }
 
@@ -53,4 +42,4 @@ namespace Digits.PartSlotting
         ref int IHasUniversalID.ControllerID => ref this.controllerID;
         #endregion
     }
-} 
+}
