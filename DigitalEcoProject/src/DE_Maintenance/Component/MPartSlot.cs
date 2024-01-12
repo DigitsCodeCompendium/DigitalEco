@@ -19,7 +19,7 @@ namespace Digits.Maintenance
         }
 
         public string partName { get; set; }
-        [Eco, ClientInterfaceProperty, PropReadOnly]
+        [Eco, ClientInterfaceProperty, PropReadOnly, UITypeName("StringTitle")]
         public string PartName
         {
             get => this.partName;

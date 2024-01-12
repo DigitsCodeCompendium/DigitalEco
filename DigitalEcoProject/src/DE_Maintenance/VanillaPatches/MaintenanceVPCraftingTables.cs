@@ -6,6 +6,7 @@ using Digits.PartSlotting;
 using Digits.Maintenance;
 using System.Runtime.InteropServices;
 using Eco.Core.Items;
+using Eco.Gameplay.Items;
 
 //Possible degradation types
 //onTick -> applies this damage per object tick adjusted
@@ -23,12 +24,18 @@ namespace Eco.Mods.TechTree
     {
         partial void ModsPreInitialize()
         {
-            var mComp = this.GetComponent<MaintenanceComponent2>();
+            MaintenanceComponent2 mComp = this.GetComponent<MaintenanceComponent2>();
             mComp.Initialize();
 
-            mComp.CreatePartSlot(   "Machine Frame");
+            mComp.CreatePartSlot("Machine Frame");
+            mComp.AddPartSlotRestriction("Machine Frame", 
+                new SpecificItemTypesRestriction(new System.Type[] { typeof(Tier1MachineFrameItem), typeof(Tier2MachineFrameItem) }));
+            mComp.AddPartSlotDegradation("Machine Frame",
+                new Dictionary<string, float>() { { "degOnTick", 100f / 60f } });
 
-            mComp.CreatePartSlot(   "Chisels");
+            mComp.CreatePartSlot("Chisels");
+            mComp.AddPartSlotRestriction("Chisels", 
+                new SpecificItemTypesRestriction(new System.Type[] { typeof(TroutItem), typeof(SalmonItem) }));
         }
     }
 

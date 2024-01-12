@@ -5,9 +5,11 @@ using Eco.Gameplay.Components;
 using Eco.Gameplay.Items;
 using Eco.Gameplay.Objects;
 using Eco.Gameplay.Utils;
+using Eco.Shared.IoC;
 using Eco.Shared.Localization;
 using Eco.Shared.Networking;
 using Eco.Shared.Serialization;
+using Eco.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +41,7 @@ namespace Digits.Maintenance
         {
             this.enabled = true;
             this.PartSlots ??= new ControllerList<MPartSlot>(this, nameof(PartSlots));
+            this.slotDegradation ??= new Dictionary<string, Dictionary<string, float>>();
         }
 
         public void Initialize()
@@ -52,7 +55,7 @@ namespace Digits.Maintenance
 
         public override void Tick()
         {
-            base.Tick();
+            this.TickDamage();
         }
 
         public void CreatePartSlot(string name)
@@ -97,6 +100,84 @@ namespace Digits.Maintenance
                 return false;
             else
                 return true;
+        }
+
+        private void DamagePart(string name, float damage)
+        {
+            MPartSlot? partSlot = GetPartSlot(name);
+            if (partSlot == null /*|| partSlot.Inventory.IsEmpty*/)
+            {
+                Log.Write(Localizer.Format("First Check"));
+                return;
+            }
+            
+
+            RepairableItem? item = partSlot.Inventory.Stacks.First().Item as RepairableItem;
+            if (item == null)
+            {
+                Log.Write(Localizer.Format("Second Check"));
+                return;
+            }
+
+            Log.Write(Localizer.Format("Third Check"));
+            Log.Write(Localizer.Format("{0}", damage));
+
+            if (item.Durability - (item.DurabilityRate * damage) > 0)
+                item.Durability -= item.DurabilityRate * damage;
+            else
+                item.Durability = 0;
+
+        }
+
+        private void TickDamage()
+        {
+            foreach (MPartSlot partSlot in partSlots)
+            {
+                Dictionary<string, float> properties;
+                slotDegradation.TryGetValue(partSlot.partName, out properties);
+
+                if (properties != null)
+                {
+                    float damage;
+                    float damageSum = 0;
+
+                    //onTick Damage
+                    properties.TryGetValue("degOnTick", out damage);
+                    damageSum += damage;
+
+                    //onTick Damage and tickWhileOn Damage
+                    if (this.onOffComponent?.On ?? false)
+                    {
+                        properties.TryGetValue("degOnTickWhileOn", out damage);
+                        damageSum += damage;
+                    }
+
+                    //Crafting Damage
+                    if (this.craftingComponent?.Operating ?? false)
+                    {
+                        properties.TryGetValue("degOnCraftTick", out damage);
+                        damageSum += damage;
+                    }
+
+                    //Vehicle Damage
+                    if (this.vehicleComponent?.Operating ?? false)
+                    {
+                        properties.TryGetValue("degOnVehicleTick", out damage);
+                        damageSum += damage;
+                    }
+
+                    //PowerGrid Damage
+                    if (this.powerGridComponent?.Enabled ?? false)
+                    {
+                        properties.TryGetValue("degOnPowerGridTick", out damage);
+                        damageSum += damage;
+                    }
+
+                    //Apply damage
+                    var tickTime = ServiceHolder<IWorldObjectManager>.Obj.TickDeltaTime;
+                    this.DamagePart(partSlot.partName, damageSum * tickTime);
+                }
+            }
         }
 
         //-------------------------------------------------------------------------------
