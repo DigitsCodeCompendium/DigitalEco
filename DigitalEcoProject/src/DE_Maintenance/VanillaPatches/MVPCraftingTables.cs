@@ -194,4 +194,140 @@ namespace Eco.Mods.TechTree
                 new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } });
         }
     }
+
+    [RequireComponent(typeof(MaintenanceComponent2))]
+    public partial class BloomeryObject
+    {
+        partial void ModsPreInitialize()
+        {
+            MaintenanceComponent2 mComp = this.GetComponent<MaintenanceComponent2>();
+            mComp.Initialize();
+
+            mComp.CreatePartSlot("Machine Frame");
+            mComp.AddPartSlotRestriction("Machine Frame",
+                new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
+            mComp.AddPartSlotDegradation("Machine Frame",
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+
+            mComp.CreatePartSlot("Bellows");
+            mComp.AddPartSlotRestriction("Bellows",
+                new MaintenanceTypesRestriction("Maintenance Tool Bellows", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
+            mComp.AddPartSlotDegradation("Bellows",
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } });
+
+            mComp.CreatePartSlot("Refractory");
+            mComp.AddPartSlotRestriction("Refractory",
+                new MaintenanceTypesRestriction("Maintenance Tool Refractory", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
+            mComp.AddPartSlotDegradation("Refractory",
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } });
+        }
+    }
+
+    [RequireComponent(typeof(MaintenanceComponent2))]
+    public partial class KilnObject
+    {
+        partial void ModsPreInitialize()
+        {
+            MaintenanceComponent2 mComp = this.GetComponent<MaintenanceComponent2>();
+            mComp.Initialize();
+
+            mComp.CreatePartSlot("Machine Frame");
+            mComp.AddPartSlotRestriction("Machine Frame",
+                new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
+            mComp.AddPartSlotDegradation("Machine Frame",
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+
+            mComp.CreatePartSlot("Bellows");
+            mComp.AddPartSlotRestriction("Bellows",
+                new MaintenanceTypesRestriction("Maintenance Tool Bellows", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
+            mComp.AddPartSlotDegradation("Bellows",
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } });
+
+            mComp.CreatePartSlot("Refractory");
+            mComp.AddPartSlotRestriction("Refractory",
+                new MaintenanceTypesRestriction("Maintenance Tool Refractory", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
+            mComp.AddPartSlotDegradation("Refractory",
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } });
+        }
+    }
+
+    [RequireComponent(typeof(MaintenanceComponent2))]
+    public partial class GlassworksObject
+    {
+        partial void ModsPreInitialize()
+        {
+            MaintenanceComponent2 mComp = this.GetComponent<MaintenanceComponent2>();
+            mComp.Initialize();
+
+            mComp.CreatePartSlot("Machine Frame");
+            mComp.AddPartSlotRestriction("Machine Frame",
+                new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
+            mComp.AddPartSlotDegradation("Machine Frame",
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+
+            mComp.CreatePartSlot("Smith's Tools");
+            mComp.AddPartSlotRestriction("Smith's Tools",
+                new MaintenanceTypesRestriction("Maintenance Tool Smith", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
+            mComp.AddPartSlotDegradation("Smith's Tools",
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } });
+
+            mComp.CreatePartSlot("Refractory");
+            mComp.AddPartSlotRestriction("Refractory",
+                new MaintenanceTypesRestriction("Maintenance Tool Refractory", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
+            mComp.AddPartSlotDegradation("Refractory",
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } });
+        }
+    }
+
+    [RequireComponent(typeof(MaintenanceComponent2))]
+    public partial class SawmillObject
+    {
+        partial void ModsPreInitialize()
+        {
+            MaintenanceComponent2 mComp = this.GetComponent<MaintenanceComponent2>();
+            mComp.Initialize();
+
+            mComp.CreatePartSlot("Machine Frame");
+            mComp.AddPartSlotRestriction("Machine Frame",
+                new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
+            mComp.AddPartSlotDegradation("Machine Frame",
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+
+            mComp.CreatePartSlot("Sawblade");
+            mComp.AddPartSlotRestriction("Sawblade",
+                new MaintenanceTypesRestriction("Maintenance Tool Sawblade", new string[] { "Maintenance Tier 2", "Maintenance Tier 3" }));
+            mComp.AddPartSlotDegradation("Sawblade",
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } });
+        }
+    }
+
+    [RequireComponent(typeof(MaintenanceComponent2))]
+    public partial class BlastfurnaceObject
+    {
+        partial void ModsPreInitialize()
+        {
+            MaintenanceComponent2 mComp = this.GetComponent<MaintenanceComponent2>();
+            mComp.Initialize();
+
+            mComp.CreatePartSlot("Machine Frame");
+            mComp.AddPartSlotRestriction("Machine Frame",
+                new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
+            mComp.AddPartSlotDegradation("Machine Frame",
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+
+            mComp.CreatePartSlot("Bellows");
+            mComp.AddPartSlotRestriction("Bellows",
+                new MaintenanceTypesRestriction("Maintenance Tool Bellows", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
+            mComp.AddPartSlotDegradation("Bellows",
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } });
+
+            mComp.CreatePartSlot("Refractory");
+            mComp.AddPartSlotRestriction("Refractory",
+                new MaintenanceTypesRestriction("Maintenance Tool Refractory", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
+            mComp.AddPartSlotDegradation("Refractory",
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } });
+        }
+    }
+
+
 }
