@@ -107,27 +107,22 @@ namespace Digits.Maintenance
             MPartSlot? partSlot = GetPartSlot(name);
             if (partSlot == null /*|| partSlot.Inventory.IsEmpty*/)
             {
-                Log.Write(Localizer.Format("First Check"));
                 return;
             }
-            
 
             RepairableItem? item = partSlot.Inventory.Stacks.First().Item as RepairableItem;
             if (item == null)
             {
-                Log.Write(Localizer.Format("Second Check"));
                 return;
             }
-
-            Log.Write(Localizer.Format("Third Check"));
-            Log.Write(Localizer.Format("{0}", damage));
 
             if (item.Durability - (item.DurabilityRate * damage) > 0)
                 item.Durability -= item.DurabilityRate * damage;
             else
                 item.Durability = 0;
-
         }
+
+
 
         private void TickDamage()
         {
@@ -185,7 +180,7 @@ namespace Digits.Maintenance
         //! UI AUTOGEN STUFF, do not edit anything under this line unless it is UI stuff.
 
         ControllerList<MPartSlot> partSlots { get; set; }
-        [Eco, ClientInterfaceProperty, GuestHidden, PropReadOnly, LocDisplayName("Parts Overview")]
+        [Eco, ClientInterfaceProperty, GuestHidden, PropReadOnly, LocDisplayName("Parts Overview"), UIListTypeName("IEnumerableHeader"), HideRootListEntry]
         public ControllerList<MPartSlot> PartSlots
         {
             get => partSlots;
