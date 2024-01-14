@@ -19,6 +19,44 @@ using Eco.Gameplay.Items;
 
 namespace Eco.Mods.TechTree
 {
+    internal static class MaintenanceRates
+    {
+        //time constants
+        const float day = (60f * 60f * 24f);
+        const float hour = (60f * 60f);
+
+        //Tier constants
+        const float Tier1Durability = 100f;
+        const float Tier2Durability = 300f;
+        const float Tier3Durability = 500f;
+        const float Tier4Durability = 1000f;
+
+        //Machine frames
+        public const float Tier1MachineFrameTickRate = Tier1Durability / day;
+        public const float Tier2MachineFrameTickRate = Tier2Durability / day;
+        public const float Tier3MachineFrameTickRate = Tier3Durability / day;
+        public const float Tier4MachineFrameTickRate = Tier4Durability / day;
+
+        //Tools
+        public const float Tier1ToolTickRate    = Tier1Durability / (2f * day);
+        public const float Tier1ToolCraftRate   = Tier1Durability / 100f;
+
+        public const float Tier2ToolTickRate    = Tier2Durability / (2f * day);
+        public const float Tier2ToolCraftRate   = Tier2Durability / 100f;
+
+        public const float Tier3ToolTickRate    = Tier3Durability / (2f * day);
+        public const float Tier3ToolCraftRate   = Tier3Durability / 100f;
+
+        public const float Tier4ToolTickRate    = Tier4Durability / (2f * day);
+        public const float Tier4ToolCraftRate   = Tier4Durability / 100f;
+
+
+    }
+
+    //--------------------------------------------------------
+    //!                       Tier 1
+    //--------------------------------------------------------
+
     [RequireComponent(typeof(MaintenanceComponent2))]
     public partial class MasonryTableObject
     {
@@ -31,13 +69,13 @@ namespace Eco.Mods.TechTree
             mComp.AddPartSlotRestriction("Machine Frame",
                 new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
             mComp.AddPartSlotDegradation("Machine Frame",
-                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+                new Dictionary<string, float>() { { "degOnTick", MaintenanceRates.Tier1MachineFrameTickRate } });
 
             mComp.CreatePartSlot("Chisel");
             mComp.AddPartSlotRestriction("Chisel", 
                 new MaintenanceTypesRestriction("Maintenance Tool Chisel", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
             mComp.AddPartSlotDegradation("Chisel",
-                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } });
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", MaintenanceRates.Tier1ToolCraftRate } });
         }
     }
 
@@ -53,13 +91,13 @@ namespace Eco.Mods.TechTree
             mComp.AddPartSlotRestriction("Machine Frame",
                 new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
             mComp.AddPartSlotDegradation("Machine Frame",
-                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+                new Dictionary<string, float>() { { "degOnTick", MaintenanceRates.Tier1MachineFrameTickRate } });
 
             mComp.CreatePartSlot("Chisel");
             mComp.AddPartSlotRestriction("Chisel",
                 new MaintenanceTypesRestriction("Maintenance Tool Chisel", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
             mComp.AddPartSlotDegradation("Chisel",
-                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", 100f / (100f) } });
+                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 48f) }, { "degOnCraftTick", MaintenanceRates.Tier1ToolCraftRate } });
         }
     }
 
@@ -75,7 +113,7 @@ namespace Eco.Mods.TechTree
             mComp.AddPartSlotRestriction("Machine Frame",
                 new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
             mComp.AddPartSlotDegradation("Machine Frame",
-                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+                new Dictionary<string, float>() { { "degOnTick", MaintenanceRates.Tier1MachineFrameTickRate } });
 
             mComp.CreatePartSlot("Crushing Wheels");
             mComp.AddPartSlotRestriction("Crushing Wheels",
@@ -97,7 +135,7 @@ namespace Eco.Mods.TechTree
             mComp.AddPartSlotRestriction("Machine Frame",
                 new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
             mComp.AddPartSlotDegradation("Machine Frame",
-                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+                new Dictionary<string, float>() { { "degOnTick", MaintenanceRates.Tier1MachineFrameTickRate } });
 
             mComp.CreatePartSlot("Sieving Mesh");
             mComp.AddPartSlotRestriction("Sieving Mesh",
@@ -119,7 +157,7 @@ namespace Eco.Mods.TechTree
             mComp.AddPartSlotRestriction("Machine Frame",
                 new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
             mComp.AddPartSlotDegradation("Machine Frame",
-                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+                new Dictionary<string, float>() { { "degOnTick", MaintenanceRates.Tier1MachineFrameTickRate } });
 
             mComp.CreatePartSlot("Sieving Mesh");
             mComp.AddPartSlotRestriction("Sieving Mesh",
@@ -141,7 +179,7 @@ namespace Eco.Mods.TechTree
             mComp.AddPartSlotRestriction("Machine Frame",
                 new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
             mComp.AddPartSlotDegradation("Machine Frame",
-                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+                new Dictionary<string, float>() { { "degOnTick", MaintenanceRates.Tier1MachineFrameTickRate } });
 
             mComp.CreatePartSlot("Knife Set");
             mComp.AddPartSlotRestriction("Knife Set",
@@ -163,7 +201,7 @@ namespace Eco.Mods.TechTree
             mComp.AddPartSlotRestriction("Machine Frame",
                 new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
             mComp.AddPartSlotDegradation("Machine Frame",
-                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+                new Dictionary<string, float>() { { "degOnTick", MaintenanceRates.Tier1MachineFrameTickRate } });
 
             mComp.CreatePartSlot("Smith's Tools");
             mComp.AddPartSlotRestriction("Smith's Tools",
@@ -185,7 +223,7 @@ namespace Eco.Mods.TechTree
             mComp.AddPartSlotRestriction("Machine Frame",
                 new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
             mComp.AddPartSlotDegradation("Machine Frame",
-                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+                new Dictionary<string, float>() { { "degOnTick", MaintenanceRates.Tier1MachineFrameTickRate } });
 
             mComp.CreatePartSlot("Smith's Tools");
             mComp.AddPartSlotRestriction("Smith's Tools",
@@ -207,7 +245,7 @@ namespace Eco.Mods.TechTree
             mComp.AddPartSlotRestriction("Machine Frame",
                 new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 1", "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
             mComp.AddPartSlotDegradation("Machine Frame",
-                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+                new Dictionary<string, float>() { { "degOnTick", MaintenanceRates.Tier1MachineFrameTickRate } });
 
             mComp.CreatePartSlot("Bellows");
             mComp.AddPartSlotRestriction("Bellows",
@@ -223,6 +261,10 @@ namespace Eco.Mods.TechTree
         }
     }
 
+    //--------------------------------------------------------
+    //!                       Tier 2
+    //--------------------------------------------------------
+
     [RequireComponent(typeof(MaintenanceComponent2))]
     public partial class KilnObject
     {
@@ -235,7 +277,7 @@ namespace Eco.Mods.TechTree
             mComp.AddPartSlotRestriction("Machine Frame",
                 new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
             mComp.AddPartSlotDegradation("Machine Frame",
-                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+                new Dictionary<string, float>() { { "degOnTick", MaintenanceRates.Tier2MachineFrameTickRate } });
 
             mComp.CreatePartSlot("Bellows");
             mComp.AddPartSlotRestriction("Bellows",
@@ -263,7 +305,7 @@ namespace Eco.Mods.TechTree
             mComp.AddPartSlotRestriction("Machine Frame",
                 new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
             mComp.AddPartSlotDegradation("Machine Frame",
-                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+                new Dictionary<string, float>() { { "degOnTick", MaintenanceRates.Tier2MachineFrameTickRate } });
 
             mComp.CreatePartSlot("Smith's Tools");
             mComp.AddPartSlotRestriction("Smith's Tools",
@@ -291,7 +333,7 @@ namespace Eco.Mods.TechTree
             mComp.AddPartSlotRestriction("Machine Frame",
                 new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
             mComp.AddPartSlotDegradation("Machine Frame",
-                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+                new Dictionary<string, float>() { { "degOnTick", MaintenanceRates.Tier2MachineFrameTickRate } });
 
             mComp.CreatePartSlot("Sawblade");
             mComp.AddPartSlotRestriction("Sawblade",
@@ -302,7 +344,7 @@ namespace Eco.Mods.TechTree
     }
 
     [RequireComponent(typeof(MaintenanceComponent2))]
-    public partial class BlastfurnaceObject
+    public partial class BlastFurnaceObject
     {
         partial void ModsPreInitialize()
         {
@@ -313,7 +355,7 @@ namespace Eco.Mods.TechTree
             mComp.AddPartSlotRestriction("Machine Frame",
                 new MaintenanceTypesRestriction("Maintenance Machine Frame", new string[] { "Maintenance Tier 2", "Maintenance Tier 3", "Maintenance Tier 4" }));
             mComp.AddPartSlotDegradation("Machine Frame",
-                new Dictionary<string, float>() { { "degOnTick", 100f / (60f * 60f * 24f) } });
+                new Dictionary<string, float>() { { "degOnTick", MaintenanceRates.Tier2MachineFrameTickRate } });
 
             mComp.CreatePartSlot("Bellows");
             mComp.AddPartSlotRestriction("Bellows",
