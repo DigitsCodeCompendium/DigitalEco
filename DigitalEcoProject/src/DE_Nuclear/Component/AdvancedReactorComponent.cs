@@ -47,6 +47,7 @@ using System.Reflection;
 using Digits.Maintenance;
 using Eco.Shared.IoC;
 using Eco.World;
+using Eco.Simulation;
 
 namespace Digits.Nuclear
 {
@@ -77,8 +78,19 @@ namespace Digits.Nuclear
         //thermal state variables
         float coreTemperature => this.coreHeat / this.coreHeatCapcity;      //temperature of the reactor core (the fuel and moderator)
         float casingTemperature => this.casingHeat / this.casingHeatCapcity;    //temperature of the reactor casing (the coolant heat exchanger)
-        float coreHeat = 0;
-        float casingHeat = 0;
+        float coreHeat;
+        float casingHeat;
+
+        // Rankine cycle variables
+        public float inletPressure;
+        public float inletTemperature;
+        public float inletEnthalpy;
+        public float inletEntropy;
+
+        float outletPressure => inletPressure; // isobaric procces
+        float outletTemperature => RankineData.t_from_p_h(outletPressure, outletEnthalpy).Item1; // => s_from_p_h(outletPressure, outletEnthalpy)
+        float outletEnthalpy;    // => inletEnthalpy + added_heat
+        float outletEntropy;     // => s_from_p_h(outletPressure, outletEnthalpy)
 
         //nuclear constant variables
         float T_neutron = 0.1f;         //average neutron lifetime 
@@ -90,12 +102,15 @@ namespace Digits.Nuclear
         float fuelNeutronEmmision = 500;  //base neutron emmisions from fuel (through decay or other methods)
 
         //nuclear state variables
-        float freeNeutrons = 0;         //tracks number of free neutrons within the reactor
+        float freeNeutrons;         //tracks number of free neutrons within the reactor
 
 
         List<float> coolingQueue = new List<float>();
+        float amountConverted = 0;
 
         StatusElement status;
+        StatusElement status2;
+        StatusElement status3;
 
         //average neutron lifetime is controled by moderator and reactor design
         //P_escape reactor design
@@ -104,35 +119,57 @@ namespace Digits.Nuclear
         //P_fission controlled by fuel and moderator
         //n_avg controlled by fuel
 
+        private float CalculateAddedHeat()
+        {
+            var maxOutputEnthalpy = RankineData.h_from_p_t(this.outletPressure, this.casingTemperature);
+            var addedHeat = (this.casingTemperature - this.inletTemperature) * 10f;
+
+            if (addedHeat < 0)
+                return 0;
+            else if (this.inletEnthalpy + addedHeat > maxOutputEnthalpy)
+                return (maxOutputEnthalpy - this.inletEnthalpy);
+            else
+                return addedHeat;
+        }
+            
+
         public AdvancedReactorComponent()
         {
             this.targetNeutronRate = 0;
             this.steadyState = true;
 
-            this.coreHeat = 20 * this.coreHeatCapcity;
-            this.casingHeat = 20 * this.casingHeatCapcity;
-            this.freeNeutrons = 0;
             this.fuelNeutronEmmision = 0;
         }
 
         public void Initialize(BlockOccupancyType inputBlockType, BlockOccupancyType outputBlockType)
         {
             DigiCustomLiquidConverterComponent LCcomp = this.Parent.GetComponent<DigiCustomLiquidConverterComponent>();
-            LCcomp.Setup(typeof(WaterItem), typeof(SteamItem), inputBlockType, outputBlockType);
+            LCcomp.Setup(typeof(HighPressureWaterItem), typeof(HighPressureSteamItem), inputBlockType, outputBlockType, 10f, 0f);
             LCcomp.OnConvert += OnConvert;
             LCcomp.ShouldConvertLiquid += CanConvert;
 
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
+            this.status2 = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
+            this.status3 = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
+
+            if (this.coreHeat == null) this.coreHeat = 20 * this.coreHeatCapcity;
+            if (this.casingHeat == null) this.casingHeat = 20 * this.casingHeatCapcity;
+            if (this.freeNeutrons == null) this.freeNeutrons = 0;
+
+            this.coreHeat = 400 * this.coreHeatCapcity;
+            this.casingHeat = 400 * this.casingHeatCapcity;
+            this.freeNeutrons = 15000;
         }
 
         public void OnConvert(float amount)
         {
-            this.coolingQueue.Add(amount * temperatureAbsorbedBySteam);
+            this.coolingQueue.Add(amount * CalculateAddedHeat());
+            this.amountConverted += amount;
         }
 
         public bool CanConvert()
         {
-            if (this.casingTemperature > 100)
+            if (this.casingTemperature > RankineData.sat_t_from_p(this.inletPressure))
             {
                 return true;
             }
@@ -142,22 +179,29 @@ namespace Digits.Nuclear
         public override void Tick()
         {
             UpdateReactorDynamics();
-            LocString statusMsg = Localizer.Format("{0}, {1}, {2}", Text.Info(this.coreTemperature), Text.Info(this.casingTemperature), Text.Info(this.freeNeutrons));
-            this.status.SetStatusMessage(true, statusMsg);
+            this.status.SetStatusMessage (false, Localizer.Format("InletTemp {0}, InletPressure {1}, InletEnthalpy {2}, InletEntropy {3}", Text.Info(this.inletTemperature), Text.Info(this.inletPressure), Text.Info(this.inletEnthalpy), Text.Info(this.inletEntropy)));
+            this.status2.SetStatusMessage(false, Localizer.Format("OutletTemp {0}, OutletPressure {1}, OutletEnthalpy {2}, OutletEntropy {3}", Text.Info(this.outletTemperature), Text.Info(this.outletPressure), Text.Info(this.outletEnthalpy), Text.Info(this.outletEntropy)));
+            this.status3.SetStatusMessage(false, Localizer.Format("Heat added to steam {0} J/kg", Text.Info(this.CalculateAddedHeat())));
 
+            //doing weird shit
             Type type = typeof(WireConnection);
             FieldInfo fieldInfo = type.GetField("<WireRefs>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance);
 
-            ThreadSafeList<WeakReference<WireConnection>> value = (ThreadSafeList < WeakReference < WireConnection >> ) fieldInfo.GetValue(this.Parent.GetComponent<DigiCustomLiquidConverterComponent>().producer.OutputPipe);
+            ThreadSafeList<WeakReference<WireConnection>> value = (ThreadSafeList<WeakReference<WireConnection>>)fieldInfo.GetValue(this.Parent.GetComponent<DigiCustomLiquidConverterComponent>().producer.OutputPipe);
 
             if (value is ThreadSafeList<WeakReference<WireConnection>> threadSafeList)
             {
                 foreach (var thing in threadSafeList.Refs())
                 {
-                    thing.Owner.GetComponent<TurbineComponent>().temperature = 1000;
-                    Log.Write(Localizer.Format(thing.Owner.ToString()));
+                    if (thing.Owner is SteamTurbineObject)
+                    {
+                        thing.Owner.GetComponent<AdvancedTurbineComponent>().inletTemperature = this.outletTemperature;
+                        thing.Owner.GetComponent<AdvancedTurbineComponent>().inletPressure = this.outletPressure;
+                        thing.Owner.GetComponent<AdvancedTurbineComponent>().inletEnthalpy = this.outletEnthalpy;
+                        thing.Owner.GetComponent<AdvancedTurbineComponent>().inletEntropy = this.outletEntropy;
+                    }
                 }
-            }    
+            }
         }
 
         private float CalculateControlRodInsertion(float targetNeutronRate, float currentNeutrons)
@@ -205,6 +249,10 @@ namespace Digits.Nuclear
             this.coreHeat -= coreCasingHeatFlux;
             this.casingHeat += coreCasingHeatFlux - casingEnvHeatFlux - coolingHeat;
 
+            this.outletEnthalpy = inletEnthalpy + CalculateAddedHeat()/this.amountConverted;
+            this.amountConverted = 0;
+            this.outletEntropy = RankineData.s_from_p_h(outletPressure, outletEnthalpy).Item1;
+
             //! Nuclear Calcs
             if (this.Parent.GetComponent<ReactorFuelComponent>().HasFuel())
             {
@@ -231,8 +279,8 @@ namespace Digits.Nuclear
             if (this.freeNeutrons + freeNeutronsRate <= 0) this.freeNeutrons = 0;
             else this.freeNeutrons += freeNeutronsRate;
 
-            this.CoreTemperatureView = Localizer.Format("{0} C, {1} J (+{2} J, -{3} J)", this.coreTemperature.ToString("0"), this.coreHeat.ToString("0"), absorbtionHeat.ToString("0.0"), coreCasingHeatFlux.ToString("0.0"));
-            this.CasingTemperatureView = Localizer.Format("{0} C, {1} J (+{2} J, -{3} J, {4}% Eff)", this.casingTemperature.ToString("0"), this.casingHeat.ToString("0"), coreCasingHeatFlux.ToString("0.0"), (casingEnvHeatFlux + coolingHeat).ToString("0.0"), (100*coolingHeat/(coolingHeat+casingEnvHeatFlux)).ToString("0.0"));
+            this.CoreTemperatureView = Localizer.Format("{0} C, {1} J ({2} W, {3} W)", this.coreTemperature.ToString("0"), this.coreHeat.ToString("0"), absorbtionHeat.ToString("0.0"), (-coreCasingHeatFlux).ToString("0.0"));
+            this.CasingTemperatureView = Localizer.Format("{0} C, {1} J ({2} W, {3} W, {4}% Eff)", this.casingTemperature.ToString("0"), this.casingHeat.ToString("0"), coreCasingHeatFlux.ToString("0.0"), (-(casingEnvHeatFlux + coolingHeat)).ToString("0.0"), (100*coolingHeat/(coolingHeat+casingEnvHeatFlux)).ToString("0.0"));
             this.NeutronView = Localizer.Format("{0} Free neutrons", this.freeNeutrons.ToString("0"));
         }
 

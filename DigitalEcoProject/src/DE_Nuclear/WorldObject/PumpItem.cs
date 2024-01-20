@@ -2,43 +2,21 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Eco.Core.Items;
-using Eco.Gameplay.Blocks;
 using Eco.Gameplay.Components;
 using Eco.Gameplay.Components.Auth;
-using Eco.Gameplay.DynamicValues;
-using Eco.Gameplay.Economy;
 using Eco.Gameplay.Housing;
-using Eco.Gameplay.Interactions;
 using Eco.Gameplay.Items;
-using Eco.Gameplay.Modules;
-using Eco.Gameplay.Minimap;
 using Eco.Gameplay.Objects;
 using Eco.Gameplay.Occupancy;
-using Eco.Gameplay.Players;
-using Eco.Gameplay.Property;
 using Eco.Gameplay.Skills;
-using Eco.Gameplay.Systems;
 using Eco.Gameplay.Systems.TextLinks;
-using Eco.Gameplay.Pipes.LiquidComponents;
-using Eco.Gameplay.Pipes.Gases;
-using Eco.Shared;
 using Eco.Shared.Math;
 using Eco.Shared.Localization;
 using Eco.Shared.Serialization;
 using Eco.Shared.Utils;
-using Eco.Shared.View;
 using Eco.Shared.Items;
-using Eco.Shared.Networking;
-using Eco.Gameplay.Pipes;
-using Eco.World.Blocks;
 using Eco.Gameplay.Housing.PropertyValues;
-using Eco.Gameplay.Civics.Objects;
-using Eco.Gameplay.Settlements;
 using Eco.Gameplay.Systems.NewTooltip;
-using Eco.Core.Controller;
-using Eco.Core.Utils;
-using Eco.Gameplay.Components.Storage;
-using static Eco.Gameplay.Housing.PropertyValues.HomeFurnishingValue;
 using Eco.Gameplay.Items.Recipes;
 using Eco.Mods.TechTree;
 
@@ -50,23 +28,23 @@ namespace Digits.Nuclear
     [RequireComponent(typeof(PropertyAuthComponent))]    
     [RequireComponent(typeof(HousingComponent))]   
     [RequireComponent(typeof(OccupancyRequirementComponent))]
-    [RequireComponent(typeof(AdvancedTurbineComponent))]
-    [RequireComponent(typeof(ForSaleComponent))]   
+    [RequireComponent(typeof(AdvancedPumpComponent))]
+    [RequireComponent(typeof(ForSaleComponent))]  
     [Tag("Usable")]
-    public partial class SteamTurbineObject : WorldObject, IRepresentsItem
+    public partial class PumpObject : WorldObject, IRepresentsItem
     {
-        public virtual Type RepresentedItemType => typeof(SteamTurbineItem);
-        public override LocString DisplayName => Localizer.DoStr("Steam Turbine");
+        public virtual Type RepresentedItemType => typeof(PumpItem);
+        public override LocString DisplayName => Localizer.DoStr("Pump");
         public override TableTextureMode TableTexture => TableTextureMode.Metal;
 
         protected override void Initialize()
         {                                      
-            this.GetComponent<AdvancedTurbineComponent>().Initialize(BlockOccupancyType.WaterInputPort, BlockOccupancyType.OutputPort);
+            this.GetComponent<AdvancedPumpComponent>().Initialize();
         }  
         
-        static SteamTurbineObject()
+        static PumpObject()
         {
-            WorldObject.AddOccupancy<SteamTurbineObject>(new List<BlockOccupancy>(){
+            WorldObject.AddOccupancy<PumpObject>(new List<BlockOccupancy>(){
             //new BlockOccupancy(new Vector3i(0, 0, 0)),
             new BlockOccupancy(new Vector3i(0, 0, 0), typeof(PipeSlotBlock), new Quaternion(0f, -0.7071068f, 0f, -0.7071068f), BlockOccupancyType.WaterInputPort),
             new BlockOccupancy(new Vector3i(0, 0, 0), typeof(PipeSlotBlock), new Quaternion(0f, -0.7071068f, 0f, 0.7071068f), BlockOccupancyType.OutputPort)
@@ -79,34 +57,31 @@ namespace Digits.Nuclear
     }
 
     [Serialized]
-    [LocDisplayName("Steam Turbine")]
-    [LocDescription("A complicated piece of machinery made to turn steam power into {new ElectricPower().Name}. This unit can handle up to {Text.Info(10000)}w, the amount produced by a small nuclear reactor.")]
+    [LocDisplayName("Pump")]
+    [LocDescription("")]
     //[Ecopedia("Crafted Objects", "Power Generation", createAsSubPage: true, display: InPageTooltip.DynamicTooltip)]
     [Weight(100)]
-    public partial class SteamTurbineItem : WorldObjectItem<SteamTurbineObject>
+    public partial class PumpItem : WorldObjectItem<PumpObject>
     {
         protected override OccupancyContext GetOccupancyContext => new SideAttachedContext( 0  | DirectionAxisFlags.Down , WorldObject.GetOccupancyInfo(this.WorldObjectType));
         public override HomeFurnishingValue HomeValue => homeValue;
         public static readonly HomeFurnishingValue homeValue = new HomeFurnishingValue()
         {
-            ObjectName               = typeof(SteamTurbineObject).UILink(),
+            ObjectName               = typeof(PumpObject).UILink(),
             Category                 = HousingConfig.GetRoomCategory("Industrial"),
             TypeForRoomLimit         = Localizer.DoStr(""),
         };
-
-        [NewTooltip(CacheAs.SubType, 7)] public static LocString PowerConsumptionTooltip() => Localizer.Do($"Consumes: {Text.Info(10000)}w of steam power");
-        [NewTooltip(CacheAs.SubType, 8)] public static LocString PowerProductionTooltip()  => Localizer.Do($"Produces: {Text.Info(10000)}w of {new ElectricPower().Name} power (electricity)");          
     }
 
     [RequiresSkill(typeof(MechanicsSkill), 1)]
-    public partial class SteamTurbineRecipe : RecipeFamily
+    public partial class PumpRecipe : RecipeFamily
     {
-        public SteamTurbineRecipe()
+        public PumpRecipe()
         {
             var recipe = new Recipe();
             recipe.Init(
-                name: "SteamTurbine",
-                displayName: Localizer.DoStr("Steam Turbine"),
+                name: "Pump",
+                displayName: Localizer.DoStr("Pump"),
 
                 ingredients: new List<IngredientElement>
                 {
@@ -121,7 +96,7 @@ namespace Digits.Nuclear
 
                 items: new List<CraftingElement>
                 {
-                    new CraftingElement<SteamTurbineItem>()
+                    new CraftingElement<PumpItem>()
                 }
             );
             this.Recipes = new List<Recipe> { recipe };
@@ -130,10 +105,10 @@ namespace Digits.Nuclear
             this.CraftMinutes = CreateCraftTimeValue(60f);
 
             this.ModsPreInitialize();
-            this.Initialize(displayText: Localizer.DoStr("Steam Turbine"), recipeType: typeof(SteamTurbineRecipe));
+            this.Initialize(displayText: Localizer.DoStr("Pump"), recipeType: typeof(PumpRecipe));
             this.ModsPostInitialize();
 
-        this.Initialize(Localizer.DoStr("SteamTurbine"), typeof(SteamTurbineRecipe));
+        this.Initialize(Localizer.DoStr("Pump"), typeof(PumpRecipe));
 
         CraftingComponent.AddRecipe(typeof(RoboticAssemblyLineObject), this);
         }

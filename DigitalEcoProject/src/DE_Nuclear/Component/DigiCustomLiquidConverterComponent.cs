@@ -52,7 +52,7 @@ namespace Digits.Nuclear
 
             this.consumer.Setup(inputType, consumptionRate, inputBlockType, requiredFlow, this);
             this.consumer.OnCanReceive += this.OnCanReceive;
-            this.consumer.ShouldConsumeLiquid = () => true;
+            this.consumer.ShouldConsumeLiquid = () => this.ShouldConvertLiquid?.Invoke() ?? true;
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
         }
 
@@ -63,7 +63,7 @@ namespace Digits.Nuclear
 
         internal float Convert(PipePayload input)
         {
-            if (this.ShouldConvertLiquid.Invoke())
+            if (this.ShouldConvertLiquid?.Invoke() ?? true)
             {
                 var convertedAmount = this.producer.Produce(input.Amount, input.Time);
                 if (convertedAmount > 0)
