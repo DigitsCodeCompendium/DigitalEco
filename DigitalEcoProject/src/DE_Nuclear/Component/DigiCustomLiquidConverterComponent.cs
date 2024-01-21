@@ -25,6 +25,9 @@ namespace Digits.Nuclear
 
         public event Action<float> OnConvert; // Called when the component performs a conversion
 
+        public float fluidAmount { get; private set; }
+        public float maxFluidAmount { get; private set; }
+
         private bool enabled = true;
         private bool cyclicPipe;
         private float maxCanReceive;
@@ -40,8 +43,10 @@ namespace Digits.Nuclear
         public DigiCustomLiquidConsumerComponent In => this.consumer;
         public LiquidProducerComponent Out => this.producer;
 
-        public void Setup(Type inputType, Type outputsType, BlockOccupancyType inputBlockType, BlockOccupancyType outputBlockType, float consumptionRate = 1f, float requiredFlow = .9f)
+        public void Setup(Type inputType, Type outputsType, BlockOccupancyType inputBlockType, BlockOccupancyType outputBlockType, float consumptionRate = 1f, float requiredFlow = .9f, float maxFluidAmount = 1000f)
         {
+            this.maxFluidAmount = maxFluidAmount;
+
             // Setup the input and output.
             this.receivesType = inputType;
             this.outputsType = outputsType;
@@ -56,7 +61,7 @@ namespace Digits.Nuclear
             this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
         }
 
-        public void adjustConsumptionRate(float rate)
+        public void AdjustConsumptionRate(float rate)
         {
             this.consumer.constantConsumptionRate = rate;
         }
