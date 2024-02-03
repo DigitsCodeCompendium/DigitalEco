@@ -1,0 +1,1723 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a06e2ecf2771c9142926f067d120ded4, type: 3}
+  m_Name: Iron Ore Blending Builder
+  m_EditorClassIdentifier: 
+  usageCases:
+  - enabled: 1
+    mesh: {fileID: 1733749967723970, guid: 6c407698ef80d1340b6c3799fc232a98, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 0e88f4524485c3f438e6ab986cc0ee12, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1733749967723970, guid: bfa7829ebc28f6b4bafb5cf92ece1a0f, type: 3}
+    - {fileID: 1733749967723970, guid: c047de7627502314e999ef736a937f47, type: 3}
+    - {fileID: 1733749967723970, guid: 2e44a2a5538aade4bbdc9c206940668a, type: 3}
+    - {fileID: 1733749967723970, guid: cd051819eed5179408d277ae888e8548, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 24
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 22
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 18
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders: []
+  - enabled: 1
+    mesh: {fileID: 1733749967723970, guid: dda86ad8b6232c5499006128bf08b1f7, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 44e5e464b8f190f4bb3aa6ad9a089a08, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1733749967723970, guid: 669a6bd0c130d83478c071a781f6df79, type: 3}
+    - {fileID: 1733749967723970, guid: 501a2e52d4b9837448522c402f5d4b82, type: 3}
+    - {fileID: 1733749967723970, guid: 171483dda6a7dad4f96c6b8fba9427a3, type: 3}
+    - {fileID: 1733749967723970, guid: 24d0d62f4ac062a41935a2dcbbdb2720, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 1a32731001bdd714cb074edd76eb965d, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1697026562289968, guid: fc857e522f326b04f947f52d1a80ba5d, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: ea3d0d8de12b06e43b4da152f7265371, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1697026562289968, guid: 28f3141b25268d7499fe735fa7d2e9a8, type: 3}
+    - {fileID: 1697026562289968, guid: 6b84c64823e21674bbef5ff86bbe71f0, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1653607741350966, guid: 7c8ea38da48a219449d5e5308a9c15ce, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 624490fb034c9d34397d6489c65c8af3, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1895951186352728, guid: 276ff7cbd9c08c4428361ef00c5e15bb, type: 3}
+    - {fileID: 1895951186352728, guid: 95778b7e7b6c20c49a78d8ab3ad12c22, type: 3}
+    - {fileID: 1895951186352728, guid: 46d5963a2c152ec44b2adf0bdfe80ff1, type: 3}
+    - {fileID: 1895951186352728, guid: 3519c5e72160eeb47870c4dfddd9bab2, type: 3}
+    - {fileID: 1895951186352728, guid: 1c3df6431f7a6f74ead2428d36625b9b, type: 3}
+    - {fileID: 1895951186352728, guid: e3b4eb24b2347f945a0badf891674dd7, type: 3}
+    - {fileID: 1653607741350966, guid: 7c8ea38da48a219449d5e5308a9c15ce, type: 3}
+    - {fileID: 1653607741350966, guid: 7c8ea38da48a219449d5e5308a9c15ce, type: 3}
+    - {fileID: 1653607741350966, guid: 7c8ea38da48a219449d5e5308a9c15ce, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 11
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 9
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 24
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 24a714fcb93cd8d4d9e2c15780f491a8, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1895951186352728, guid: 981500a8380c14847aca4a7daaa01939, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 346afc655c0c0614197ce50873f47a55, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1895951186352728, guid: dc1b6f28df9b0c84084844856994bd3e, type: 3}
+    - {fileID: 1895951186352728, guid: 334e01e7452acad418846c1903e3c1a5, type: 3}
+    - {fileID: 1895951186352728, guid: 78e17dba2fbe805499703a4387042b06, type: 3}
+    - {fileID: 1895951186352728, guid: d3d384a8a6637274eaaafe60688b12a4, type: 3}
+    - {fileID: 1895951186352728, guid: 1b5f5f462c9f49f4e9ce876ec84593b7, type: 3}
+    - {fileID: 1895951186352728, guid: ad47da0adcbdfbb4c9bc99a4e6ad4102, type: 3}
+    - {fileID: 1895951186352728, guid: 981500a8380c14847aca4a7daaa01939, type: 3}
+    - {fileID: 1895951186352728, guid: 981500a8380c14847aca4a7daaa01939, type: 3}
+    - {fileID: 1895951186352728, guid: 981500a8380c14847aca4a7daaa01939, type: 3}
+    - {fileID: 1895951186352728, guid: 981500a8380c14847aca4a7daaa01939, type: 3}
+    - {fileID: 1895951186352728, guid: 981500a8380c14847aca4a7daaa01939, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 9
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 11
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: -0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 24a714fcb93cd8d4d9e2c15780f491a8, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1641341162772590, guid: acc64805e99f7df4fb46413ee9583b51, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 7d9f5265f1286a84b97d6de1116d4121, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1591761940582364, guid: 6876c1698d79b1745ba387d392c3482f, type: 3}
+    - {fileID: 1591761940582364, guid: 5dba8f0386d07224d8146e28586bea3e, type: 3}
+    - {fileID: 1591761940582364, guid: e101f352827c45446ab3be1b77e0cab0, type: 3}
+    - {fileID: 1591761940582364, guid: 8b5d446586ec8bc409d089318652a930, type: 3}
+    - {fileID: 1591761940582364, guid: 1476dd138cc3cd94e99ad81c6605d0dc, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 22
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 24
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 25
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 9
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 21
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 3b41ab22a0bb22342989aa8afdad6b11, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1591761940582364, guid: be29dbf9f3703dd42ad1a9218c86379c, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 5ec057616e6451b43a141d8283d47c41, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1591761940582364, guid: 045445ef4a439f0499e7910f768a0c93, type: 3}
+    - {fileID: 1591761940582364, guid: 890eb31f9af1cc140b1af51142458ede, type: 3}
+    - {fileID: 1591761940582364, guid: 7e0e36b488d979a458db199e42fd7d80, type: 3}
+    - {fileID: 1591761940582364, guid: 844441fc565ec2847886af7bf6044248, type: 3}
+    - {fileID: 1591761940582364, guid: 1f49e2e4701a11d44967d57b05b57f87, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 9
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 3b41ab22a0bb22342989aa8afdad6b11, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: ecaff055a24e2ed46a27eec99c25f2f5, type: 2}
+    - {fileID: 11400000, guid: 05425045d42967a42be713ae8787cce9, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1415605779837222, guid: 8db6a5eb3cc1d5848bc54dff91b2c6c6, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 4260d7d46f0b96245a6fabcbf2a38273, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1113197569760256, guid: 509be81d5918e4342a8fdafcc5f41f31, type: 3}
+    - {fileID: 1113197569760256, guid: 15c8173d82b31534d97e05519413e779, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 7
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 5
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 22
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 24
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 25
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 4
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 1
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 3
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 19ef395e1fc46b04395ef96d7e7db122, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1113197569760256, guid: ca1ab80ddfe978041a5e386380948926, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 3e959aeb7527109479dbd5dcf6848d5d, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1113197569760256, guid: fe17645693be35b4b8511b5cdfe3cfe5, type: 3}
+    - {fileID: 1113197569760256, guid: 8f9d94676beb65e4a98078a211bd5138, type: 3}
+    - {fileID: 1113197569760256, guid: 94c8edf766f94fa48b5eb8a84b2dde45, type: 3}
+    - {fileID: 1113197569760256, guid: 73c249591b4376649929290827d125a0, type: 3}
+    - {fileID: 1113197569760256, guid: f6949908e72701f498038f9337877277, type: 3}
+    - {fileID: 1113197569760256, guid: 5078e05623a829747b13f1e154de9b43, type: 3}
+    - {fileID: 1113197569760256, guid: ca1ab80ddfe978041a5e386380948926, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 4
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 7
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 5
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 1
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 3
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 044a160d74c37814d9682da852ff09df, type: 2}
+    - {fileID: 11400000, guid: ecaff055a24e2ed46a27eec99c25f2f5, type: 2}
+    - {fileID: 11400000, guid: 05425045d42967a42be713ae8787cce9, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1607251563855840, guid: 4bf1f336d59c9114eaea4eb67df41b71, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 0699f683a45d0db448f443c7349e8263, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1607251563855840, guid: eb40e46393424a7448a934034633eaad, type: 3}
+    - {fileID: 1607251563855840, guid: 6269929b72d07e04eb16d6fb91f0f69c, type: 3}
+    - {fileID: 1607251563855840, guid: 4abcc047f83363242a83523c7fc93093, type: 3}
+    - {fileID: 1607251563855840, guid: e97bf8a3af0dbc848ad4471a231ac399, type: 3}
+    - {fileID: 1607251563855840, guid: 4bf1f336d59c9114eaea4eb67df41b71, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 0485ff50bfa0292488afb4d917e88d32, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1662043133668672, guid: 822d46f204704864fb5bdb61a7e7288c, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: b8b1ada4a07688045979ff87dc318bde, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1662043133668672, guid: f9cd44ddb1e32fa40aabe062415bff57, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 9
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 8dbb10d8816fa634184034e62a285562, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: ecaff055a24e2ed46a27eec99c25f2f5, type: 2}
+    - {fileID: 11400000, guid: 05425045d42967a42be713ae8787cce9, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1203243704349394, guid: 0ec33fb1cb90cf2489836c6321ef7024, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: a24a124e70735534e82bb3326a13794f, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1203243704349394, guid: a44d845dd0c1cf7419e0957dc9182b46, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 15
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 16
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 9
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 11
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 14
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: b77e4f818eeebad469693041c54e95eb, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1418647980674966, guid: 6d0090359cb8df349a15671d08c20536, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: ff9e3e403e92c6744adf5a0191eb89e4, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1418647980674966, guid: c883b3a866d3d73478d44376a8101c5f, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 14
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 11
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 16
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 9
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 2ca315cb89f9bbb40b950d9757b504f0, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1434188232361744, guid: 35a6395130f070c4cb444fa87b579a61, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: cf9f368666c08bb43b8c20006d212d23, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1434188232361744, guid: 5fe85bb4d4e7045479c58dd0c6798f29, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 14
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 16
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 9
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 11
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 1342fa3eb5a56284996ab88edfd89458, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1483321748808266, guid: 51aee9875a6411e49b5758550f203b50, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: d8002d75d132ff547af53d6d36119c98, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1483321748808266, guid: c8977ff7fd837e745bd1b777502aad6f, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 14
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 16
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 9
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 11
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 322858b2cb7787a4fa8f4482c048b893, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1774349490349334, guid: 784320a59e6f7f84a97cedef7bb69b56, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: ddef964a268d258429b971edf3a28fd8, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1203243704349394, guid: a44d845dd0c1cf7419e0957dc9182b46, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 9
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 11
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 5defcfc27d8ed144bb965e57bb212de7, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1245346990919806, guid: 07a8581a219417c40a50c57171aaf537, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 6adecec3b4cfd9d4bb53b8cecf2c5235, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1245346990919806, guid: 9d0bbdd12fdbb0542bb19f5b32a52ff7, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 9
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 11
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 697680438e8f48d40b4f37079991f34f, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1181517056781446, guid: 4958d11fdb21575498a050a91c5d6830, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: f85ce57ce95cb8344bd744606bb35bcc, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1181517056781446, guid: 9d56c020ffae2c542ac046363f67ddb0, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 9
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 11
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 88823781502065e42a27df43823cfa59, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1394642013356448, guid: f745449237ecd3d458b9d6e9edd38ab1, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: c020c9fbddebcae458ebf7fe146c6c66, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1394642013356448, guid: f745449237ecd3d458b9d6e9edd38ab1, type: 3}
+    - {fileID: 1394642013356448, guid: cae3804f36566884a8f3958fd5599e76, type: 3}
+    - {fileID: 1394642013356448, guid: 2a7f93b77d7775e4f809b1cf7ef60096, type: 3}
+    - {fileID: 1232444775664570, guid: 58b5f51757c267d48bbb958892a95793, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 14
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 16
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 11
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 9
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 8
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 5
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: c3709bf60de5e884bb0f25e6750e7cf9, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1394642013356448, guid: f745449237ecd3d458b9d6e9edd38ab1, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: ef0a6955e5538aa47a7f96fc470f56e6, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1232444775664570, guid: 58b5f51757c267d48bbb958892a95793, type: 3}
+    - {fileID: 1394642013356448, guid: f745449237ecd3d458b9d6e9edd38ab1, type: 3}
+    - {fileID: 1394642013356448, guid: cae3804f36566884a8f3958fd5599e76, type: 3}
+    - {fileID: 1394642013356448, guid: 2a7f93b77d7775e4f809b1cf7ef60096, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 4
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 14
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 16
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 11
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 9
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 7
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 8
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: e4b9fde4a92ab70478aed13a112f8acd, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1655627146717940, guid: 8aa73c0997c57264eba4eaf6cec95617, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 37aa377b453706f4a8f2e00caa81cde3, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1394642013356448, guid: 74d0de9c816ce0e43b5fb0a5dadacc80, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 4
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 1
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 3
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 8
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 5
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 7
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 16
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 898a0d1ad61409841a9ba761ec1e9fa6, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1655627146717940, guid: e27c140a23292194cbc27f91d073e278, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 383fcb2648a43e94dab78ae5aec1d92e, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1394642013356448, guid: f50670a368d902f44a9ae4ec1aec351a, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 16
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 4
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 1
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 3
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 8
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 5
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 7
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 898a0d1ad61409841a9ba761ec1e9fa6, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1655627146717940, guid: c6e60f0ad18fccd43b2367a45920276c, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 11a66659573ba34489d9b7a4efcdf68b, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1394642013356448, guid: 50b9968c9c3196c44810a3dd070a6633, type: 3}
+    - {fileID: 1394642013356448, guid: 2a82cfe404adea841babe8e5cb905729, type: 3}
+    - {fileID: 1394642013356448, guid: 91977d4161d588a4bbfb363f59514fa5, type: 3}
+    - {fileID: 1394642013356448, guid: 43384c12a33667a48b58114635e12af3, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 4
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 3
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 7
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 5
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 1
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 8
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 16
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 898a0d1ad61409841a9ba761ec1e9fa6, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1655627146717940, guid: c6e60f0ad18fccd43b2367a45920276c, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 11a66659573ba34489d9b7a4efcdf68b, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1394642013356448, guid: 50b9968c9c3196c44810a3dd070a6633, type: 3}
+    - {fileID: 1394642013356448, guid: 2a82cfe404adea841babe8e5cb905729, type: 3}
+    - {fileID: 1394642013356448, guid: 91977d4161d588a4bbfb363f59514fa5, type: 3}
+    - {fileID: 1394642013356448, guid: 43384c12a33667a48b58114635e12af3, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 7
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 3
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 4
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 5
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 1
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 16
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 8
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 898a0d1ad61409841a9ba761ec1e9fa6, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1655627146717940, guid: 8aa73c0997c57264eba4eaf6cec95617, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 37aa377b453706f4a8f2e00caa81cde3, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1394642013356448, guid: 74d0de9c816ce0e43b5fb0a5dadacc80, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 4
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 7
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 3
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 5
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 1
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 16
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 8
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 898a0d1ad61409841a9ba761ec1e9fa6, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1655627146717940, guid: e27c140a23292194cbc27f91d073e278, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: 383fcb2648a43e94dab78ae5aec1d92e, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates:
+    - {fileID: 1394642013356448, guid: f50670a368d902f44a9ae4ec1aec351a, type: 3}
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 7
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 3
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 4
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 5
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 1
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 13
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 16
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 8
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 60c6f0cda4f7d4349b4f526aa67ef36f, type: 2}
+    - {fileID: 11400000, guid: 898a0d1ad61409841a9ba761ec1e9fa6, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 1050643353084890, guid: 53a4f3dacd1c6b6479b8d594041ce6e3, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: e70f213a7d6340a469a3da0780727d1e, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates: []
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 13
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 15
+      rules:
+      - ruleType: 5
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 4
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 10
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    - offsetType: 12
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 1
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: af84ce5fd84e4934387bd09a89cdf9b9, type: 2}
+    - {fileID: 11400000, guid: 0d6ce8b6eddca37449ae033420f13795, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 05425045d42967a42be713ae8787cce9, type: 2}
+  - enabled: 1
+    mesh: {fileID: 100000, guid: f91f1e23535c540439cd995bd09ca716, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: fd84fdc870cbc924ea5badd24756945f, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates: []
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 4
+      rules:
+      - ruleType: 2
+        ruleString: Terrain
+        ruleID: 0
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 0d6ce8b6eddca37449ae033420f13795, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+    - {fileID: 11400000, guid: 88d6981680df36f42ac76ae3d71001ac, type: 2}
+  - enabled: 1
+    mesh: {fileID: 100000, guid: 196ef400791b22048aa5274fdd445648, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: e573a0a7d9f6cca47990405c227747df, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates: []
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 15
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: a36a57dc9ace3a5498e1aeaf122c8794, type: 2}
+    - {fileID: 11400000, guid: baf2ef722eb741643a28a98c89d1f1a9, type: 2}
+    - {fileID: 11400000, guid: 1e8dccef2953f4b4a87c4976df118eb1, type: 2}
+    - {fileID: 11400000, guid: 517205013676c274f944352c5c197c18, type: 2}
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 75ae5b35f96078f4ab603160b5fccf30, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+  - enabled: 1
+    mesh: {fileID: 100000, guid: 196ef400791b22048aa5274fdd445648, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: e573a0a7d9f6cca47990405c227747df, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates: []
+    isMeshAlternatesFacesConcave: 
+    conditions:
+    - offsetType: 21
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    - offsetType: 13
+      rules:
+      - ruleType: 3
+        ruleString: 
+        ruleID: 0
+    - offsetType: 12
+      rules:
+      - ruleType: 3
+        ruleString: 
+        ruleID: 0
+    - offsetType: 15
+      rules:
+      - ruleType: 3
+        ruleString: 
+        ruleID: 0
+    - offsetType: 10
+      rules:
+      - ruleType: 3
+        ruleString: 
+        ruleID: 0
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders:
+    - {fileID: 11400000, guid: 7df27a54925c7324a99e3ff526703e7d, type: 2}
+    - {fileID: 11400000, guid: 77c3080ac16366c4293e43ee7f02fa7e, type: 2}
+    - {fileID: 11400000, guid: 88d6981680df36f42ac76ae3d71001ac, type: 2}
+  - enabled: 1
+    mesh: {fileID: 100000, guid: 196ef400791b22048aa5274fdd445648, type: 3}
+    blockMeshLodGroup: {fileID: 11400000, guid: e573a0a7d9f6cca47990405c227747df, type: 2}
+    isMeshFacesConcave: 0
+    meshAlternates: []
+    isMeshAlternatesFacesConcave: 
+    conditions: []
+    applyConditionsToAllRotations: 0
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders: []
+  previewMaterial: {fileID: 2100000, guid: b78bd7230c9526846a2f46959c179adc, type: 2}

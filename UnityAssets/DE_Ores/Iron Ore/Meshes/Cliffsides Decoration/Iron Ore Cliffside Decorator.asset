@@ -1,0 +1,261 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a06e2ecf2771c9142926f067d120ded4, type: 3}
+  m_Name: Iron Ore Cliffside Decorator
+  m_EditorClassIdentifier: 
+  usageCases:
+  - enabled: 1
+    mesh: {fileID: 100000, guid: b26262dbf7ef9484cb358149fbbefba8, type: 3}
+    meshAlternates:
+    - {fileID: 100000, guid: 40d9e2d0775aab744abffc3156fb4a0f, type: 3}
+    - {fileID: 100000, guid: 954f03ea6d54bf44592434933ab78349, type: 3}
+    - {fileID: 100000, guid: 7ec8315ed78e57546bf266d62bec8728, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    conditions:
+    - offsetType: 15
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    - offsetType: 13
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    - offsetType: 10
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    - offsetType: 12
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders: []
+  - enabled: 1
+    mesh: {fileID: 100000, guid: f9b90702c0f0a5d4db0a5ae662ce76ac, type: 3}
+    meshAlternates:
+    - {fileID: 100000, guid: 0266bb1209aaeda40980a96091d398c2, type: 3}
+    - {fileID: 100000, guid: bd0d2d934d732c0459301c62ba88aa33, type: 3}
+    - {fileID: 100000, guid: 3558e3d701cc00749a2ffea5c2624256, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    conditions:
+    - offsetType: 13
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    - offsetType: 15
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    - offsetType: 10
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders: []
+  - enabled: 1
+    mesh: {fileID: 100000, guid: 0db963f6f31fd7b4cbfdb5bce7ea0ce3, type: 3}
+    meshAlternates:
+    - {fileID: 100000, guid: 8aaad3bdb3406af4398f231d27959f9c, type: 3}
+    - {fileID: 100000, guid: fb805097b38c27f40a09181e4537862d, type: 3}
+    - {fileID: 100000, guid: 095408ce01a362f4e8b364a8772e6e6b, type: 3}
+    - {fileID: 100000, guid: 4afb9333fb2fcac4d9a5f76291e33732, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    conditions:
+    - offsetType: 15
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    - offsetType: 12
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders: []
+  - enabled: 1
+    mesh: {fileID: 100000, guid: 3cd5cad364f4a984190c416dc8752c7c, type: 3}
+    meshAlternates:
+    - {fileID: 100000, guid: 7c06b5a69907c4147a1ac45b2c7af397, type: 3}
+    - {fileID: 100000, guid: e382c9bee4d9c704bbc55f0bd38f5675, type: 3}
+    - {fileID: 100000, guid: 5918e664aa8090d42bc6006ff6d883f9, type: 3}
+    - {fileID: 100000, guid: f25f36675408fb9458e9a95ac37622d1, type: 3}
+    - {fileID: 100000, guid: f6accd72f4cb2bd4286311b04934b468, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    conditions:
+    - offsetType: 12
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    - offsetType: 13
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders: []
+  - enabled: 1
+    mesh: {fileID: 100000, guid: 65f7a6d47cc75de44b60dd73675f9d6b, type: 3}
+    meshAlternates:
+    - {fileID: 100000, guid: 21b44546616d72a4f955b7612558265e, type: 3}
+    - {fileID: 100000, guid: 7fb5657d22eaf03488a53f72bceefe7b, type: 3}
+    - {fileID: 100000, guid: 145251ea3f0dc4c47ab17fb8016f4677, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    conditions:
+    - offsetType: 10
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    - offsetType: 21
+      rules:
+      - ruleType: 3
+        ruleString: 
+        ruleID: 0
+    - offsetType: 18
+      rules:
+      - ruleType: 4
+        ruleString: Terrain
+        ruleID: 0
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders: []
+  - enabled: 1
+    mesh: {fileID: 100000, guid: 13e263ea64890c741a5164a3ac05eda8, type: 3}
+    meshAlternates:
+    - {fileID: 100000, guid: e314b04699fab8d41892013a909fb41c, type: 3}
+    - {fileID: 100000, guid: 818e7f2ae1765d34d9b7b19281741c26, type: 3}
+    - {fileID: 100000, guid: e88e3ae0909eb4a459c58cefa3a19712, type: 3}
+    - {fileID: 100000, guid: c9f1cc05b0514d1468cf50115524055d, type: 3}
+    - {fileID: 100000, guid: 6d5a5fdaea125054194e457f741de494, type: 3}
+    - {fileID: 100000, guid: f133fa0c4da52584d88d27d45889696c, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    conditions:
+    - offsetType: 10
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    - offsetType: 13
+      rules:
+      - ruleType: 6
+        ruleString: 
+        ruleID: 0
+    - offsetType: 12
+      rules:
+      - ruleType: 6
+        ruleString: 
+        ruleID: 0
+    - offsetType: 4
+      rules:
+      - ruleType: 6
+        ruleString: 
+        ruleID: 0
+    - offsetType: 5
+      rules:
+      - ruleType: 6
+        ruleString: 
+        ruleID: 0
+    - offsetType: 3
+      rules:
+      - ruleType: 6
+        ruleString: 
+        ruleID: 0
+    - offsetType: 22
+      rules:
+      - ruleType: 6
+        ruleString: 
+        ruleID: 0
+    - offsetType: 21
+      rules:
+      - ruleType: 6
+        ruleString: 
+        ruleID: 0
+    - offsetType: 20
+      rules:
+      - ruleType: 6
+        ruleString: 
+        ruleID: 0
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders: []
+  - enabled: 1
+    mesh: {fileID: 100000, guid: ffb0271127a78664c8f790f8ff11104d, type: 3}
+    meshAlternates:
+    - {fileID: 100000, guid: c01199c855c85e944852d988689ef63a, type: 3}
+    - {fileID: 100000, guid: 7aebd6d738c51464ba066da8c26fff3b, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    conditions:
+    - offsetType: 10
+      rules:
+      - ruleType: 2
+        ruleString: 
+        ruleID: 0
+    applyConditionsToAllRotations: 1
+    axis: 1
+    dontRotateBaseMesh: 0
+    importRotation: {x: 0, y: 0, z: 0}
+    decorativeBuilders: []
+  previewMaterial: {fileID: 0}

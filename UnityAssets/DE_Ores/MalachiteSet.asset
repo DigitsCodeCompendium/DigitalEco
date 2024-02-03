@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bad84a2cfb63014f88243989c9d3ef2, type: 3}
+  m_Name: MalachiteSet
+  m_EditorClassIdentifier: 
+  Blocks:
+  - Name: Malachite
+    Builder: {fileID: 0}
+    Material: {fileID: 0}
+    LODTexture: {fileID: 0}
+    OverrideMainMaterialTransparency: 0
+    Materials: []
+    OverrideSubMaterialsTransparency: 
+    MinimapColor: {r: 0, g: 1, b: 0, a: 1}
+    IsDiggable: 0
+    IsWater: 0
+    Solid: 1
+    WaterOccupancy: 0
+    WaterLoggable: 0
+    BuildCollider: 1
+    Rendered: 1
+    ShadowCastingMode: 1
+    Layer: Terrain
+    Category: Default
+    Tier: 0
+    BlendingPriority: 0
+    GenerateMeshCollider: 0
+    IsEmpty: 0
+    PrefabHeightOffset: -0.5
+    ActualHeight: 1
+    AudioCategory: 
+    MusicCategory: 
+    Effects: []
+    EffectNames: []
+    IsLadder: 0
+    IsSlope: 0
+    Editor: {fileID: 0}

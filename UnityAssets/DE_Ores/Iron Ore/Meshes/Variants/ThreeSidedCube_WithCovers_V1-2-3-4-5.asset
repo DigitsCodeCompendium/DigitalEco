@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a11119639d0412143b0784ccf15bb835, type: 3}
+  m_Name: ThreeSidedCube_WithCovers_V1-2-3-4-5
+  m_EditorClassIdentifier: 
+  LOD0:
+  - mesh: {fileID: 4300000, guid: 24ec4784277aad34f8b0fe23c461326f, type: 3}
+    concaveFaces: 0
+  - mesh: {fileID: 4300000, guid: 7993efd5269b911419d7b7cc16125719, type: 3}
+    concaveFaces: 0
+  - mesh: {fileID: 4300000, guid: 15f1c8090419afd46b6b032af007d3e0, type: 3}
+    concaveFaces: 0
+  - mesh: {fileID: 4300000, guid: 49e063de9775c9a40b4ad1af79321114, type: 3}
+    concaveFaces: 0
+  - mesh: {fileID: 4300000, guid: 5a3a5664a4a7deb4f8163ce0b45639d0, type: 3}
+    concaveFaces: 0
+  Collider: {fileID: 4300000, guid: b95ea3619ded0004ab41827b61bf14d8, type: 3}
+  LOD1:
+    mesh: {fileID: -7603578992349630421, guid: f1a53d2f93fa0d74ea5b13085b8de4c2, type: 3}
+    concaveFaces: 0
+  LOD2:
+    mesh: {fileID: 0}
+    concaveFaces: 0

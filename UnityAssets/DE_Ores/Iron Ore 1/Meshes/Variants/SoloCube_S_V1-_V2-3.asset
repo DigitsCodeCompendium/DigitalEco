@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a11119639d0412143b0784ccf15bb835, type: 3}
+  m_Name: SoloCube_S_V1-_V2-3
+  m_EditorClassIdentifier: 
+  LOD0:
+  - mesh: {fileID: 4300000, guid: f36307d07a9cbba4cb1aa7bda2f24c45, type: 3}
+    concaveFaces: 0
+  - mesh: {fileID: 4300000, guid: 6697c91856128a3448c8722961068df2, type: 3}
+    concaveFaces: 0
+  - mesh: {fileID: 4300000, guid: cf057efbf80c69f46a1a259de26acc5f, type: 3}
+    concaveFaces: 0
+  Collider: {fileID: 4300000, guid: 6436af1a7fab7a744982951e50c42c69, type: 3}
+  LOD1:
+    mesh: {fileID: -4477414560710744170, guid: a5e3ede9632fe4d41a3933e491f72173, type: 3}
+    concaveFaces: 0
+  LOD2:
+    mesh: {fileID: 0}
+    concaveFaces: 0
