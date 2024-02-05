@@ -12,6 +12,7 @@ using Eco.Shared.SharedTypes;
 using Eco.World.Blocks;
 using Eco.World.Water;
 using Eco.Gameplay.Items.Recipes;
+using Digits.Geology;
 
 namespace Eco.Mods.TechTree
 {
@@ -23,14 +24,14 @@ namespace Eco.Mods.TechTree
         {
             var recipe = new Recipe();
             recipe.Init(
-                name: "IronBar",  //noloc
-                displayName: Localizer.DoStr("Iron Bar"),
+                name: "CrackIronBloom",  //noloc
+                displayName: Localizer.DoStr("Crack Iron Bloom"),
 
                 // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
                 // type of the item, the amount of the item, the skill required, and the talent used.
                 ingredients: new List<IngredientElement>
                 {
-                    new IngredientElement(typeof(IronConcentrateItem), 1, typeof(SmeltingSkill), typeof(SmeltingLavishResourcesTalent)),
+                    new IngredientElement(typeof(IronBloomItem), 1, true),
                 },
 
                 // Define our recipe output items.
@@ -38,8 +39,8 @@ namespace Eco.Mods.TechTree
                 // to create.
                 items: new List<CraftingElement>
                 {
-                    new CraftingElement<IronBarItem>(4),
-                    new CraftingElement<FerrousSlagItem>(typeof(SmeltingSkill), 1, typeof(SmeltingLavishResourcesTalent)),
+                    new CraftingElement<IronBarItem>(6),
+                    new CraftingElement<FerrousSlagItem>(2),
                 });
             this.Recipes = new List<Recipe> { recipe };
             this.ExperienceOnCraft = 2; // Defines how much experience is gained when crafted.
@@ -52,11 +53,11 @@ namespace Eco.Mods.TechTree
 
             // Perform pre/post initialization for user mods and initialize our recipe instance with the display name "Iron Bar"
             this.ModsPreInitialize();
-            this.Initialize(displayText: Localizer.DoStr("Iron Bar"), recipeType: typeof(IronBarRecipe));
+            this.Initialize(displayText: Localizer.DoStr("Crack Iron Bloom"), recipeType: typeof(IronBarRecipe));
             this.ModsPostInitialize();
 
             // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddRecipe(tableType: typeof(BlastFurnaceObject), recipe: this);
+            CraftingComponent.AddRecipe(tableType: typeof(AnvilObject), recipe: this);
         }
 
         /// <summary>Hook for mods to customize RecipeFamily before initialization. You can change recipes, xp, labor, time here.</summary>
@@ -67,20 +68,21 @@ namespace Eco.Mods.TechTree
     }
 
     [RequiresSkill(typeof(SmeltingSkill), 1)]
-    public partial class SmeltIronRecipe : RecipeFamily
+    public partial class WorkPigIronRecipe : RecipeFamily
     {
-        public SmeltIronRecipe()
+        public WorkPigIronRecipe()
         {
             var recipe = new Recipe();
             recipe.Init(
-                name: "SmeltIron",  //noloc
-                displayName: Localizer.DoStr("Smelt Iron"),
+                name: "WorkPigIron",  //noloc
+                displayName: Localizer.DoStr("Work Pigiron"),
 
                 // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
                 // type of the item, the amount of the item, the skill required, and the talent used.
                 ingredients: new List<IngredientElement>
                 {
-                    new IngredientElement(typeof(IronConcentrateItem), 2, typeof(SmeltingSkill), typeof(SmeltingLavishResourcesTalent)),
+                    new IngredientElement(typeof(PigIronBarItem), 8, true),
+                    new IngredientElement(typeof(QuicklimeItem), 1, typeof(SmeltingSkill), typeof(SmeltingLavishResourcesTalent)),
                 },
 
                 // Define our recipe output items.
@@ -88,8 +90,8 @@ namespace Eco.Mods.TechTree
                 // to create.
                 items: new List<CraftingElement>
                 {
-                    new CraftingElement<IronBarItem>(6),
-                    new CraftingElement<FerrousSlagItem>(typeof(SmeltingSkill), 2, typeof(SmeltingLavishResourcesTalent)),
+                    new CraftingElement<IronBarItem>(8),
+                    new CraftingElement<FerrousSlagItem>(typeof(SmeltingSkill), 1, typeof(SmeltingLavishResourcesTalent)),
                 });
             this.Recipes = new List<Recipe> { recipe };
             this.ExperienceOnCraft = 2; // Defines how much experience is gained when crafted.
@@ -98,15 +100,15 @@ namespace Eco.Mods.TechTree
             this.LaborInCalories = CreateLaborInCaloriesValue(60, typeof(SmeltingSkill));
 
             // Defines our crafting time for the recipe
-            this.CraftMinutes = CreateCraftTimeValue(beneficiary: typeof(SmeltIronRecipe), start: 5, skillType: typeof(SmeltingSkill), typeof(SmeltingFocusedSpeedTalent), typeof(SmeltingParallelSpeedTalent));
+            this.CraftMinutes = CreateCraftTimeValue(beneficiary: typeof(WorkPigIronRecipe), start: 5, skillType: typeof(SmeltingSkill), typeof(SmeltingFocusedSpeedTalent), typeof(SmeltingParallelSpeedTalent));
 
             // Perform pre/post initialization for user mods and initialize our recipe instance with the display name "Smelt Iron"
             this.ModsPreInitialize();
-            this.Initialize(displayText: Localizer.DoStr("Smelt Iron"), recipeType: typeof(SmeltIronRecipe));
+            this.Initialize(displayText: Localizer.DoStr("Work Pigiron"), recipeType: typeof(WorkPigIronRecipe));
             this.ModsPostInitialize();
 
             // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddRecipe(tableType: typeof(BloomeryObject), recipe: this);
+            CraftingComponent.AddRecipe(tableType: typeof(AnvilObject), recipe: this);
         }
 
         /// <summary>Hook for mods to customize RecipeFamily before initialization. You can change recipes, xp, labor, time here.</summary>

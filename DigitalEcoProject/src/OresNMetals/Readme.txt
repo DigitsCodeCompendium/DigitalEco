@@ -45,3 +45,15 @@ __core__\AutoGen\Recipe\SmeltCopper.cs
 
 __core__\AutoGen\Block\GoldBar.cs
 __core__\AutoGen\Recipe\SmeltGold.cs
+
+__core__\AutoGen\Block\SteelBar.cs
+--code__\AutoGen\Recipe\CharcoalSteel.cs
+
+// delete base metal concentrates files and recipes
+__core__\AutoGen\Block\IronConcentrate.cs
+__core__\AutoGen\Recipe\ConcentrateIronLv2.cs
+__core__\AutoGen\Recipe\ConcentrateDryIron.cs
+__core__\AutoGen\Recipe\ConcentrateDryIronLv2.cs
+
+__core__\AutoGen\Block\CopperConcentrate.cs
+__core__\AutoGen\Recipe\ConcentrateCopperLv2.cs
