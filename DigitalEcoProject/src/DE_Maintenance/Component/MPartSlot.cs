@@ -19,7 +19,7 @@ namespace Digits.Maintenance
         }
 
         public string partName { get; set; }
-        [Eco, ClientInterfaceProperty, PropReadOnly, UITypeName("StringTitle")]
+        [Eco, ClientInterfaceProperty, PropReadOnly, UITypeName("GeneralHeader")]
         public string PartName
         {
             get => this.partName;
@@ -33,8 +33,22 @@ namespace Digits.Maintenance
 
         [Eco, UITypeName("ItemInput")] public LimitedInventory Inventory { get; set; }
 
+        public string typeHints { get; set; }
+        [Eco, ClientInterfaceProperty, PropReadOnly, UITypeName("StringTitle")]
+        public string TypeHints
+        {
+            get => this.typeHints;
+            set
+            {
+                if (value == this.typeHints) return;
+                this.typeHints = value;
+                this.Changed(nameof(this.TypeHints));
+            }
+        }
+
+
         //controller stuff, DO NOT TOUCH
-        #region IController
+                #region IController
         private int controllerID;
 
         public event PropertyChangedEventHandler PropertyChanged;

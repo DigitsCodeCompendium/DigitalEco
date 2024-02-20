@@ -72,6 +72,8 @@ namespace Digits.Maintenance
             MPartSlot? partSlot = GetPartSlot(partSlotName);
             if (partSlot == null) return;
             partSlot.Inventory.AddInvRestriction(inventoryRestriction);
+            partSlot.TypeHints = "test test";
+            this.Changed(nameof(PartSlots));
         }
 
         public void AddPartSlotDegradation(string partSlotName, Dictionary<string, float> degradration)
