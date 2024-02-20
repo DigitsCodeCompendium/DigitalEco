@@ -12,8 +12,8 @@ namespace Digits.Maintenance
 {
     public class MaintenanceTypesRestriction : InventoryRestriction
     {
-        private string genericType;
-        private List<string> tierTags;
+        public string genericType;
+        public List<string> tierTags;
 
         public override LocString Message => Localizer.Do($"Inventory only accepts {TagManager.Tag(this.genericType).MarkedUpName} of tier {this.tierTags.Select(x => TagManager.Tag(x).MarkedUpName).CommaList()}.");
 

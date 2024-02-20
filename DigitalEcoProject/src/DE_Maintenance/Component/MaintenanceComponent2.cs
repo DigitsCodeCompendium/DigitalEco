@@ -1,9 +1,9 @@
-﻿using Digits.PartSlotting;
-using Eco.Core.Controller;
+﻿using Eco.Core.Controller;
 using Eco.Core.Utils;
 using Eco.Gameplay.Components;
 using Eco.Gameplay.Items;
 using Eco.Gameplay.Objects;
+using Eco.Gameplay.Systems.TextLinks;
 using Eco.Gameplay.Utils;
 using Eco.Shared.IoC;
 using Eco.Shared.Localization;
@@ -33,7 +33,9 @@ namespace Digits.Maintenance
         private OnOffComponent?         onOffComponent;
         private CraftingComponent?      craftingComponent;
         private VehicleComponent?       vehicleComponent;
-        private PowerGridComponent      powerGridComponent;
+        private PowerGridComponent?     powerGridComponent;
+
+        private StatusElement           status;
 
         public Dictionary<string, Dictionary<string, float>> slotDegradation;
 
@@ -51,11 +53,15 @@ namespace Digits.Maintenance
             this.vehicleComponent       = this.Parent.GetComponent<VehicleComponent>();
             this.craftingComponent      = this.Parent.GetComponent<CraftingComponent>();
             this.powerGridComponent     = this.Parent.GetComponent<PowerGridComponent>();
+
+            this.status                 = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
         }
 
         public override void Tick()
         {
             this.TickDamage();
+            this.CheckDisableConditions();
+            this.TickStatus();
         }
 
         public void CreatePartSlot(string name)
@@ -72,7 +78,22 @@ namespace Digits.Maintenance
             MPartSlot? partSlot = GetPartSlot(partSlotName);
             if (partSlot == null) return;
             partSlot.Inventory.AddInvRestriction(inventoryRestriction);
-            partSlot.TypeHints = "test test";
+            if (inventoryRestriction is MaintenanceTypesRestriction)
+            {
+                MaintenanceTypesRestriction maintenanceTypesRestriction = inventoryRestriction as MaintenanceTypesRestriction;
+
+                string typehint = "";
+                typehint += "Requires ";
+                typehint += TagManager.Tag(maintenanceTypesRestriction.genericType).UILink();
+                typehint += ", and of tier";
+
+                foreach (string tagTier in maintenanceTypesRestriction.tierTags)
+                {
+                    typehint += ", " + TagManager.Tag(tagTier).UILink();
+                }
+
+                partSlot.TypeHints = typehint;
+            }
             this.Changed(nameof(PartSlots));
         }
 
@@ -124,8 +145,6 @@ namespace Digits.Maintenance
                 item.Durability = 0;
         }
 
-
-
         private void TickDamage()
         {
             foreach (MPartSlot partSlot in partSlots)
@@ -175,6 +194,42 @@ namespace Digits.Maintenance
                     this.DamagePart(partSlot.partName, damageSum * tickTime);
                 }
             }
+        }
+
+        private void CheckDisableConditions()
+        {
+            foreach (MPartSlot partSlot in partSlots)
+            {
+                RepairableItem? durItem = partSlot.Inventory.Stacks.First().Item as RepairableItem;
+
+                if (durItem != null)
+                {
+                    if (durItem.Durability <= 0)
+                    {
+                        this.enabled = false;
+                        return;
+                    }
+                    else this.enabled = true;
+                }
+                else
+                {
+                    this.enabled = false;
+                    return;
+                }
+            }
+        }
+
+        private void TickStatus()
+        {
+            if (this.enabled)
+            {
+                this.status.SetStatusMessage(true, Localizer.Format("Maintenance: Machine maintenance is okay"));
+            }
+            else
+            {
+                this.status.SetStatusMessage(false, Localizer.Format("Maintenance: A part is broken or not inserted, preventing this machine from functioning"));
+            }
+
         }
 
         //-------------------------------------------------------------------------------

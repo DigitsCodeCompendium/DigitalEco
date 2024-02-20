@@ -34,7 +34,7 @@ namespace Digits.Maintenance
         [Eco, UITypeName("ItemInput")] public LimitedInventory Inventory { get; set; }
 
         public string typeHints { get; set; }
-        [Eco, ClientInterfaceProperty, PropReadOnly, UITypeName("StringTitle")]
+        [Eco, ClientInterfaceProperty, PropReadOnly, UITypeName("StringDisplay")]
         public string TypeHints
         {
             get => this.typeHints;
