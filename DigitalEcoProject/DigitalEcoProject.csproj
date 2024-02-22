@@ -12,15 +12,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="src\DE_Maintenance\Component\MaintenanceComponent.old" />
+    <Compile Include="src\DE_Maintenance\VanillaPatches\MVPCraftingTables.old" />
     <Compile Include="src\DE_Maintenance\WorldObject\TestBench.old" />
     <Compile Include="src\PartSlotting\VanillaPatches\TestPatches.old" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="C:\Users\binar\Documents\Workshop\Modding\Eco\DigitalEco\DigitalEcoProject\src\DE_Maintenance\.editorconfig" />
-    <None Include="src\DE_Maintenance\VanillaPatches\MaintenanceVPVehicles.cs" />
-    <None Include="src\DE_Maintenance\VanillaPatches\MaintenanceVPCraftingTables.cs" />
+    <None Include="src\DE_Maintenance\Component\MaintenanceComponent.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,16 +61,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="src\DE_Maintenance\VanillaPatches\MVPCraftingTables.old" />
     <None Remove="src\PartSlotting\VanillaPatches\TestPatches.old" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="src\DE_Maintenance\Item\CraftingTableTools\CrushingWheel\" />
-    <Folder Include="src\DE_Maintenance\Item\CraftingTableTools\KnifeSet\" />
-    <Folder Include="src\DE_Maintenance\Item\CraftingTableTools\ScribeSet\" />
-    <Folder Include="src\DE_Maintenance\Item\CraftingTableTools\Refractory\" />
-    <Folder Include="src\DE_Maintenance\Item\CraftingTableTools\SewingKit\" />
-    <Folder Include="src\DE_Maintenance\Item\CraftingTableTools\SmithsTools\" />
+    <Folder Include="src\DE_Maintenance\Autogen\" />
   </ItemGroup>
 
 </Project>
