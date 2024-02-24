@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Iron Bearings Kit"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement(typeof(IronBarItem), 10, typeof(MechanicsSkill), typeof(MechanicsLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -54,7 +54,7 @@ namespace Digits.Maintenance
             this.Initialize(Localizer.DoStr("Iron Bearings Kit"), typeof(IronBearingsKitRecipe));
             this.ModsPostInitialize();
 
-            CraftingComponent.AddRecipe(tableType: typeof(LatheObject), recipe: this);
+            CraftingComponent.AddRecipe(tableType: typeof(MachinistTableObject), recipe: this);
         }
         partial void ModsPreInitialize();
         partial void ModsPostInitialize();
@@ -71,9 +71,9 @@ namespace Digits.Maintenance
     public partial class IronBearingsKitItem : RepairableItem
     {
         public override Item RepairItem                 => Item.Get<IronBarItem>();
-        public override int FullRepairAmount            => 1;
+        public override int FullRepairAmount            => 9;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 300f;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(MechanicsSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(9, SmeltingSkill.MultiplicativeStrategy, typeof(MechanicsSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

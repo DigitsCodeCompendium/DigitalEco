@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Wind Turbine Blades"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement(typeof(FiberglassItem), 40, typeof(IndustrySkill), typeof(IndustryLavishResourcesTalent)), },
+                { new IngredientElement(typeof(FiberglassItem), 40, typeof(IndustrySkill), typeof(IndustryLavishResourcesTalent)), new IngredientElement(typeof(RivetItem), 20, typeof(IndustrySkill), typeof(IndustryLavishResourcesTalent)), new IngredientElement(typeof(SteelAxleItem), 1, typeof(IndustrySkill), typeof(IndustryLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -73,7 +73,7 @@ namespace Digits.Maintenance
         public override Item RepairItem                 => Item.Get<FiberglassItem>();
         public override int FullRepairAmount            => 36;
         //set durability by changing the denominator below
-        public override float DurabilityRate            => DurabilityMax / 700;
+        public override float DurabilityRate            => DurabilityMax / 700f;
         public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(36, SmeltingSkill.MultiplicativeStrategy, typeof(IndustrySkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

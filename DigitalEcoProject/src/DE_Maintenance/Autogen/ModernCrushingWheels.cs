@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Modern Crushing Wheels"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement(typeof(SyntheticRubberItem), 2, typeof(IndustrySkill), typeof(IndustryLavishResourcesTalent)), new IngredientElement(typeof(SteelPlateItem), 10, typeof(IndustrySkill), typeof(IndustryLavishResourcesTalent)), new IngredientElement(typeof(SteelAxleItem), 1, typeof(IndustrySkill), typeof(IndustryLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -70,10 +70,10 @@ namespace Digits.Maintenance
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
     public partial class ModernCrushingWheelsItem : RepairableItem
     {
-        public override Item RepairItem                 => Item.Get<FiberglassItem>();
-        public override int FullRepairAmount            => 1;
+        public override Item RepairItem                 => Item.Get<SteelPlateItem>();
+        public override int FullRepairAmount            => 9;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 700f;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(IndustrySkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(9, SmeltingSkill.MultiplicativeStrategy, typeof(IndustrySkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

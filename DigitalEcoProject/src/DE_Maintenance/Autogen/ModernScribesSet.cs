@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Modern Scribes Set"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement(typeof(AdvancedCircuitItem), 5, typeof(GatheringSkill)), new IngredientElement(typeof(GlassItem), 1, true), new IngredientElement(typeof(FiberglassItem), 5, typeof(GatheringSkill)), },
 
                 items: new List<CraftingElement>
                 {
@@ -70,10 +70,10 @@ namespace Digits.Maintenance
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
     public partial class ModernScribesSetItem : RepairableItem
     {
-        public override Item RepairItem                 => Item.Get<BasicCircuitItem>();
-        public override int FullRepairAmount            => 1;
+        public override Item RepairItem                 => Item.Get<AdvancedCircuitItem>();
+        public override int FullRepairAmount            => 4;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 700f;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(GatheringSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(4, SmeltingSkill.MultiplicativeStrategy, typeof(GatheringSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

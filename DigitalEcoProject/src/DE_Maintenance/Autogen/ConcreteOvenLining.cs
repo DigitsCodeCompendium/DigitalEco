@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Concrete Oven Lining"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement("Concrete", 10, typeof(PotterySkill), typeof(PotteryLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -71,9 +71,9 @@ namespace Digits.Maintenance
     public partial class ConcreteOvenLiningItem : RepairableItem
     {
         public override Item RepairItem                 => Item.Get<CementItem>();
-        public override int FullRepairAmount            => 1;
+        public override int FullRepairAmount            => 3;
         //set durability by changing the denominator below
-        public override float DurabilityRate            => DurabilityMax / 500;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(PotterySkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override float DurabilityRate            => DurabilityMax / 500f;
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(3, SmeltingSkill.MultiplicativeStrategy, typeof(PotterySkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

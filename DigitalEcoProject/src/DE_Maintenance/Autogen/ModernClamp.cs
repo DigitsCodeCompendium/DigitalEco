@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Modern Clamp"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement(typeof(SyntheticRubberItem), 4, typeof(CompositesSkill), typeof(CompositesLavishResourcesTalent)), new IngredientElement("CompositeLumber", 6, typeof(CompositesSkill), typeof(CompositesLavishResourcesTalent)), new IngredientElement(typeof(SteelBarItem), 5, typeof(CompositesSkill), typeof(CompositesLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -70,10 +70,10 @@ namespace Digits.Maintenance
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
     public partial class ModernClampItem : RepairableItem
     {
-        public override Item RepairItem                 => Item.Get<FiberglassItem>();
-        public override int FullRepairAmount            => 1;
+        public override Item RepairItem                 => Item.Get<SyntheticRubberItem>();
+        public override int FullRepairAmount            => 3;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 700f;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(CompositesSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(3, SmeltingSkill.MultiplicativeStrategy, typeof(CompositesSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

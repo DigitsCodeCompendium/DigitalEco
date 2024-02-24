@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Steel Sawblade Repair Kit"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement(typeof(SteelBarItem), 5, typeof(AdvancedSmeltingSkill), typeof(AdvancedSmeltingLavishResourcesTalent)), new IngredientElement("Lumber", 3, typeof(AdvancedSmeltingSkill), typeof(AdvancedSmeltingLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -71,9 +71,9 @@ namespace Digits.Maintenance
     public partial class SteelSawbladeRepairKitItem : RepairableItem
     {
         public override Item RepairItem                 => Item.Get<SteelBarItem>();
-        public override int FullRepairAmount            => 1;
+        public override int FullRepairAmount            => 4;
         //set durability by changing the denominator below
-        public override float DurabilityRate            => DurabilityMax / 500;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(AdvancedSmeltingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override float DurabilityRate            => DurabilityMax / 500f;
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(4, SmeltingSkill.MultiplicativeStrategy, typeof(AdvancedSmeltingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

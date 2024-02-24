@@ -22,7 +22,7 @@ namespace Eco.Mods.TechTree
 
             mComp.CreatePartSlot("Windmill Sails");
             mComp.AddPartSlotRestriction("Windmill Sails", 
-                new MaintenanceTypesRestriction("Windmill Sails", new string[] { "MTier 1" }));
+                new MaintenanceTypesRestriction("Windmill Sails", new string[] { "MTier 1", "MTier 2", "MTier 3", "MTier 4" }));
             mComp.AddPartSlotDegradation("Windmill Sails",
                 new Dictionary<string, float>() { { "onPowerGridTick", 100f/(4f*60f*60f) } });
         }

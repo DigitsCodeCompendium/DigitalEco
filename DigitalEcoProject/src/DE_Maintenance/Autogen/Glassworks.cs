@@ -20,10 +20,10 @@ namespace Eco.Mods.TechTree
             mComp.AddPartSlotDegradation("Frame",
                 new Dictionary<string, float>() { { "degOnCraftTick", 100f/(4f*60f*60f) } });
 
-            mComp.CreatePartSlot("Smith's Tools");
-            mComp.AddPartSlotRestriction("Smith's Tools", 
-                new MaintenanceTypesRestriction("Smith's Tools", new string[] { "MTier 2", "MTier 3", "MTier 4" }));
-            mComp.AddPartSlotDegradation("Smith's Tools",
+            mComp.CreatePartSlot("Smiths Tools");
+            mComp.AddPartSlotRestriction("Smiths Tools", 
+                new MaintenanceTypesRestriction("Smiths Tools", new string[] { "MTier 2", "MTier 3", "MTier 4" }));
+            mComp.AddPartSlotDegradation("Smiths Tools",
                 new Dictionary<string, float>() { { "degOnCraftTick", 100f/(4f*60f*60f) } });
         }
     }

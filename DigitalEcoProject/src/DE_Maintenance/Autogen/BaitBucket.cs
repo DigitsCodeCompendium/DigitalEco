@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Bait Bucket"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement("WoodBoard", 3, typeof(ButcherySkill), typeof(ButcheryLavishResourcesTalent)), new IngredientElement(typeof(ScrapMeatItem), 15, typeof(ButcherySkill), typeof(ButcheryLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -71,9 +71,9 @@ namespace Digits.Maintenance
     public partial class BaitBucketItem : RepairableItem
     {
         public override Item RepairItem                 => Item.Get<ScrapMeatItem>();
-        public override int FullRepairAmount            => 1;
+        public override int FullRepairAmount            => 13;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 100f;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(ButcherySkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(13, SmeltingSkill.MultiplicativeStrategy, typeof(ButcherySkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

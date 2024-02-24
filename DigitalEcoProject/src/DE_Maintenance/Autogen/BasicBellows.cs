@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Basic Bellows"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement(typeof(LeatherHideItem), 15, typeof(ButcherySkill), typeof(ButcheryLavishResourcesTalent)), new IngredientElement(typeof(LumberItem), 5, typeof(ButcherySkill), typeof(ButcheryLavishResourcesTalent)), new IngredientElement(typeof(NailItem), 10, typeof(ButcherySkill), typeof(ButcheryLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -71,9 +71,9 @@ namespace Digits.Maintenance
     public partial class BasicBellowsItem : RepairableItem
     {
         public override Item RepairItem                 => Item.Get<LeatherHideItem>();
-        public override int FullRepairAmount            => 1;
+        public override int FullRepairAmount            => 9;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 300f;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(ButcherySkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(9, SmeltingSkill.MultiplicativeStrategy, typeof(ButcherySkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

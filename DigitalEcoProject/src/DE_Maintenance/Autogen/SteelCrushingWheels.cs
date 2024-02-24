@@ -25,7 +25,7 @@ using Eco.Gameplay.Items.Recipes;
 
 namespace Digits.Maintenance
 {
-    [RequiresSkill(typeof(MechanicsSkill), 1)]
+    [RequiresSkill(typeof(IndustrySkill), 1)]
     [ForceCreateView]
     [Ecopedia("Items", "Products", subPageName: "Steel Crushing Wheels")]
     public partial class SteelCrushingWheelsRecipe : RecipeFamily
@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Steel Crushing Wheels"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement(typeof(SteelBarItem), 5, typeof(IndustrySkill), typeof(IndustryLavishResourcesTalent)), new IngredientElement(typeof(SteelPlateItem), 1, typeof(IndustrySkill), typeof(IndustryLavishResourcesTalent)), new IngredientElement(typeof(SteelAxleItem), 1, typeof(IndustrySkill), typeof(IndustryLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -47,7 +47,7 @@ namespace Digits.Maintenance
 
             this.Recipes = new List<Recipe> { recipe };
             this.ExperienceOnCraft = 0.1f;
-            this.LaborInCalories = CreateLaborInCaloriesValue(500, typeof(MechanicsSkill));
+            this.LaborInCalories = CreateLaborInCaloriesValue(500, typeof(IndustrySkill));
             this.CraftMinutes = CreateCraftTimeValue(5);
 
             this.ModsPreInitialize();
@@ -63,17 +63,17 @@ namespace Digits.Maintenance
     [Serialized]
     [LocDisplayName("Steel Crushing Wheels")]
     [LocDescription("A set of steel crushing wheels for crushing materials into a smaller form")]
-    [RepairRequiresSkill(typeof(MechanicsSkill), 1)]
+    [RepairRequiresSkill(typeof(IndustrySkill), 1)]
     [Weight(1000)]
     [Category("Tool")]
     [Tag("Crushing Wheels"), Tag("MTier 3")]
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
     public partial class SteelCrushingWheelsItem : RepairableItem
     {
-        public override Item RepairItem                 => Item.Get<SteelPlateItem>();
-        public override int FullRepairAmount            => 1;
+        public override Item RepairItem                 => Item.Get<SteelBarItem>();
+        public override int FullRepairAmount            => 4;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 500f;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(MechanicsSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(4, SmeltingSkill.MultiplicativeStrategy, typeof(IndustrySkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

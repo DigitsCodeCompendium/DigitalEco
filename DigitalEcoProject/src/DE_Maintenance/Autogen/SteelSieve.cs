@@ -73,7 +73,7 @@ namespace Digits.Maintenance
         public override Item RepairItem                 => Item.Get<SteelBarItem>();
         public override int FullRepairAmount            => 11;
         //set durability by changing the denominator below
-        public override float DurabilityRate            => DurabilityMax / 500;
+        public override float DurabilityRate            => DurabilityMax / 500f;
         public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(11, SmeltingSkill.MultiplicativeStrategy, typeof(TailoringSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

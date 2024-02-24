@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Basic Sealant"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement(typeof(TallowItem), 6, typeof(MillingSkill), typeof(MillingLavishResourcesTalent)), new IngredientElement(typeof(GlassItem), 5, typeof(MillingSkill), typeof(MillingLavishResourcesTalent)), new IngredientElement(typeof(QuicklimeItem), 2, typeof(MillingSkill), typeof(MillingLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -71,9 +71,9 @@ namespace Digits.Maintenance
     public partial class BasicSealantItem : RepairableItem
     {
         public override Item RepairItem                 => Item.Get<TallowItem>();
-        public override int FullRepairAmount            => 1;
+        public override int FullRepairAmount            => 5;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 300f;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(MillingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(5, SmeltingSkill.MultiplicativeStrategy, typeof(MillingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

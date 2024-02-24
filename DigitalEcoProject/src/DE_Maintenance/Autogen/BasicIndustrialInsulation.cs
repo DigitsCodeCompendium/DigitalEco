@@ -73,7 +73,7 @@ namespace Digits.Maintenance
         public override Item RepairItem                 => Item.Get<WoolFabricItem>();
         public override int FullRepairAmount            => 5;
         //set durability by changing the denominator below
-        public override float DurabilityRate            => DurabilityMax / 300;
+        public override float DurabilityRate            => DurabilityMax / 300f;
         public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(5, SmeltingSkill.MultiplicativeStrategy, typeof(TailoringSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

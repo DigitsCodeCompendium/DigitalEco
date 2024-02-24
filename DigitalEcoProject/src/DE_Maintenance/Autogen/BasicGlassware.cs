@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Basic Glassware"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement(typeof(GlassItem), 5, typeof(GlassworkingSkill), typeof(GlassworkingLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -71,9 +71,9 @@ namespace Digits.Maintenance
     public partial class BasicGlasswareItem : RepairableItem
     {
         public override Item RepairItem                 => Item.Get<GlassItem>();
-        public override int FullRepairAmount            => 1;
+        public override int FullRepairAmount            => 4;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 300f;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(GlassworkingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(4, SmeltingSkill.MultiplicativeStrategy, typeof(GlassworkingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

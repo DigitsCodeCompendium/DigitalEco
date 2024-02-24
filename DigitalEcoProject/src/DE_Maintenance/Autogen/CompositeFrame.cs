@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Composite Frame"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement("CompositeLumber", 20, typeof(CompositesSkill), typeof(CompositesLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -71,9 +71,9 @@ namespace Digits.Maintenance
     public partial class CompositeFrameItem : RepairableItem
     {
         public override Item RepairItem                 => Item.Get<CompositeLumberItem>();
-        public override int FullRepairAmount            => 1;
+        public override int FullRepairAmount            => 18;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 700f;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(CompositesSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(18, SmeltingSkill.MultiplicativeStrategy, typeof(CompositesSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

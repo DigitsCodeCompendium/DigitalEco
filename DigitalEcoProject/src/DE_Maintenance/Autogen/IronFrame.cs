@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Iron Frame"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement(typeof(IronBarItem), 20, typeof(SmeltingSkill), typeof(SmeltingLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -71,9 +71,9 @@ namespace Digits.Maintenance
     public partial class IronFrameItem : RepairableItem
     {
         public override Item RepairItem                 => Item.Get<IronBarItem>();
-        public override int FullRepairAmount            => 1;
+        public override int FullRepairAmount            => 18;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 300f;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(SmeltingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(18, SmeltingSkill.MultiplicativeStrategy, typeof(SmeltingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

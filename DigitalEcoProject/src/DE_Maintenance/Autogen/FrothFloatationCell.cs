@@ -16,13 +16,13 @@ namespace Eco.Mods.TechTree
 
             mComp.CreatePartSlot("Frame");
             mComp.AddPartSlotRestriction("Frame",
-                new MaintenanceTypesRestriction("Frame", new string[] { "MTier 4", "MTier 3" }));
+                new MaintenanceTypesRestriction("Frame", new string[] { "MTier 4" }));
             mComp.AddPartSlotDegradation("Frame",
                 new Dictionary<string, float>() { { "degOnCraftTick", 100f/(4f*60f*60f) } });
 
             mComp.CreatePartSlot("Froth Stabilizer");
             mComp.AddPartSlotRestriction("Froth Stabilizer", 
-                new MaintenanceTypesRestriction("Froth Stabilizer", new string[] { "MTier 3" }));
+                new MaintenanceTypesRestriction("Froth Stabilizer", new string[] { "MTier 4" }));
             mComp.AddPartSlotDegradation("Froth Stabilizer",
                 new Dictionary<string, float>() { { "degOnCraftTick", 100f/(4f*60f*60f) } });
         }

@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Iron Crushing Wheels"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement(typeof(IronBarItem), 5, typeof(MechanicsSkill), typeof(MechanicsLavishResourcesTalent)), new IngredientElement(typeof(IronWheelItem), 1, typeof(MechanicsSkill), typeof(MechanicsLavishResourcesTalent)), new IngredientElement(typeof(IronAxleItem), 1, typeof(MechanicsSkill), typeof(MechanicsLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -71,9 +71,9 @@ namespace Digits.Maintenance
     public partial class IronCrushingWheelsItem : RepairableItem
     {
         public override Item RepairItem                 => Item.Get<IronPlateItem>();
-        public override int FullRepairAmount            => 1;
+        public override int FullRepairAmount            => 4;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 300f;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(MechanicsSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(4, SmeltingSkill.MultiplicativeStrategy, typeof(MechanicsSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

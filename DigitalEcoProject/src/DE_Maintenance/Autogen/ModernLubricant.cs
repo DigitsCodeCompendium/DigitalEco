@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Modern Lubricant"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement(typeof(PetroleumItem), 5, typeof(OilDrillingSkill), typeof(OilDrillingLavishResourcesTalent)), new IngredientElement(typeof(PlasticItem), 5, typeof(OilDrillingSkill), typeof(OilDrillingLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -71,9 +71,9 @@ namespace Digits.Maintenance
     public partial class ModernLubricantItem : RepairableItem
     {
         public override Item RepairItem                 => Item.Get<PetroleumItem>();
-        public override int FullRepairAmount            => 1;
+        public override int FullRepairAmount            => 4;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 700f;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(OilDrillingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(4, SmeltingSkill.MultiplicativeStrategy, typeof(OilDrillingSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

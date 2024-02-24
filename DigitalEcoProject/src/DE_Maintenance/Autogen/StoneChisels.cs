@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Stone Chisels"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 4, typeof(MiningSkill)), new IngredientElement("Rock", 10, typeof(MiningSkill)), },
+                { new IngredientElement("Wood", 10, typeof(MiningSkill)), new IngredientElement("Rock", 40, typeof(MiningSkill)), },
 
                 items: new List<CraftingElement>
                 {
@@ -73,7 +73,7 @@ namespace Digits.Maintenance
         public override Item RepairItem                 => Item.Get<BasaltItem>();
         public override int FullRepairAmount            => 9;
         //set durability by changing the denominator below
-        public override float DurabilityRate            => DurabilityMax / 100;
+        public override float DurabilityRate            => DurabilityMax / 100f;
         public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(9, SmeltingSkill.MultiplicativeStrategy, typeof(MiningSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Fuse Kit"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 1), },
+                { new IngredientElement(typeof(SteelPlateItem), 2, typeof(ElectronicsSkill), typeof(ElectronicsLavishResourcesTalent)), new IngredientElement(typeof(PaperItem), 5, typeof(ElectronicsSkill), typeof(ElectronicsLavishResourcesTalent)), new IngredientElement(typeof(CopperWiringItem), 2, typeof(ElectronicsSkill), typeof(ElectronicsLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -70,10 +70,10 @@ namespace Digits.Maintenance
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
     public partial class FuseKitItem : RepairableItem
     {
-        public override Item RepairItem                 => Item.Get<CopperBarItem>();
-        public override int FullRepairAmount            => 1;
+        public override Item RepairItem                 => Item.Get<CopperWiringItem>();
+        public override int FullRepairAmount            => 4;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 700f;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(1, SmeltingSkill.MultiplicativeStrategy, typeof(ElectronicsSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(4, SmeltingSkill.MultiplicativeStrategy, typeof(ElectronicsSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }

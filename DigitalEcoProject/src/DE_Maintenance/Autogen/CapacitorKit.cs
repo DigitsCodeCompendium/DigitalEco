@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Capacitor Kit"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement(typeof(QuicklimeItem), 10, typeof(FertilizersSkill), typeof(FertilizersLavishResourcesTalent)), new IngredientElement(typeof(SteelBarItem), 15, typeof(FertilizersSkill), typeof(FertilizersLavishResourcesTalent)), },
+                { new IngredientElement(typeof(QuicklimeItem), 10, typeof(FertilizersSkill), typeof(FertilizersLavishResourcesTalent)), new IngredientElement(typeof(CopperWiringItem), 15, typeof(FertilizersSkill), typeof(FertilizersLavishResourcesTalent)), new IngredientElement(typeof(PlasticItem), 10, typeof(FertilizersSkill), typeof(FertilizersLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {

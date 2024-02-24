@@ -62,11 +62,11 @@ namespace Digits.Maintenance
 
     [Serialized]
     [LocDisplayName("Modern Smiths Tools")]
-    [LocDescription("A modern set of smith's tools")]
+    [LocDescription("A modern set of smiths tools")]
     [RepairRequiresSkill(typeof(CompositesSkill), 1)]
     [Weight(1000)]
     [Category("Tool")]
-    [Tag("Smith's Tools"), Tag("MTier 4")]
+    [Tag("Smiths Tools"), Tag("MTier 4")]
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
     public partial class ModernSmithsToolsItem : RepairableItem
     {

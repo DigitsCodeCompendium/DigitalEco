@@ -16,7 +16,7 @@ namespace Eco.Mods.TechTree
 
             mComp.CreatePartSlot("Frame");
             mComp.AddPartSlotRestriction("Frame",
-                new MaintenanceTypesRestriction("Frame", new string[] { "MTier 4", "MTier 3", "MTier 2" }));
+                new MaintenanceTypesRestriction("Frame", new string[] { "MTier 4", "MTier 3", "MTier 2", "MTier 1" }));
             mComp.AddPartSlotDegradation("Frame",
                 new Dictionary<string, float>() { { "degOnCraftTick", 100f/(4f*60f*60f) } });
 

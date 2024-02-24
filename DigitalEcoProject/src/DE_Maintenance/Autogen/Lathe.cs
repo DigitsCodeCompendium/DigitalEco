@@ -22,7 +22,7 @@ namespace Eco.Mods.TechTree
 
             mComp.CreatePartSlot("Cogs");
             mComp.AddPartSlotRestriction("Cogs", 
-                new MaintenanceTypesRestriction("Cogs", new string[] { "MTier 2", "MTier 3" }));
+                new MaintenanceTypesRestriction("Cogs", new string[] { "MTier 1", "MTier 2" }));
             mComp.AddPartSlotDegradation("Cogs",
                 new Dictionary<string, float>() { { "degOnCraftTick", 100f/(4f*60f*60f) } });
         }
