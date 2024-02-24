@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Primitive Frame"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 10), new IngredientElement(typeof(StoneItem), 10), new IngredientElement(typeof(PlantFibersItem), 10), },
+                { new IngredientElement("Wood", 10), new IngredientElement("Rock", 10), new IngredientElement(typeof(PlantFibersItem), 10), },
 
                 items: new List<CraftingElement>
                 {

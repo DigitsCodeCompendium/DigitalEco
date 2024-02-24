@@ -3,6 +3,7 @@ using Eco.Core.Utils;
 using Eco.Gameplay.Components;
 using Eco.Gameplay.Items;
 using Eco.Gameplay.Objects;
+using Eco.Gameplay.Players;
 using Eco.Gameplay.Systems.TextLinks;
 using Eco.Gameplay.Utils;
 using Eco.Shared.IoC;
@@ -229,6 +230,39 @@ namespace Digits.Maintenance
             {
                 this.status.SetStatusMessage(false, Localizer.Format("Maintenance: A part is broken or not inserted, preventing this machine from functioning"));
             }
+        }
+
+        // Handler for moving all items to player inventory on break.
+        public override InventoryMoveResult TryPickup(Player player, InventoryChangeSet playerInvChanges, Inventory targetInventory, bool force)
+        {
+            foreach (MPartSlot partSlot in partSlots)
+            {
+                if (!partSlot.Inventory.IsEmpty)
+                {
+                    return Result.LocalizeStr("Cannot pick up the machine while parts are still inside!");
+                }
+            }
+            return Result.Succeeded;
+
+            //.MoveAsManyItemsAsPossible(this.Inventory, targetInventory); // if we are not forcing, return move result
+            /*
+            //If it's not empty and we're forcing, move those too.
+            if (force)
+            {
+                foreach (MPartSlot partSlot in partSlots)
+                {
+                    if (!partSlot.Inventory.IsEmpty)
+                    {
+                        foreach (var stack in partSlot.Inventory.NonEmptyStacks)
+                        {
+                            if (stack.Empty()) continue;
+                            //playerInvChanges.ClearStack(stack);
+                            playerInvChanges.AddItem(stack.Item, stack.Quantity, targetInventory);
+                        }
+                    }
+                }
+            }
+            return base.TryPickup(player, playerInvChanges, targetInventory, force);*/
 
         }
 

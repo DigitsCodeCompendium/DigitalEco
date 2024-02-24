@@ -25,7 +25,7 @@ using Eco.Gameplay.Items.Recipes;
 
 namespace Digits.Maintenance
 {
-    [RequiresSkill(typeof(MiningSkill), 1)]
+    [RequiresSkill(typeof(GatheringSkill), 1)]
     [ForceCreateView]
     [Ecopedia("Items", "Products", subPageName: "Stone Chisels")]
     public partial class StoneChiselsRecipe : RecipeFamily
@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Stone Chisels"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement("Wood", 10, typeof(MiningSkill)), new IngredientElement("Rock", 40, typeof(MiningSkill)), },
+                { new IngredientElement("Wood", 10, typeof(GatheringSkill)), new IngredientElement("Rock", 40, typeof(GatheringSkill)), },
 
                 items: new List<CraftingElement>
                 {
@@ -47,14 +47,14 @@ namespace Digits.Maintenance
 
             this.Recipes = new List<Recipe> { recipe };
             this.ExperienceOnCraft = 0.1f;
-            this.LaborInCalories = CreateLaborInCaloriesValue(500, typeof(MiningSkill));
+            this.LaborInCalories = CreateLaborInCaloriesValue(500, typeof(GatheringSkill));
             this.CraftMinutes = CreateCraftTimeValue(5);
 
             this.ModsPreInitialize();
             this.Initialize(Localizer.DoStr("Stone Chisels"), typeof(StoneChiselsRecipe));
             this.ModsPostInitialize();
 
-            CraftingComponent.AddRecipe(tableType: typeof(MasonryTableObject), recipe: this);
+            CraftingComponent.AddRecipe(tableType: typeof(WorkbenchObject), recipe: this);
         }
         partial void ModsPreInitialize();
         partial void ModsPostInitialize();
@@ -63,7 +63,7 @@ namespace Digits.Maintenance
     [Serialized]
     [LocDisplayName("Stone Chisels")]
     [LocDescription("A stone chisel for shaping materials")]
-    [RepairRequiresSkill(typeof(MiningSkill), 1)]
+    [RepairRequiresSkill(typeof(GatheringSkill), 1)]
     [Weight(1000)]
     [Category("Tool")]
     [Tag("Chisels"), Tag("MTier 1")]
@@ -74,6 +74,6 @@ namespace Digits.Maintenance
         public override int FullRepairAmount            => 9;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 100f;
-        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(9, SmeltingSkill.MultiplicativeStrategy, typeof(MiningSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
+        public override IDynamicValue SkilledRepairCost => new SkillModifiedValue(9, SmeltingSkill.MultiplicativeStrategy, typeof(GatheringSkill), Localizer.DoStr("repair cost"), DynamicValueType.Efficiency);
     }
 }
