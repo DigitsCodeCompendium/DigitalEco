@@ -70,7 +70,8 @@ namespace Digits.Maintenance
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
     public partial class StoneFrameItem : RepairableItem
     {
-        public override Item RepairItem                 => Item.Get<MortaredStoneItem>();
+        public override Item RepairItem                 => Item.Get<Item>();
+		public override Tag RepairTag => TagManager.Tag("MortaredStone");
         public override int FullRepairAmount            => 18;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 100f;

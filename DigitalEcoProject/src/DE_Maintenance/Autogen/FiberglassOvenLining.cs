@@ -65,7 +65,7 @@ namespace Digits.Maintenance
     [LocDescription("A insulative high temperature fiberglass for lining the inside of ovens")]
     [RepairRequiresSkill(typeof(PotterySkill), 1)]
     [Weight(1000)]
-    [Category("")]
+    [Category("Tool")]
     [Tag("Oven Insulation"), Tag("MTier 4")]
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
     public partial class FiberglassOvenLiningItem : RepairableItem

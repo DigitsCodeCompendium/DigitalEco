@@ -70,7 +70,8 @@ namespace Digits.Maintenance
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
     public partial class WoodenCogsItem : RepairableItem
     {
-        public override Item RepairItem                 => Item.Get<HewnLogItem>();
+        public override Item RepairItem                 => Item.Get<Item>();
+		public override Tag RepairTag => TagManager.Tag("HewnLog");
         public override int FullRepairAmount            => 9;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 100f;

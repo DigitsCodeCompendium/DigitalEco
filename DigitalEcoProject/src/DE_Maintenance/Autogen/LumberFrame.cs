@@ -38,7 +38,7 @@ namespace Digits.Maintenance
                 displayName: Localizer.DoStr("Lumber Frame"),
 
                 ingredients: new List<IngredientElement>
-                { new IngredientElement(typeof(LumberItem), 20, typeof(CarpentrySkill), typeof(CarpentryLavishResourcesTalent)), },
+                { new IngredientElement("Lumber", 20, typeof(CarpentrySkill), typeof(CarpentryLavishResourcesTalent)), },
 
                 items: new List<CraftingElement>
                 {
@@ -70,7 +70,8 @@ namespace Digits.Maintenance
     [Ecopedia("Maintenance Items", "Bench Tools", createAsSubPage: true)]
     public partial class LumberFrameItem : RepairableItem
     {
-        public override Item RepairItem                 => Item.Get<LumberItem>();
+        public override Item RepairItem                 => Item.Get<Item>();
+		public override Tag RepairTag => TagManager.Tag("Lumber");
         public override int FullRepairAmount            => 18;
         //set durability by changing the denominator below
         public override float DurabilityRate            => DurabilityMax / 300f;
