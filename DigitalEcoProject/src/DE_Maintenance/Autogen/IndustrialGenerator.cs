@@ -18,13 +18,13 @@ namespace Eco.Mods.TechTree
             mComp.AddPartSlotRestriction("Frame",
                 new MaintenanceTypesRestriction("Frame", new string[] { "MTier 4" }));
             mComp.AddPartSlotDegradation("Frame",
-                new Dictionary<string, float>() { { "onPowerGridTick", 100f/(4f*60f*60f) } });
+                new Dictionary<string, float>() { { "degOnPowerGridTick", 100f/(4f*60f*60f) } });
 
-            mComp.CreatePartSlot("Bearing Kit");
-            mComp.AddPartSlotRestriction("Bearing Kit", 
-                new MaintenanceTypesRestriction("Bearing Kit", new string[] { "MTier 4" }));
-            mComp.AddPartSlotDegradation("Bearing Kit",
-                new Dictionary<string, float>() { { "onPowerGridTick", 100f/(4f*60f*60f) } });
+            mComp.CreatePartSlot("Bearings Kit");
+            mComp.AddPartSlotRestriction("Bearings Kit", 
+                new MaintenanceTypesRestriction("Bearings Kit", new string[] { "MTier 4" }));
+            mComp.AddPartSlotDegradation("Bearings Kit",
+                new Dictionary<string, float>() { { "degOnPowerGridTick", 100f/(4f*60f*60f) } });
         }
     }
 }

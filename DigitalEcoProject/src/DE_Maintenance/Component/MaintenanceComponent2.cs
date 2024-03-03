@@ -184,7 +184,7 @@ namespace Digits.Maintenance
                     }
 
                     //PowerGrid Damage
-                    if (this.powerGridComponent?.Enabled ?? false)
+                    if ((this.powerGridComponent?.Enabled ?? false) && this.Enabled)
                     {
                         properties.TryGetValue("degOnPowerGridTick", out damage);
                         damageSum += damage;

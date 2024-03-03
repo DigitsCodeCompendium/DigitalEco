@@ -1,0 +1,3 @@
+----- v1b -----
+---------------
+- changed item names to have a 2 in them so they dont interfere with the base game items any longer

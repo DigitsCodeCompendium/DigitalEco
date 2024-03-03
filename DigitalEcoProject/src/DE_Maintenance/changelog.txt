@@ -1,0 +1,28 @@
+----- v1b -----
+---------------
+New content:
+- /// REMOVED FROM UPDATE vehicles now have patches and require maintenance items
+- maintenance items can now be repaired with tags
+Fixes:
+- fixed item deletion issue on picking up tables
+- fixed progression issue with chisels
+- fixed progression issue with campfires
+- fixed some items incorectly using StoneItem instead of "Rock" tag
+- fixed bearings kit incorectly named bearing kit in table slot definitions
+
+----- v1c -----
+---------------
+Fixes:
+- fixed progression issue where iron was locked behind kiln and kiln was locked behind iron
+	Kiln needed t2 bellows which needs nails, bloomery needs charcoal or coal coke which is made in kiln
+	Fixed by letting kiln take t1 bellows
+
+----- v1d -----
+---------------
+Fixes:
+- fixed issue with "Smiths Tools" being named "Smith's Tools" in anvil and glassworks
+
+----- v1e -----
+---------------
+Fixes:
+- fixed issue with windmills and waterwheels using durability from items while disabled from another part breaking
