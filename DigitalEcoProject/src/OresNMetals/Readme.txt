@@ -28,11 +28,11 @@ __core__\Autogen\Block\CrushedLimestone.cs
 __core__\Autogen\Recipe\CrushedLimestoneLv2.cs
 __core__\Autogen\Recipe\CrushedLimestoneLv3.cs
 
-__core__\Autogen\Block\CrushedIron.cs
+__core__\Autogen\Block\CrushedIronOre.cs
 __core__\Autogen\Recipe\CrushedIronLv2.cs
 __core__\Autogen\Recipe\CrushedIronLv3.cs
 
-__core__\Autogen\Block\CrushedCopper.cs
+__core__\Autogen\Block\CrushedCopperOre.cs
 __core__\Autogen\Recipe\CrushedCopperLv2.cs
 __core__\Autogen\Recipe\CrushedCopperLv3.cs
 
