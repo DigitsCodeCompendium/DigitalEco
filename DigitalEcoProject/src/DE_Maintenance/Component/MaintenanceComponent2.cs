@@ -98,6 +98,11 @@ namespace Digits.Maintenance
             this.Changed(nameof(PartSlots));
         }
 
+        public void GetDegradation()
+        {
+
+        }
+
         public void AddPartSlotDegradation(string partSlotName, Dictionary<string, float> degradration)
         {
             MPartSlot? partSlot = GetPartSlot(partSlotName);
@@ -184,7 +189,7 @@ namespace Digits.Maintenance
                     }
 
                     //PowerGrid Damage
-                    if ((this.powerGridComponent?.Enabled ?? false) && this.Enabled)
+                    if ((this.powerGridComponent?.Enabled ?? false) && (this.Parent.Enabled) && this.Enabled)
                     {
                         properties.TryGetValue("degOnPowerGridTick", out damage);
                         damageSum += damage;
