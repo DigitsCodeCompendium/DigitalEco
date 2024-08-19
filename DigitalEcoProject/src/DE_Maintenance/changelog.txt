@@ -26,3 +26,8 @@ Fixes:
 ---------------
 Fixes:
 - fixed issue with windmills and waterwheels using durability from items while disabled from another part breaking
+
+----- v1f -----
+---------------
+Fixes:
+- fixed issue with steam engines using maintenance parts when its not supposed to
