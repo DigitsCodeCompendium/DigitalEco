@@ -8,17 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="src\DE_Maintenance\VanillaPatches\**" />
-    <Compile Remove="src\DE_Maintenance\WorldObject\**" />
-    <EmbeddedResource Remove="src\DE_Maintenance\VanillaPatches\**" />
-    <EmbeddedResource Remove="src\DE_Maintenance\WorldObject\**" />
-    <None Remove="src\DE_Maintenance\VanillaPatches\**" />
-    <None Remove="src\DE_Maintenance\WorldObject\**" />
+    <Compile Remove="src\DE_Maintenance\VanillaPatches\MaintenanceVPVehicles.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="src\DE_Maintenance\Component\DegradationTypes.cs.disabled" />
+    <Compile Include="src\DE_Maintenance\VanillaPatches\MVPCraftingTables.old" />
+    <Compile Include="src\DE_Maintenance\WorldObject\TestBench.old" />
     <Compile Include="src\PartSlotting\VanillaPatches\TestPatches.old" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\binar\Documents\Workshop\Modding\Eco\DigitalEco\DigitalEcoProject\src\DE_Maintenance\.editorconfig" />
+    <None Include="src\DE_Maintenance\Component\MaintenanceComponent.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,7 +61,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="src\DE_Maintenance\Component\DegradationTypes.cs.disabled" />
+    <None Remove="src\DE_Maintenance\VanillaPatches\MVPCraftingTables.old" />
     <None Remove="src\PartSlotting\VanillaPatches\TestPatches.old" />
   </ItemGroup>
 
