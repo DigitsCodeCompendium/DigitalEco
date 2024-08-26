@@ -21,6 +21,7 @@ using Eco.World.Water;
 using Eco.Gameplay.Pipes;
 using Eco.Core.Controller;
 using Eco.Gameplay.Items.Recipes;
+using Digits.Geology;
 
 namespace Eco.Mods.TechTree
 {
@@ -39,9 +40,8 @@ namespace Eco.Mods.TechTree
                 // type of the item, the amount of the item, the skill required, and the talent used.
                 ingredients: new List<IngredientElement>
                 {
-                    new IngredientElement(typeof(IronBarItem), 2, typeof(AdvancedSmeltingSkill), typeof(AdvancedSmeltingLavishResourcesTalent)),
-                    new IngredientElement(typeof(QuicklimeItem), 1, true),
-                    new IngredientElement(typeof(CrushedCoalItem), 1, true),
+                    new IngredientElement(typeof(RawSteelItem), 3, true),
+                    new IngredientElement(typeof(QuicklimeItem), 1, typeof(AdvancedSmeltingSkill), typeof(AdvancedSmeltingLavishResourcesTalent)),
                 },
 
                 // Define our recipe output items.
@@ -49,8 +49,7 @@ namespace Eco.Mods.TechTree
                 // to create.
                 items: new List<CraftingElement>
                 {
-                    new CraftingElement<SteelBarItem>(),
-                    new CraftingElement<FerrousSlagItem>(typeof(AdvancedSmeltingSkill), 2, typeof(AdvancedSmeltingLavishResourcesTalent)),
+                    new CraftingElement<SteelBarItem>(2),
                 });
             this.Recipes = new List<Recipe> { recipe };
             this.ExperienceOnCraft = 2; // Defines how much experience is gained when crafted.
@@ -67,7 +66,7 @@ namespace Eco.Mods.TechTree
             this.ModsPostInitialize();
 
             // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddRecipe(tableType: typeof(BlastFurnaceObject), recipe: this);
+            CraftingComponent.AddRecipe(tableType: typeof(AnvilObject), recipe: this);
         }
 
         /// <summary>Hook for mods to customize RecipeFamily before initialization. You can change recipes, xp, labor, time here.</summary>
@@ -78,30 +77,54 @@ namespace Eco.Mods.TechTree
     }
 
     [RequiresSkill(typeof(AdvancedSmeltingSkill), 1)]
-    public partial class CharcoalSteelRecipe : Recipe
+    [Ecopedia("Blocks", "Metals", subPageName: "Steel Bar Item")]
+    public partial class SteelBarLv2Recipe : RecipeFamily
     {
-        public CharcoalSteelRecipe()
+        public SteelBarLv2Recipe()
         {
-            this.Init(
-                name: "CharcoalSteel",  //noloc
-                displayName: Localizer.DoStr("Charcoal Steel"),
+            var recipe = new Recipe();
+            recipe.Init(
+                name: "SteelBarLv2",  //noloc
+                displayName: Localizer.DoStr("Steel Bar Lv2"),
 
+                // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
+                // type of the item, the amount of the item, the skill required, and the talent used.
                 ingredients: new List<IngredientElement>
                 {
-                    new IngredientElement(typeof(IronBarItem), 2, typeof(AdvancedSmeltingSkill), typeof(AdvancedSmeltingLavishResourcesTalent)),
-                    new IngredientElement(typeof(QuicklimeItem), 1, true),
-                    new IngredientElement(typeof(CharcoalItem), 2, true),
+                    new IngredientElement(typeof(RawSteelItem), 2, true),
+                    new IngredientElement(typeof(QuicklimeItem), 1, typeof(AdvancedSmeltingSkill), typeof(AdvancedSmeltingLavishResourcesTalent)),
                 },
 
+                // Define our recipe output items.
+                // For every output item there needs to be one CraftingElement entry with the type of the final item and the amount
+                // to create.
                 items: new List<CraftingElement>
                 {
-                    new CraftingElement<SteelBarItem>(1),
-                    new CraftingElement<FerrousSlagItem>(typeof(AdvancedSmeltingSkill), 2, typeof(AdvancedSmeltingLavishResourcesTalent)),
-                }
-            );
+                    new CraftingElement<SteelBarItem>(2),
+                });
+            this.Recipes = new List<Recipe> { recipe };
+            this.ExperienceOnCraft = 2; // Defines how much experience is gained when crafted.
 
-            CraftingComponent.AddTagProduct(typeof(BlastFurnaceObject), typeof(SteelBarRecipe), this);
+            // Defines the amount of labor required and the required skill to add labor
+            this.LaborInCalories = CreateLaborInCaloriesValue(60, typeof(AdvancedSmeltingSkill));
+
+            // Defines our crafting time for the recipe
+            this.CraftMinutes = CreateCraftTimeValue(beneficiary: typeof(SteelBarLv2Recipe), start: 1.5f, skillType: typeof(AdvancedSmeltingSkill), typeof(AdvancedSmeltingFocusedSpeedTalent), typeof(AdvancedSmeltingParallelSpeedTalent));
+
+            // Perform pre/post initialization for user mods and initialize our recipe instance with the display name "Steel Bar"
+            this.ModsPreInitialize();
+            this.Initialize(displayText: Localizer.DoStr("Steel Bar Lv2"), recipeType: typeof(SteelBarLv2Recipe));
+            this.ModsPostInitialize();
+
+            // Register our RecipeFamily instance with the crafting system so it can be crafted.
+            CraftingComponent.AddRecipe(tableType: typeof(PowerHammerObject), recipe: this);
         }
+
+        /// <summary>Hook for mods to customize RecipeFamily before initialization. You can change recipes, xp, labor, time here.</summary>
+        partial void ModsPreInitialize();
+
+        /// <summary>Hook for mods to customize RecipeFamily after initialization, but before registration. You can change skill requirements here.</summary>
+        partial void ModsPostInitialize();
     }
 
     [Serialized]

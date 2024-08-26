@@ -25,7 +25,7 @@ using Eco.Gameplay.Items.Recipes;
 namespace Eco.Mods.TechTree
 {
     [RequiresSkill(typeof(MiningSkill), 1)]
-    [Ecopedia("Blocks", "Processed Rock", subPageName: "Crushed Hematite Ore Item")]
+    [Ecopedia("Blocks", "Processed Rock", subPageName: "Crushed Hematite Item")]
     public partial class CrushedHematiteOreRecipe : RecipeFamily
     {
         public CrushedHematiteOreRecipe()
@@ -33,7 +33,7 @@ namespace Eco.Mods.TechTree
             var recipe = new Recipe();
             recipe.Init(
                 name: "CrushedHematiteOre",  //noloc
-                displayName: Localizer.DoStr("Crushed Hematite Ore"),
+                displayName: Localizer.DoStr("Crushed Hematite"),
 
                 // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
                 // type of the item, the amount of the item, the skill required, and the talent used.

@@ -105,7 +105,6 @@ namespace Eco.Mods.TechTree
     [StartsDiscovered]
     [Ecopedia("Blocks", "Processed Rock", createAsSubPage: true)]
     [Tag("CrushedRock")]
-    [Tag("Excavatable")]
     [RequiresTool(typeof(ShovelItem))]
     public partial class CrushedAlumnicSlagItem: BlockItem<CrushedAlumnicSlagBlock>
     {

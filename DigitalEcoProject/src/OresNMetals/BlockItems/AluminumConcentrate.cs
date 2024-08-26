@@ -11,7 +11,6 @@ using Eco.Shared.SharedTypes;
 using Eco.World.Blocks;
 using Eco.Gameplay.Items.Recipes;
 using Digits.Geology;
-using Digits.Maintenance;
 
 namespace Eco.Mods.TechTree
 {

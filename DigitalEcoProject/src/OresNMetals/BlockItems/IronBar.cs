@@ -32,6 +32,7 @@ namespace Eco.Mods.TechTree
                 ingredients: new List<IngredientElement>
                 {
                     new IngredientElement(typeof(IronBloomItem), 1, true),
+                    new IngredientElement(typeof(CrushedLimestoneItem), 1, typeof(SmeltingSkill)),
                 },
 
                 // Define our recipe output items.

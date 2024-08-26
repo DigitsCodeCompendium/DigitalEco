@@ -35,13 +35,11 @@ namespace Eco.Mods.TechTree
 
     [Serialized]
     [LocDisplayName("Cupric Slag")]
-    [LocDescription("Cupric Slag is a green banded mineral which is commonly refined into copper.")]
+    [LocDescription("Slag is left over material from ore proccesing. This slag is particularly high in copper oxides.")]
     [MaxStackSize(20)]
     [Weight(10000)]
     [ResourcePile]
-    [Ecopedia("Natural Resources", "Ore", createAsSubPage: true)]
-    [Tag("Ore")]
-    [Tag("Excavatable")]
+    [Tag("Slag")]
     public partial class CupricSlagItem :
 
     BlockItem<CupricSlagBlock>

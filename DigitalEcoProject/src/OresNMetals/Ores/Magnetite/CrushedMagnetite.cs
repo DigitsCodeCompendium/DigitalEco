@@ -25,33 +25,6 @@ using Eco.Gameplay.Items.Recipes;
 namespace Eco.Mods.TechTree
 {
     [RequiresSkill(typeof(MiningSkill), 1)]
-    [Ecopedia("Blocks", "Processed Rock", subPageName: "Crushed Magnetite Item")]
-    public partial class CrushedMagnetiteOreRecipe : Recipe
-    {
-        public CrushedMagnetiteOreRecipe()
-        {
-            this.Init(
-                name: "CrushedMagnetiteOre",  //noloc
-                displayName: Localizer.DoStr("Crushed Magnetite"),
-
-                ingredients: new List<IngredientElement>
-                {
-                new IngredientElement(typeof(MagnetiteOreItem), 12, true),
-                },
-
-                items: new List<CraftingElement>
-                {
-                new CraftingElement<CrushedMagnetiteOreItem>(2),
-                new CraftingElement<CrushedBasaltItem>(1),
-                }
-            );
-
-            // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddTagProduct(typeof(ArrastraObject), typeof(CrushedHematiteOreRecipe), this);
-        }
-    }
-
-    [RequiresSkill(typeof(MiningSkill), 1)]
     public partial class CrushedMagnetiteOreLv2Recipe : Recipe
     {
         public CrushedMagnetiteOreLv2Recipe()

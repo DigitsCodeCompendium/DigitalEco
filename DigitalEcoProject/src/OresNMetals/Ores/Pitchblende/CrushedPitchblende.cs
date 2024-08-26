@@ -24,6 +24,8 @@ using Eco.Gameplay.Items.Recipes;
 
 namespace Eco.Mods.TechTree
 {
+    /*
+    [Category("Hidden")]
     [RequiresSkill(typeof(MiningSkill), 1)]
     [Ecopedia("Blocks", "Processed Rock", subPageName: "Crushed Pitchblende Item")]
     public partial class CrushedPitchblendeOreRecipe : Recipe
@@ -49,7 +51,7 @@ namespace Eco.Mods.TechTree
             CraftingComponent.AddTagProduct(typeof(ArrastraObject), typeof(CrushedHematiteOreRecipe), this);
         }
     }
-
+    [Category("Hidden")]
     [RequiresSkill(typeof(MiningSkill), 1)]
     public partial class CrushedPitchblendeOreLv2Recipe : Recipe
     {
@@ -74,7 +76,7 @@ namespace Eco.Mods.TechTree
             CraftingComponent.AddTagProduct(typeof(StampMillObject), typeof(CrushedHematiteOreLv2Recipe), this);
         }
     }
-
+    [Category("Hidden")]
     [RequiresSkill(typeof(MiningSkill), 1)]
     public partial class CrushedPitchblendeOreLv3Recipe : Recipe
     {
@@ -98,7 +100,7 @@ namespace Eco.Mods.TechTree
             // Register our RecipeFamily instance with the crafting system so it can be crafted.
             CraftingComponent.AddTagProduct(typeof(JawCrusherObject), typeof(CrushedHematiteOreLv3Recipe), this);
         }
-    }
+    }*/
 
     [Serialized]
     [Solid, Wall, Diggable]
@@ -117,6 +119,7 @@ namespace Eco.Mods.TechTree
     [MaxStackSize(10)]
     [Weight(26000)]
     [StartsDiscovered]
+    [Category("Hidden")]
     [Ecopedia("Blocks", "Processed Rock", createAsSubPage: true)]
     [Tag("Excavatable")]
     [RequiresTool(typeof(ShovelItem))]
