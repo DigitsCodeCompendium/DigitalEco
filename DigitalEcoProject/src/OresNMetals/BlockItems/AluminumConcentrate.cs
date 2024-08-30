@@ -10,7 +10,6 @@ using Eco.Shared.Serialization;
 using Eco.Shared.SharedTypes;
 using Eco.World.Blocks;
 using Eco.Gameplay.Items.Recipes;
-using Digits.Geology;
 
 namespace Eco.Mods.TechTree
 {

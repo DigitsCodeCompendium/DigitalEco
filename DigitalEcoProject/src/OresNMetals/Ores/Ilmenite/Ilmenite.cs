@@ -25,7 +25,7 @@ using Eco.Gameplay.Items.Recipes;
 namespace Eco.Mods.TechTree
 {
     [Serialized]
-    [Solid, Wall, Minable(2)]
+    [Solid, Wall, Minable(4)]
     public partial class IlmeniteOreBlock :
         Block
         , IRepresentsItem
@@ -35,7 +35,7 @@ namespace Eco.Mods.TechTree
 
     [Serialized]
     [LocDisplayName("Ilmenite")]
-    [LocDescription("Ilmenite is a green banded mineral which is commonly refined into copper.")]
+    [LocDescription("Ilmenite is an important ore... for a metal we can't yet understand. It seems like we can refine some iron out of it, but not too much.")]
     [MaxStackSize(20)]
     [Weight(10000)]
     [ResourcePile]
@@ -46,7 +46,7 @@ namespace Eco.Mods.TechTree
 
     BlockItem<IlmeniteOreBlock>
     {
-        public override LocString DisplayNamePlural { get { return Localizer.DoStr("IlmeniteOre"); } }
+        public override LocString DisplayNamePlural { get { return Localizer.DoStr("Ilmenite"); } }
 
         public override bool CanStickToWalls { get { return false; } }
 

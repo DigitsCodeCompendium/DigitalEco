@@ -16,7 +16,7 @@ using Eco.Gameplay.Systems.NewTooltip;
 using Eco.Core.Controller;
 using Eco.Gameplay.Items.Recipes;
 
-namespace Digits.Geology
+namespace Eco.Mods.TechTree
 {
     [Serialized]
     [RequireComponent(typeof(OnOffComponent))]

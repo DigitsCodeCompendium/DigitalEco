@@ -25,7 +25,7 @@ using Eco.Gameplay.Items.Recipes;
 namespace Eco.Mods.TechTree
 {
     [Serialized]
-    [Solid, Wall, Minable(2)]
+    [Solid, Wall, Minable(8)]
     public partial class MagnetiteOreBlock :
         Block
         , IRepresentsItem
@@ -35,7 +35,7 @@ namespace Eco.Mods.TechTree
 
     [Serialized]
     [LocDisplayName("Magnetite")]
-    [LocDescription("Magnetite is a green banded mineral which is commonly refined into copper.")]
+    [LocDescription("Magnetite is very easy to refine into iron. The hard part of using magnetite is finding it and digging it up. There are rumors that it can be found deep under the ocean.")]
     [MaxStackSize(20)]
     [Weight(10000)]
     [ResourcePile]
@@ -46,7 +46,7 @@ namespace Eco.Mods.TechTree
 
     BlockItem<MagnetiteOreBlock>
     {
-        public override LocString DisplayNamePlural { get { return Localizer.DoStr("MagnetiteOre"); } }
+        public override LocString DisplayNamePlural { get { return Localizer.DoStr("Magnetite"); } }
 
         public override bool CanStickToWalls { get { return false; } }
 

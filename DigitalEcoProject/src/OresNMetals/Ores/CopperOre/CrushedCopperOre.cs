@@ -27,6 +27,7 @@ namespace Eco.Mods.TechTree
     [LocDescription("Crushed copper ore that is ready to be concentrated.")]
     [MaxStackSize(10)]
     [Weight(28000)]
+    [Category("Hidden")]
     [StartsDiscovered]
     [Ecopedia("Blocks", "Processed Rock", createAsSubPage: true)]
     [Tag("Excavatable")]

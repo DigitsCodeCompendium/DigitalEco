@@ -35,7 +35,7 @@ namespace Eco.Mods.TechTree
 
     [Serialized]
     [LocDisplayName("Chalcopyrite")]
-    [LocDescription("Chalcopyrite is a green banded mineral which is commonly refined into copper.")]
+    [LocDescription("Chalcopyrite is a yellow mineral serving as a primary source of copper, sulphur, and a secondary source of iron.")]
     [MaxStackSize(20)]
     [Weight(10000)]
     [ResourcePile]

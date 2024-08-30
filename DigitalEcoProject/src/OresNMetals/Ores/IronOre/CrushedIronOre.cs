@@ -15,6 +15,7 @@ namespace Eco.Mods.TechTree
     using Eco.Shared.SharedTypes;
     using Eco.World.Blocks;
     using Eco.Gameplay.Items.Recipes;
+    using System.ComponentModel;
 
     [Serialized]
     [Solid, Wall, Diggable]
@@ -34,6 +35,7 @@ namespace Eco.Mods.TechTree
     [Weight(30000)]
     [StartsDiscovered]
     [Ecopedia("Blocks", "Processed Rock", createAsSubPage: true)]
+    [Category("Hidden")]
     [Tag("Excavatable")]
     [RequiresTool(typeof(ShovelItem))]
     public partial class CrushedIronOreItem :

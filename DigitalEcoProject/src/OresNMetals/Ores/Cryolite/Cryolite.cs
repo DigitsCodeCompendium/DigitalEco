@@ -40,6 +40,7 @@ namespace Eco.Mods.TechTree
     [Weight(10000)]
     [ResourcePile]
     [Ecopedia("Natural Resources", "Ore", createAsSubPage: true)]
+    [Category("Hidden")]
     [Tag("Ore")]
     [Tag("Excavatable")]
     public partial class CryoliteOreItem :

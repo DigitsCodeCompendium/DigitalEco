@@ -24,68 +24,6 @@ using Eco.Gameplay.Items.Recipes;
 
 namespace Eco.Mods.TechTree
 {
-    [RequiresSkill(typeof(MiningSkill), 1)]
-    [Ecopedia("Blocks", "Processed Rock", subPageName: "Crushed Ferrous Slag Item")]
-    public partial class CrushedFerrousSlagLv2Recipe : Recipe
-    {
-        public CrushedFerrousSlagLv2Recipe()
-        {
-            this.Init(
-                name: "CrushedFerrousSlag",  //noloc
-                displayName: Localizer.DoStr("Crushed Ferrous Slag"),
-
-                // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
-                // type of the item, the amount of the item, the skill required, and the talent used.
-                ingredients: new List<IngredientElement>
-                {
-                    new IngredientElement(typeof(FerrousSlagItem), 20, true),
-                },
-
-                // Define our recipe output items.
-                // For every output item there needs to be one CraftingElement entry with the type of the final item and the amount
-                // to create.
-                items: new List<CraftingElement>
-                {
-                    new CraftingElement<CrushedFerrousSlagItem>(5)
-                }
-            );
-
-            // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddTagProduct(typeof(StampMillObject), typeof(CrushedSlagLv2Recipe), this);
-        }
-    }
-
-    [RequiresSkill(typeof(MiningSkill), 1)]
-    [Ecopedia("Blocks", "Processed Rock", subPageName: "Crushed Ferrous Slag Item")]
-    public partial class CrushedFerrousSlagLv3Recipe : Recipe
-    {
-        public CrushedFerrousSlagLv3Recipe()
-        {
-            this.Init(
-                name: "CrushedFerrousSlag",  //noloc
-                displayName: Localizer.DoStr("Crushed Ferrous Slag"),
-
-                // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
-                // type of the item, the amount of the item, the skill required, and the talent used.
-                ingredients: new List<IngredientElement>
-                {
-                    new IngredientElement(typeof(FerrousSlagItem), 20, true),
-                },
-
-                // Define our recipe output items.
-                // For every output item there needs to be one CraftingElement entry with the type of the final item and the amount
-                // to create.
-                items: new List<CraftingElement>
-                {
-                    new CraftingElement<CrushedFerrousSlagItem>(5)
-                }
-            );
-
-            // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddTagProduct(typeof(JawCrusherObject), typeof(CrushedSlagLv3Recipe), this);
-        }
-    }
-
     [Serialized]
     [Solid, Wall, Diggable]
     [RequiresSkill(typeof(MiningSkill), 1)]

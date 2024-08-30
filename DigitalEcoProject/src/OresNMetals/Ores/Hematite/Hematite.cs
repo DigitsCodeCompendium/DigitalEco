@@ -35,7 +35,7 @@ namespace Eco.Mods.TechTree
 
     [Serialized]
     [LocDisplayName("Hematite")]
-    [LocDescription("Hematite is a green banded mineral which is commonly refined into copper.")]
+    [LocDescription("Hematite is considered to be one of the most important sources of iron. While its concentration is not particularly high, it is very plentiful.")]
     [MaxStackSize(20)]
     [Weight(10000)]
     [ResourcePile]
@@ -46,7 +46,7 @@ namespace Eco.Mods.TechTree
 
     BlockItem<HematiteOreBlock>
     {
-        public override LocString DisplayNamePlural { get { return Localizer.DoStr("HematiteOre"); } }
+        public override LocString DisplayNamePlural { get { return Localizer.DoStr("Hematite"); } }
 
         public override bool CanStickToWalls { get { return false; } }
 

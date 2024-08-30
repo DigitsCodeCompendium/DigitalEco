@@ -24,84 +24,6 @@ using Eco.Gameplay.Items.Recipes;
 
 namespace Eco.Mods.TechTree
 {
-    [RequiresSkill(typeof(MiningSkill), 1)]
-    [Ecopedia("Blocks", "Processed Rock", subPageName: "Crushed Malachite Item")]
-    public partial class CrushedMalachiteOreRecipe : Recipe
-    {
-        public CrushedMalachiteOreRecipe()
-        {
-            this.Init(
-                name: "CrushedMalachiteOre",  //noloc
-                displayName: Localizer.DoStr("Crushed Malachite"),
-
-                ingredients: new List<IngredientElement>
-                {
-                new IngredientElement(typeof(MalachiteOreItem), 12, true),
-                },
-
-                items: new List<CraftingElement>
-                {
-                new CraftingElement<CrushedMalachiteOreItem>(2),
-                new CraftingElement<CrushedMixedRockItem>(1),
-                }
-            );
-
-            // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddTagProduct(typeof(ArrastraObject), typeof(CrushedHematiteOreRecipe), this);
-        }
-    }
-
-    [RequiresSkill(typeof(MiningSkill), 1)]
-    public partial class CrushedMalachiteOreLv2Recipe : Recipe
-    {
-        public CrushedMalachiteOreLv2Recipe()
-        {
-            this.Init(
-                name: "CrushedMalachiteOreLv2",  //noloc
-                displayName: Localizer.DoStr("Crushed Malachite Lv2"),
-
-                ingredients: new List<IngredientElement>
-                {
-                new IngredientElement(typeof(MalachiteOreItem), 20, true),
-                },
-
-                items: new List<CraftingElement>
-                {
-                new CraftingElement<CrushedMalachiteOreItem>(4),
-                new CraftingElement<CrushedMixedRockItem>(1),
-                }
-            );
-
-            // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddTagProduct(typeof(StampMillObject), typeof(CrushedHematiteOreLv2Recipe), this);
-        }
-    }
-
-    [RequiresSkill(typeof(MiningSkill), 1)]
-    public partial class CrushedMalachiteOreLv3Recipe : Recipe
-    {
-        public CrushedMalachiteOreLv3Recipe()
-        {
-            this.Init(
-                name: "CrushedMalachiteOreLv3",  //noloc
-                displayName: Localizer.DoStr("Crushed Malachite Lv3"),
-
-                ingredients: new List<IngredientElement>
-                {
-                new IngredientElement(typeof(MalachiteOreItem), 20, true),
-                },
-
-                items: new List<CraftingElement>
-                {
-                new CraftingElement<CrushedMalachiteOreItem>(5)
-                }
-            );
-
-            // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddTagProduct(typeof(JawCrusherObject), typeof(CrushedHematiteOreLv3Recipe), this);
-        }
-    }
-
     [Serialized]
     [Solid, Wall, Diggable]
     [RequiresSkill(typeof(MiningSkill), 1)]
@@ -114,8 +36,8 @@ namespace Eco.Mods.TechTree
     }
 
     [Serialized]
-    [LocDisplayName("Crushed MalachiteOre")]
-    [LocDescription("MalachiteOre rocks that have been crushed into a fine gravel.")]
+    [LocDisplayName("Crushed Malachite")]
+    [LocDescription("Malachite Ore rocks that have been crushed into a fine gravel.")]
     [MaxStackSize(10)]
     [Weight(26000)]
     [StartsDiscovered]
@@ -126,7 +48,7 @@ namespace Eco.Mods.TechTree
 
     BlockItem<CrushedMalachiteOreBlock>
     {
-        public override LocString DisplayNamePlural { get { return Localizer.DoStr("Crushed MalachiteOre"); } }
+        public override LocString DisplayNamePlural { get { return Localizer.DoStr("Crushed Malachite"); } }
 
         public override bool CanStickToWalls { get { return false; } }
     }

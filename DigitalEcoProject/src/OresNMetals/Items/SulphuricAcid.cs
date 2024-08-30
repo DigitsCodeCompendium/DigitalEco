@@ -11,7 +11,7 @@ using Eco.Core.Items;
 using Eco.Gameplay.Items.Recipes;
 using Eco.Mods.TechTree;
 
-namespace Digits.Geology
+namespace Eco.Mods.TechTree
 {
     [RequiresSkill(typeof(MiningSkill), 7)] 
     public partial class SulphuricAcidRecipe : RecipeFamily

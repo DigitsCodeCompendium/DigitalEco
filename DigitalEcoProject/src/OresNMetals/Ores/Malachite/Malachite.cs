@@ -35,7 +35,7 @@ namespace Eco.Mods.TechTree
 
     [Serialized]
     [LocDisplayName("Malachite")]
-    [LocDescription("Malachite is a green banded mineral which is commonly refined into copper.")]
+    [LocDescription("Malachite is a green banded mineral which is commonly used for ornamental reasons, it can also be refined into copper.")]
     [MaxStackSize(20)]
     [Weight(10000)]
     [ResourcePile]

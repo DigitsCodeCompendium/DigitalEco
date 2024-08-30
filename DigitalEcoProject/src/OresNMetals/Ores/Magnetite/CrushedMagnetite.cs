@@ -24,57 +24,6 @@ using Eco.Gameplay.Items.Recipes;
 
 namespace Eco.Mods.TechTree
 {
-    [RequiresSkill(typeof(MiningSkill), 1)]
-    public partial class CrushedMagnetiteOreLv2Recipe : Recipe
-    {
-        public CrushedMagnetiteOreLv2Recipe()
-        {
-            this.Init(
-                name: "CrushedMagnetiteOre",  //noloc
-                displayName: Localizer.DoStr("Crushed Magnetite Lv2"),
-
-                ingredients: new List<IngredientElement>
-                {
-                new IngredientElement(typeof(MagnetiteOreItem), 20, true),
-                },
-
-                items: new List<CraftingElement>
-                {
-                new CraftingElement<CrushedMagnetiteOreItem>(4),
-                new CraftingElement<CrushedBasaltItem>(1),
-                }
-            );
-
-            // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddTagProduct(typeof(StampMillObject), typeof(CrushedHematiteOreLv2Recipe), this);
-        }
-    }
-
-    [RequiresSkill(typeof(MiningSkill), 1)]
-    public partial class CrushedMagnetiteOreLv3Recipe : Recipe
-    {
-        public CrushedMagnetiteOreLv3Recipe()
-        {
-            this.Init(
-                name: "CrushedMagnetiteOre",  //noloc
-                displayName: Localizer.DoStr("Crushed Magnetite Lv3"),
-
-                ingredients: new List<IngredientElement>
-                {
-                new IngredientElement(typeof(MagnetiteOreItem), 20, true),
-                },
-
-                items: new List<CraftingElement>
-                {
-                new CraftingElement<CrushedMagnetiteOreItem>(5)
-                }
-            );
-
-            // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddTagProduct(typeof(JawCrusherObject), typeof(CrushedHematiteOreLv3Recipe), this);
-        }
-    }
-
     [Serialized]
     [Solid, Wall, Diggable]
     [RequiresSkill(typeof(MiningSkill), 1)]
@@ -87,8 +36,8 @@ namespace Eco.Mods.TechTree
     }
 
     [Serialized]
-    [LocDisplayName("Crushed MagnetiteOre")]
-    [LocDescription("MagnetiteOre rocks that have been crushed into a fine gravel.")]
+    [LocDisplayName("Crushed Magnetite")]
+    [LocDescription("Magnetite rocks that have been crushed into a fine gravel.")]
     [MaxStackSize(10)]
     [Weight(26000)]
     [StartsDiscovered]
@@ -99,7 +48,7 @@ namespace Eco.Mods.TechTree
 
     BlockItem<CrushedMagnetiteOreBlock>
     {
-        public override LocString DisplayNamePlural { get { return Localizer.DoStr("Crushed MagnetiteOre"); } }
+        public override LocString DisplayNamePlural { get { return Localizer.DoStr("Crushed Magnetite"); } }
 
         public override bool CanStickToWalls { get { return false; } }
     }

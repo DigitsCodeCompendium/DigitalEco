@@ -41,6 +41,7 @@ namespace Eco.Mods.TechTree
     [ResourcePile]
     [Ecopedia("Natural Resources", "Ore", createAsSubPage: true)]
     [Tag("Ore")]
+    [Category("Hidden")]
     [Tag("Excavatable")]
     public partial class BauxiteOreItem :
 
