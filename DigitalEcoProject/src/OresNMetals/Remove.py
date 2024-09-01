@@ -22,3 +22,5 @@ for file_path in files_to_delete:
         print(f"File not found: {file_path}")
     except Exception as e:
         print(f"Error deleting {file_path}: {e}")
+
+input('press enter to close')   

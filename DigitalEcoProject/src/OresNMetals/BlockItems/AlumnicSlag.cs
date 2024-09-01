@@ -38,6 +38,7 @@ namespace Eco.Mods.TechTree
     [LocDescription("Slag is left over material from ore proccesing. This slag is particularly high in aluminum oxides.")]
     [MaxStackSize(20)]
     [Weight(10000)]
+    [Category("Hidden")]
     [ResourcePile]
     [Tag("Slag")]
     public partial class AlumnicSlagItem :

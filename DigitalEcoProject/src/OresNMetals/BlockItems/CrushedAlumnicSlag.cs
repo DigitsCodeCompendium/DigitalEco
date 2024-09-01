@@ -24,68 +24,6 @@ using Eco.Gameplay.Items.Recipes;
 
 namespace Eco.Mods.TechTree
 {
-    [RequiresSkill(typeof(MiningSkill), 1)]
-    [Ecopedia("Blocks", "Processed Rock", subPageName: "Crushed Alumnic Slag Item")]
-    public partial class CrushedAlumnicSlagLv2Recipe : Recipe
-    {
-        public CrushedAlumnicSlagLv2Recipe()
-        {
-            this.Init(
-                name: "CrushedAlumnicSlag",  //noloc
-                displayName: Localizer.DoStr("Crushed Alumnic Slag"),
-
-                // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
-                // type of the item, the amount of the item, the skill required, and the talent used.
-                ingredients: new List<IngredientElement>
-                {
-                    new IngredientElement(typeof(AlumnicSlagItem), 20, true),
-                },
-
-                // Define our recipe output items.
-                // For every output item there needs to be one CraftingElement entry with the type of the final item and the amount
-                // to create.
-                items: new List<CraftingElement>
-                {
-                    new CraftingElement<CrushedAlumnicSlagItem>(5)
-                }
-            );
-
-            // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddTagProduct(typeof(StampMillObject), typeof(CrushedSlagLv2Recipe), this);
-        }
-    }
-
-    [RequiresSkill(typeof(MiningSkill), 1)]
-    [Ecopedia("Blocks", "Processed Rock", subPageName: "Crushed Alumnic Slag Item")]
-    public partial class CrushedAlumnicSlagLv3Recipe : Recipe
-    {
-            public CrushedAlumnicSlagLv3Recipe()
-        {
-            this.Init(
-                name: "CrushedAlumnicSlag",  //noloc
-                displayName: Localizer.DoStr("Crushed Alumnic Slag"),
-
-                // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
-                // type of the item, the amount of the item, the skill required, and the talent used.
-                ingredients: new List<IngredientElement>
-                {
-                    new IngredientElement(typeof(AlumnicSlagItem), 20, true),
-                },
-
-                // Define our recipe output items.
-                // For every output item there needs to be one CraftingElement entry with the type of the final item and the amount
-                // to create.
-                items: new List<CraftingElement>
-                {
-                    new CraftingElement<CrushedAlumnicSlagItem>(5)
-                }
-            );
-
-            // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddTagProduct(typeof(JawCrusherObject), typeof(CrushedSlagLv3Recipe), this);
-        }
-    }
-
     [Serialized]
     [Solid, Wall, Diggable]
     [RequiresSkill(typeof(MiningSkill), 1)]
@@ -104,6 +42,7 @@ namespace Eco.Mods.TechTree
     [Weight(24000)]
     [StartsDiscovered]
     [Ecopedia("Blocks", "Processed Rock", createAsSubPage: true)]
+    [Category("Hidden")]
     [Tag("CrushedRock")]
     [RequiresTool(typeof(ShovelItem))]
     public partial class CrushedAlumnicSlagItem: BlockItem<CrushedAlumnicSlagBlock>
