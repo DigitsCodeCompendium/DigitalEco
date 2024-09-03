@@ -15,6 +15,9 @@ using Eco.Shared.Items;
 using Eco.Gameplay.Systems.NewTooltip;
 using Eco.Core.Controller;
 using Eco.Gameplay.Items.Recipes;
+using Eco.Gameplay.Housing;
+using Eco.Gameplay.Property;
+using static Eco.Gameplay.Components.PartsComponent;
 
 namespace Eco.Mods.TechTree
 {
@@ -24,8 +27,17 @@ namespace Eco.Mods.TechTree
     [RequireComponent(typeof(MinimapComponent))]
     [RequireComponent(typeof(LinkComponent))]
     [RequireComponent(typeof(CraftingComponent))]
+    [RequireComponent(typeof(HousingComponent))]
     [RequireComponent(typeof(OccupancyRequirementComponent))]
+    [RequireComponent(typeof(PluginModulesComponent))]
     [RequireComponent(typeof(ForSaleComponent))]
+    [RequireComponent(typeof(RoomRequirementsComponent))]
+    [RequireComponent(typeof(PartsComponent))]
+    [RequireComponent(typeof(PowerGridComponent))]
+    [RequireComponent(typeof(PowerConsumptionComponent))]
+    [RequireRoomContainment]
+    [RequireRoomVolume(45)]
+    [RequireRoomMaterialTier(3.0f, typeof(AdvancedSmeltingFrugalReqTalent), typeof(AdvancedSmeltingLavishReqTalent))]
     [Tag("Usable")]
     [Ecopedia("Work Stations", "Craft Tables", subPageName: "Reaction Chamber Item")]
     public partial class ReactionChamberObject : WorldObject, IRepresentsItem
@@ -37,7 +49,14 @@ namespace Eco.Mods.TechTree
         protected override void Initialize()
         {
             this.ModsPreInitialize();
+            this.GetComponent<PartsComponent>().Config(() => this.GetComponent<CraftingComponent>().DecayDescription, new PartInfo[]
+            {
+                new() { TypeName = nameof(ServoItem), Quantity = 5},
+            });
             this.GetComponent<MinimapComponent>().SetCategory(Localizer.DoStr("Crafting"));
+            this.GetComponent<PowerConsumptionComponent>().Initialize(500);
+            this.GetComponent<PowerGridComponent>().Initialize(10, new ElectricPower());
+            this.GetComponent<HousingComponent>().HomeValue = AssemblyLineItem.homeValue;
             this.ModsPostInitialize();
         }
 
@@ -65,53 +84,5 @@ namespace Eco.Mods.TechTree
         protected override OccupancyContext GetOccupancyContext => new SideAttachedContext( 0  | DirectionAxisFlags.Down , WorldObject.GetOccupancyInfo(this.WorldObjectType));
 
         [Serialized, SyncToView, NewTooltipChildren(CacheAs.Instance, flags: TTFlags.AllowNonControllerTypeForChildren)] public object PersistentData { get; set; }
-    }
-
-    [Ecopedia("Work Stations", "Craft Tables", subPageName: "Reaction Chamber Item")]
-    public partial class ReactionChamberRecipe : RecipeFamily
-    {
-        public ReactionChamberRecipe()
-        {
-            var recipe = new Recipe();
-            recipe.Init(
-                name: "ReactionChamber",  //noloc
-                displayName: Localizer.DoStr("Reaction Chamber"),
-
-                // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
-                // type of the item, the amount of the item, the skill required, and the talent used.
-                ingredients: new List<IngredientElement>
-                {
-                    new IngredientElement("Wood", 10), //noloc
-                },
-
-                // Define our recipe output items.
-                // For every output item there needs to be one CraftingElement entry with the type of the final item and the amount
-                // to create.
-                items: new List<CraftingElement>
-                {
-                    new CraftingElement<ReactionChamberItem>()
-                });
-            this.Recipes = new List<Recipe> { recipe };
-            
-            // Defines the amount of labor required and the required skill to add labor
-            this.LaborInCalories = CreateLaborInCaloriesValue(30);
-
-            // Defines our crafting time for the recipe
-            this.CraftMinutes = CreateCraftTimeValue(0.5f);
-
-            // Perform pre/post initialization for user mods and initialize our recipe instance with the display name "Maintenance Bench"
-            this.ModsPreInitialize();
-            this.Initialize(displayText: Localizer.DoStr("Reaction Chamber"), recipeType: typeof(ReactionChamberRecipe));
-            this.ModsPostInitialize();
-
-            // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddRecipe(tableType: typeof(WorkbenchObject), recipe: this);
-        }
-
-        /// <summary>Hook for mods to customize RecipeFamily before initialization. You can change recipes, xp, labor, time here.</summary>
-        partial void ModsPreInitialize();
-
-        /// <summary>Hook for mods to customize RecipeFamily after initialization, but before registration. You can change skill requirements here.</summary>
-        partial void ModsPostInitialize();
     }
 }

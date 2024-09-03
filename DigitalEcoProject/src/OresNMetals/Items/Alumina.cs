@@ -17,6 +17,7 @@ namespace Eco.Mods.TechTree
     [LocDisplayName("Alumina")]
     [LocDescription("Alumina")]
     [Weight(100)]
+    [Category("Hidden")]
     [Tag("Chemical")]                                                
     public partial class AluminaItem : Item
     {

@@ -16,6 +16,7 @@ namespace Eco.Mods.TechTree
     [LocDisplayName("Hydrofluoric Acid")]
     [LocDescription("Hydrofluoric Acid")]
     [Weight(100)]
+    [Category("Hidden")]
     [Tag("Chemical")]                                               
     public partial class HydrofluoricAcidItem : Item
     {

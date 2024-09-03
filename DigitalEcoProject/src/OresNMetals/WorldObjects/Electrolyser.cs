@@ -8,6 +8,7 @@ using Eco.Gameplay.Components.Auth;
 using Eco.Gameplay.Items;
 using Eco.Gameplay.Objects;
 using Eco.Gameplay.Occupancy;
+using Eco.Gameplay.Systems.TextLinks;
 using Eco.Shared.Math;
 using Eco.Shared.Localization;
 using Eco.Shared.Serialization;
@@ -17,6 +18,10 @@ using Eco.Core.Controller;
 using Eco.Gameplay.Items.Recipes;
 using Eco.Gameplay.Housing;
 using Eco.Gameplay.Property;
+using static Eco.Gameplay.Components.PartsComponent;
+using Eco.Gameplay.Modules;
+using Eco.Gameplay.Housing.PropertyValues;
+using Eco.Shared.Utils;
 
 namespace Eco.Mods.TechTree
 {
@@ -31,8 +36,11 @@ namespace Eco.Mods.TechTree
     [RequireComponent(typeof(PluginModulesComponent))]
     [RequireComponent(typeof(ForSaleComponent))]
     [RequireComponent(typeof(RoomRequirementsComponent))]
+    [RequireComponent(typeof(PartsComponent))]
+    [RequireComponent(typeof(PowerGridComponent))]
+    [RequireComponent(typeof(PowerConsumptionComponent))]
     [RequireRoomContainment]
-    [RequireRoomVolume(18)]
+    [RequireRoomVolume(120)]
     [RequireRoomMaterialTier(3.0f, typeof(AdvancedSmeltingFrugalReqTalent), typeof(AdvancedSmeltingLavishReqTalent))]
     [Tag("Usable")]
     [Ecopedia("Work Stations", "Craft Tables", subPageName: "Electrolyser Item")]
@@ -45,7 +53,14 @@ namespace Eco.Mods.TechTree
         protected override void Initialize()
         {
             this.ModsPreInitialize();
+            this.GetComponent<PartsComponent>().Config(() => this.GetComponent<CraftingComponent>().DecayDescription, new PartInfo[]
+            {
+                new() { TypeName = nameof(ServoItem), Quantity = 1},
+            });
             this.GetComponent<MinimapComponent>().SetCategory(Localizer.DoStr("Crafting"));
+            this.GetComponent<PowerConsumptionComponent>().Initialize(10000);
+            this.GetComponent<PowerGridComponent>().Initialize(10, new ElectricPower());
+            this.GetComponent<HousingComponent>().HomeValue = RoboticAssemblyLineItem.homeValue;
             this.ModsPostInitialize();
         }
 
@@ -67,11 +82,21 @@ namespace Eco.Mods.TechTree
     [LocDescription("A machine that performs electrolysis")]
     [IconGroup("World Object Minimap")]
     [Ecopedia("Work Stations", "Craft Tables", createAsSubPage: true)]
-    [Weight(1000)] // Defines how heavy Maintenance Bench is.
+    [Weight(10000)] // Defines how heavy Maintenance Bench is.
+    [AllowPluginModules(Tags = new[] { "ModernUpgrade" }, ItemTypes = new[] { typeof(AdvancedSmeltingUpgradeItem) })] //noloc
     public partial class ElectrolyserItem : WorldObjectItem<ElectrolyserObject>, IPersistentData
     {
-        protected override OccupancyContext GetOccupancyContext => new SideAttachedContext( 0  | DirectionAxisFlags.Down , WorldObject.GetOccupancyInfo(this.WorldObjectType));
+        protected override OccupancyContext GetOccupancyContext => new SideAttachedContext(0 | DirectionAxisFlags.Down, WorldObject.GetOccupancyInfo(this.WorldObjectType));
+        public override HomeFurnishingValue HomeValue => homeValue;
+        public static readonly HomeFurnishingValue homeValue = new HomeFurnishingValue()
+        {
+            ObjectName = typeof(RoboticAssemblyLineObject).UILink(),
+            Category = HousingConfig.GetRoomCategory("Industrial"),
+            TypeForRoomLimit = Localizer.DoStr(""),
 
+        };
+
+        [NewTooltip(CacheAs.SubType, 7)] public static LocString PowerConsumptionTooltip() => Localizer.Do($"Consumes: {Text.Info(6000)}w of {new ElectricPower().Name} power.");
         [Serialized, SyncToView, NewTooltipChildren(CacheAs.Instance, flags: TTFlags.AllowNonControllerTypeForChildren)] public object PersistentData { get; set; }
     }
 }

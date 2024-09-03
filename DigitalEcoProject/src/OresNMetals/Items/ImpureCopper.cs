@@ -15,7 +15,7 @@ namespace Eco.Mods.TechTree
 {
     [Serialized]
     [LocDisplayName("Impure Copper")]
-    [LocDescription("Impure Copper")]
+    [LocDescription("This chunk of copper is ready to be smelted into copper bars, although it could be further proccesed to remove impurities.")]
     [Weight(100)]
     public partial class ImpureCopperItem : Item
     {

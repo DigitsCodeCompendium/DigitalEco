@@ -1,0 +1,5176 @@
+{
+    "$id": "1",
+    "ConfigVersion": 1,
+    "MapSizePreset": "Small",
+    "Dimensions": {
+      "$id": "2",
+      "WorldWidth": 72,
+      "WorldLength": 72
+    },
+    "WaterLevel": 60,
+    "Height": 160,
+    "HeightmapModule": {
+      "$id": "3",
+      "$type": "Eco.WorldGenerator.EcoTerraceNode, Eco.WorldGenerator",
+      "Source": {
+        "$id": "4",
+        "$type": "Eco.WorldGenerator.VoronoiModule, Eco.WorldGenerator",
+        "Config": {
+          "$id": "5",
+          "Seed": 0,
+          "PointRadius": 10.0,
+          "LandPercentRange": {
+            "min": 0.65,
+            "max": 0.75
+          },
+          "CoastlineSize": 1,
+          "ShallowOceanSize": 2,
+          "DesertWeight": 0.15,
+          "WarmForestWeight": 0.2,
+          "CoolForestWeight": 0.22,
+          "TaigaWeight": 0.08,
+          "TundraWeight": 0.03,
+          "IceWeight": 0.01,
+          "RainforestWeight": 0.15,
+          "WetlandWeight": 0.04,
+          "SteppeWeight": 0.1,
+          "HighDesertWeight": 0.05,
+          "NumContinentsRange": {
+            "min": 1.0,
+            "max": 3.0
+          },
+          "ContinentAvoidRange": {
+            "min": 8.0,
+            "max": 16.0
+          },
+          "NumSmallIslandsRange": {
+            "min": 1.0,
+            "max": 3.0
+          },
+          "IslandAvoidRange": {
+            "min": 4.0,
+            "max": 8.0
+          },
+          "IslandWeight": 0.05,
+          "NumRainforests": 1,
+          "NumWarmForests": 1,
+          "NumCoolForests": 1,
+          "NumTaigas": 1,
+          "NumTundras": 1,
+          "NumIces": 1,
+          "NumDeserts": 1,
+          "NumWetlands": 1,
+          "NumHighDeserts": 1,
+          "NumSteppes": 1,
+          "LakeSizeRange": {
+            "min": 0.0008,
+            "max": 0.0018
+          },
+          "NumLakesRange": {
+            "min": 4.0,
+            "max": 8.0
+          },
+          "NumRiversRange": {
+            "min": 2.0,
+            "max": 5.0
+          },
+          "RiverCellAvoidance": 2,
+          "RiverCellWidth": 10.0,
+          "MaxElevationOceanDistance": 10.0,
+          "ElevationPower": 2.0,
+          "AutoScale": true,
+          "AutoScaleExponent": 0.25,
+          "SaveTerrainImage": true
+        },
+        "OutputIndex": 0
+      },
+      "Power": 4.0,
+      "TerracePoints": 41
+    },
+    "WaterModule": {
+      "$id": "6",
+      "$type": "Eco.WorldGenerator.EcoTerraceNode, Eco.WorldGenerator",
+      "Source": {
+        "$id": "7",
+        "$type": "Eco.WorldGenerator.VoronoiModule, Eco.WorldGenerator",
+        "Config": {
+          "$ref": "5"
+        },
+        "OutputIndex": 1
+      },
+      "Power": 4.0,
+      "TerracePoints": 61
+    },
+    "RainfallModule": {
+      "$id": "8",
+      "$type": "Eco.WorldGenerator.VoronoiModule, Eco.WorldGenerator",
+      "Config": {
+        "$ref": "5"
+      },
+      "OutputIndex": 2
+    },
+    "TemperatureModule": {
+      "$id": "9",
+      "$type": "Eco.WorldGenerator.VoronoiModule, Eco.WorldGenerator",
+      "Config": {
+        "$ref": "5"
+      },
+      "OutputIndex": 3
+    },
+    "Crater": {
+      "$id": "10",
+      "Frequency": 0.0,
+      "RadiusRange": {
+        "min": 5.0,
+        "max": 50.0
+      },
+      "DepthRange": {
+        "min": 0.1,
+        "max": 0.5
+      }
+    },
+    "TerrainModule": {
+      "$id": "11",
+      "$type": "Eco.WorldGenerator.TerrainModule, Eco.WorldGenerator",
+      "Name": "World",
+      "Modules": [
+        {
+          "$id": "12",
+          "$type": "Eco.WorldGenerator.BiomeTerrainModule, Eco.WorldGenerator",
+          "BiomeName": "Grassland",
+          "Module": {
+            "$id": "13",
+            "BlockDepthRanges": [
+              {
+                "$id": "14",
+                "NoiseFrequency": 1.0,
+                "Min": 0,
+                "Max": 0,
+                "BlockType": {
+                  "$id": "15",
+                  "Type": "Eco.World.Blocks.DirtBlock, Eco.World"
+                },
+                "SubModules": [
+                  {
+                    "$id": "16",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "17",
+                      "Type": "Eco.World.Blocks.RockySoilBlock, Eco.World"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 200.0
+                    },
+                    "PercentChance": 0.05,
+                    "NoiseFrequency": 99.0,
+                    "NoiseType": "RidgedMulti",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "18",
+                "NoiseFrequency": 60.0,
+                "Min": 2,
+                "Max": 6,
+                "BlockType": {
+                  "$ref": "17"
+                },
+                "SubModules": [
+                  {
+                    "$id": "19",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "20",
+                      "Type": "Eco.Mods.TechTree.ClayBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 2.0,
+                      "max": 6.0
+                    },
+                    "PercentChance": 1.0,
+                    "NoiseFrequency": 99.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "21",
+                "NoiseFrequency": 40.0,
+                "Min": 2,
+                "Max": 6,
+                "BlockType": {
+                  "$id": "22",
+                  "Type": "Eco.Mods.TechTree.LimestoneBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "23",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "24",
+                      "Type": "Eco.Mods.TechTree.CrushedLimestoneBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 2.0
+                    },
+                    "PercentChance": 0.4,
+                    "NoiseFrequency": 99.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "25",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 15,
+                "BlockType": {
+                  "$id": "26",
+                  "Type": "Eco.Mods.TechTree.SandstoneBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "27",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "28",
+                      "Type": "Eco.Mods.TechTree.CrushedSandstoneBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 1.0
+                    },
+                    "PercentChance": 0.5,
+                    "NoiseFrequency": 99.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "29",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "30",
+                      "Type": "Eco.Mods.TechTree.CrushedHematiteOreBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 5.0
+                    },
+                    "PercentChance": 0.1,
+                    "NoiseFrequency": 70.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "31",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "32",
+                      "Type": "Eco.Mods.TechTree.CoalBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 12.0,
+                      "max": 15.0
+                    },
+                    "PercentChance": 1.0,
+                    "NoiseFrequency": 35.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "33",
+                "NoiseFrequency": 25.0,
+                "Min": 55,
+                "Max": 60,
+                "BlockType": {
+                  "$id": "34",
+                  "Type": "Eco.Mods.TechTree.QuartziteBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "35",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "36",
+                      "Type": "Eco.Mods.TechTree.LimestoneBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 10.0,
+                      "max": 13.0
+                    },
+                    "PercentChance": 0.6,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "37",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "38",
+                      "Type": "Eco.Mods.TechTree.CoalBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 12.0,
+                      "max": 15.0
+                    },
+                    "PercentChance": 0.2,
+                    "NoiseFrequency": 5.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "39",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.01,
+                    "DepthRange": {
+                      "min": 53.0,
+                      "max": 60.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 15.0,
+                      "max": 60.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 15.0,
+                      "max": 75.0
+                    },
+                    "BlockType": {
+                      "$id": "40",
+                      "Type": "Eco.Mods.TechTree.HematiteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 1.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 1.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 4.0,
+                        "Y": 1.0,
+                        "Z": 4.0
+                      },
+                      {
+                        "X": 5.0,
+                        "Y": 1.0,
+                        "Z": 5.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 3.0,
+                      "Y": 1.0,
+                      "Z": 3.0
+                    }
+                  },
+                  {
+                    "$id": "41",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "42",
+                      "Type": "Eco.Mods.TechTree.CoalBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 25.0,
+                      "max": 27.0
+                    },
+                    "PercentChance": 0.2,
+                    "NoiseFrequency": 5.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "43",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "44",
+                      "Type": "Eco.Mods.TechTree.LimestoneBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 20.0,
+                      "max": 26.0
+                    },
+                    "PercentChance": 0.6,
+                    "NoiseFrequency": 75.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "45",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "42"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 45.0,
+                      "max": 48.0
+                    },
+                    "PercentChance": 0.2,
+                    "NoiseFrequency": 5.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "46",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "47",
+                      "Type": "Eco.Mods.TechTree.LimestoneBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 30.0,
+                      "max": 36.0
+                    },
+                    "PercentChance": 0.75,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "48",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "49",
+                      "Type": "Eco.World.Blocks.EmptyBlock, Eco.World"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 25.0,
+                      "max": 70.0
+                    },
+                    "PercentChance": 0.05,
+                    "NoiseFrequency": 15.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "50",
+                "NoiseFrequency": 40.0,
+                "Min": 60,
+                "Max": 80,
+                "BlockType": {
+                  "$id": "51",
+                  "Type": "Eco.Mods.TechTree.GraniteBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "52",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "53",
+                      "Type": "Eco.Mods.TechTree.CrushedGraniteBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 0.0
+                    },
+                    "PercentChance": 0.4,
+                    "NoiseFrequency": 70.0,
+                    "NoiseType": "RidgedMulti",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "54",
+                "NoiseFrequency": 40.0,
+                "Min": 70,
+                "Max": 100,
+                "BlockType": {
+                  "$id": "55",
+                  "Type": "Eco.Mods.TechTree.GneissBlock, Eco.Mods"
+                },
+                "SubModules": []
+              }
+            ]
+          }
+        },
+        {
+          "$id": "56",
+          "$type": "Eco.WorldGenerator.BiomeTerrainModule, Eco.WorldGenerator",
+          "BiomeName": "RainForest",
+          "Module": {
+            "$id": "57",
+            "BlockDepthRanges": [
+              {
+                "$id": "58",
+                "NoiseFrequency": 1.0,
+                "Min": 0,
+                "Max": 0,
+                "BlockType": {
+                  "$ref": "15"
+                },
+                "SubModules": [
+                  {
+                    "$id": "59",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "17"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 200.0
+                    },
+                    "PercentChance": 0.05,
+                    "NoiseFrequency": 75.0,
+                    "NoiseType": "RidgedMulti",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "60",
+                "NoiseFrequency": 40.0,
+                "Min": 4,
+                "Max": 6,
+                "BlockType": {
+                  "$id": "61",
+                  "Type": "Eco.Mods.TechTree.ClayBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "62",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "63",
+                      "Type": "Eco.World.Blocks.RockySoilBlock, Eco.World"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 1.0,
+                      "max": 1.0
+                    },
+                    "PercentChance": 0.3,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "64",
+                "NoiseFrequency": 25.0,
+                "Min": 1,
+                "Max": 30,
+                "BlockType": {
+                  "$id": "65",
+                  "Type": "Eco.Mods.TechTree.ClayBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "66",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.001,
+                    "DepthRange": {
+                      "min": -1.0,
+                      "max": 3.0
+                    },
+                    "DepositDepthRange": {
+                      "min": -1.0,
+                      "max": 3.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 3.0,
+                      "max": 8.0
+                    },
+                    "BlockType": {
+                      "$id": "67",
+                      "Type": "Eco.Mods.TechTree.GoldOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 4.0,
+                        "Y": 3.0,
+                        "Z": 2.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 2.0,
+                      "Z": 1.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "68",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 40,
+                "BlockType": {
+                  "$id": "69",
+                  "Type": "Eco.Mods.TechTree.ShaleBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "70",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "71",
+                      "Type": "Eco.Mods.TechTree.CrushedShaleBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 1.0
+                    },
+                    "PercentChance": 0.6,
+                    "NoiseFrequency": 99.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "72",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.002,
+                    "DepthRange": {
+                      "min": 1.0,
+                      "max": 20.0
+                    },
+                    "DepositDepthRange": {
+                      "min": -2.0,
+                      "max": 20.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 6.0,
+                      "max": 14.0
+                    },
+                    "BlockType": {
+                      "$id": "73",
+                      "Type": "Eco.Mods.TechTree.GoldOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 0.0,
+                        "Y": 1.0,
+                        "Z": 0.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 2.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 0.0,
+                      "Y": 0.0,
+                      "Z": 0.0
+                    }
+                  },
+                  {
+                    "$id": "74",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": true,
+                    "SpawnPercentChance": 0.0002,
+                    "DepthRange": {
+                      "min": -1.0,
+                      "max": 0.0
+                    },
+                    "DepositDepthRange": {
+                      "min": -1.0,
+                      "max": 2.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 3.0,
+                      "max": 8.0
+                    },
+                    "BlockType": {
+                      "$id": "75",
+                      "Type": "Eco.Mods.TechTree.GoldOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 0.0,
+                        "Y": 0.0,
+                        "Z": 0.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 0.0,
+                      "Y": 0.0,
+                      "Z": 0.0
+                    }
+                  },
+                  {
+                    "$id": "76",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "77",
+                      "Type": "Eco.Mods.TechTree.CrushedGoldOreBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 1.0
+                    },
+                    "PercentChance": 0.2,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "78",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "79",
+                      "Type": "Eco.Mods.TechTree.CoalBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 8.0
+                    },
+                    "DepthRange": {
+                      "min": 25.0,
+                      "max": 30.0
+                    },
+                    "PercentChance": 0.15,
+                    "NoiseFrequency": 15.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "80",
+                "NoiseFrequency": 25.0,
+                "Min": 40,
+                "Max": 45,
+                "BlockType": {
+                  "$id": "81",
+                  "Type": "Eco.Mods.TechTree.SlateBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "82",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "83",
+                      "Type": "Eco.Mods.TechTree.CoalBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 8.0
+                    },
+                    "DepthRange": {
+                      "min": 40.0,
+                      "max": 45.0
+                    },
+                    "PercentChance": 0.15,
+                    "NoiseFrequency": 15.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "84",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.001,
+                    "DepthRange": {
+                      "min": 40.0,
+                      "max": 41.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 5.0,
+                      "max": 41.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 15.0,
+                      "max": 100.0
+                    },
+                    "BlockType": {
+                      "$id": "85",
+                      "Type": "Eco.Mods.TechTree.CoalBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 3.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 4.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 3.0,
+                      "Z": 2.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "86",
+                "NoiseFrequency": 40.0,
+                "Min": 45,
+                "Max": 50,
+                "BlockType": {
+                  "$id": "87",
+                  "Type": "Eco.Mods.TechTree.GraniteBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "88",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.0005,
+                    "DepthRange": {
+                      "min": 50.0,
+                      "max": 55.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 55.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 15.0,
+                      "max": 55.0
+                    },
+                    "BlockType": {
+                      "$id": "89",
+                      "Type": "Eco.Mods.TechTree.GoldOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 3.0,
+                      "Y": 1.0,
+                      "Z": 1.0
+                    }
+                  },
+                  {
+                    "$id": "90",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.0005,
+                    "DepthRange": {
+                      "min": 51.0,
+                      "max": 60.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 60.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 25.0,
+                      "max": 45.0
+                    },
+                    "BlockType": {
+                      "$ref": "89"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 3.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 4.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 5.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 3.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 3.0,
+                      "Z": 1.0
+                    }
+                  },
+                  {
+                    "$id": "91",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "92",
+                      "Type": "Eco.Mods.TechTree.GoldOreBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 42.0,
+                      "max": 45.0
+                    },
+                    "PercentChance": 0.15,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "93",
+                "NoiseFrequency": 15.0,
+                "Min": 60,
+                "Max": 70,
+                "BlockType": {
+                  "$ref": "51"
+                },
+                "SubModules": [
+                  {
+                    "$id": "94",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": true,
+                    "SpawnPercentChance": 0.005,
+                    "DepthRange": {
+                      "min": 60.0,
+                      "max": 80.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 80.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 5.0,
+                      "max": 25.0
+                    },
+                    "BlockType": {
+                      "$ref": "67"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 2.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 3.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 4.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 6.0,
+                        "Y": 3.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 1.0,
+                      "Z": 1.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "95",
+                "NoiseFrequency": 40.0,
+                "Min": 65,
+                "Max": 100,
+                "BlockType": {
+                  "$ref": "55"
+                },
+                "SubModules": []
+              }
+            ]
+          }
+        },
+        {
+          "$id": "96",
+          "$type": "Eco.WorldGenerator.BiomeTerrainModule, Eco.WorldGenerator",
+          "BiomeName": "WarmForest",
+          "Module": {
+            "$id": "97",
+            "BlockDepthRanges": [
+              {
+                "$id": "98",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 0,
+                "BlockType": {
+                  "$ref": "15"
+                },
+                "SubModules": [
+                  {
+                    "$id": "99",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "17"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 200.0
+                    },
+                    "PercentChance": 0.05,
+                    "NoiseFrequency": 75.0,
+                    "NoiseType": "RidgedMulti",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "100",
+                "NoiseFrequency": 40.0,
+                "Min": 6,
+                "Max": 15,
+                "BlockType": {
+                  "$ref": "17"
+                },
+                "SubModules": [
+                  {
+                    "$id": "101",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "20"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 2.0,
+                      "max": 15.0
+                    },
+                    "PercentChance": 1.0,
+                    "NoiseFrequency": 5.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "102",
+                "NoiseFrequency": 15.0,
+                "Min": 0,
+                "Max": 20,
+                "BlockType": {
+                  "$id": "103",
+                  "Type": "Eco.Mods.TechTree.BasaltBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "104",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "105",
+                      "Type": "Eco.Mods.TechTree.CrushedBasaltBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 1.0
+                    },
+                    "PercentChance": 0.5,
+                    "NoiseFrequency": 99.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "106",
+                "NoiseFrequency": 25.0,
+                "Min": 0,
+                "Max": 20,
+                "BlockType": {
+                  "$id": "107",
+                  "Type": "Eco.Mods.TechTree.GraniteBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "108",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "109",
+                      "Type": "Eco.Mods.TechTree.CrushedGraniteBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 1.0
+                    },
+                    "PercentChance": 0.5,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "110",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": true,
+                    "SpawnPercentChance": 0.03,
+                    "DepthRange": {
+                      "min": 15.0,
+                      "max": 30.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 30.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 3.0,
+                      "max": 17.0
+                    },
+                    "BlockType": {
+                      "$id": "111",
+                      "Type": "Eco.Mods.TechTree.ChalcopyriteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 3.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 1.0,
+                      "Z": 1.0
+                    }
+                  },
+                  {
+                    "$id": "112",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.03,
+                    "DepthRange": {
+                      "min": 25.0,
+                      "max": 55.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 55.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 6.0,
+                      "max": 25.0
+                    },
+                    "BlockType": {
+                      "$id": "113",
+                      "Type": "Eco.Mods.TechTree.ChalcopyriteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 3.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 2.0,
+                      "Z": 1.0
+                    }
+                  },
+                  {
+                    "$id": "425",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": true,
+                    "SpawnPercentChance": 0.0001,
+                    "DepthRange": {
+                      "min": -1.0,
+                      "max": 30.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 5.0,
+                      "max": 20.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 100.0,
+                      "max": 500.0
+                    },
+                    "BlockType": {
+                      "$id": "426",
+                      "Type": "Eco.Mods.TechTree.MarbleBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 1.0,
+                        "Z": 4.0
+                      },
+                      {
+                        "X": 4.0,
+                        "Y": 1.0,
+                        "Z": 2.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 2.0,
+                      "Z": 1.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "441",
+                "NoiseFrequency": 40.0,
+                "Min": 18,
+                "Max": 19,
+                "BlockType": {
+                  "$ref": "51"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "440",
+                "NoiseFrequency": 40.0,
+                "Min": 20,
+                "Max": 23,
+                "BlockType": {
+                  "$id": "442",
+                  "Type": "Eco.Mods.TechTree.MarbleBlock, Eco.Mods"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "443",
+                "NoiseFrequency": 40.0,
+                "Min": 23,
+                "Max": 25,
+                "BlockType": {
+                  "$id": "446",
+                  "Type": "Eco.Mods.TechTree.BlackMarbleBlock, Eco.Mods"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "444",
+                "NoiseFrequency": 40.0,
+                "Min": 24,
+                "Max": 27,
+                "BlockType": {
+                  "$id": "447",
+                  "Type": "Eco.Mods.TechTree.MarbleBlock, Eco.Mods"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "114",
+                "NoiseFrequency": 40.0,
+                "Min": 55,
+                "Max": 65,
+                "BlockType": {
+                  "$ref": "51"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "115",
+                "NoiseFrequency": 40.0,
+                "Min": 70,
+                "Max": 100,
+                "BlockType": {
+                  "$ref": "55"
+                },
+                "SubModules": []
+              }
+            ]
+          }
+        },
+        {
+          "$id": "116",
+          "$type": "Eco.WorldGenerator.BiomeTerrainModule, Eco.WorldGenerator",
+          "BiomeName": "ColdForest",
+          "Module": {
+            "$id": "117",
+            "BlockDepthRanges": [
+              {
+                "$id": "118",
+                "NoiseFrequency": 1.0,
+                "Min": 0,
+                "Max": 0,
+                "BlockType": {
+                  "$ref": "15"
+                },
+                "SubModules": [
+                  {
+                    "$id": "119",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "17"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 200.0
+                    },
+                    "PercentChance": 0.05,
+                    "NoiseFrequency": 99.0,
+                    "NoiseType": "RidgedMulti",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "120",
+                "NoiseFrequency": 40.0,
+                "Min": 1,
+                "Max": 3,
+                "BlockType": {
+                  "$ref": "17"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "121",
+                "NoiseFrequency": 40.0,
+                "Min": 5,
+                "Max": 15,
+                "BlockType": {
+                  "$ref": "103"
+                },
+                "SubModules": [
+                  {
+                    "$id": "122",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "123",
+                      "Type": "Eco.Mods.TechTree.CrushedBasaltBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 2.0,
+                      "max": 2.0
+                    },
+                    "PercentChance": 0.7,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "124",
+                "NoiseFrequency": 25.0,
+                "Min": 0,
+                "Max": 15,
+                "BlockType": {
+                  "$ref": "107"
+                },
+                "SubModules": [
+                  {
+                    "$id": "125",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "109"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 1.0
+                    },
+                    "PercentChance": 0.5,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "126",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.0175,
+                    "DepthRange": {
+                      "min": 1.0,
+                      "max": 20.0
+                    },
+                    "DepositDepthRange": {
+                      "min": -2.0,
+                      "max": 20.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 6.0,
+                      "max": 14.0
+                    },
+                    "BlockType": {
+                      "$id": "127",
+                      "Type": "Eco.Mods.TechTree.ChalcopyriteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 0.0,
+                        "Y": 1.0,
+                        "Z": 0.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 2.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 0.0,
+                      "Y": 0.0,
+                      "Z": 0.0
+                    }
+                  },
+                  {
+                    "$id": "230",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "429",
+                      "Type": "Eco.Mods.TechTree.GreenschistBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 12.0,
+                      "max": 20.0
+                    },
+                    "PercentChance": 0.6,
+                    "NoiseFrequency": 25.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "432",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "433",
+                      "Type": "Eco.Mods.TechTree.GreenschistBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 2.0,
+                      "max": 7.0
+                    },
+                    "PercentChance": 0.4,
+                    "NoiseFrequency": 25.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "128",
+                "NoiseFrequency": 40.0,
+                "Min": 55,
+                "Max": 65,
+                "BlockType": {
+                  "$ref": "51"
+                },
+                "SubModules": [
+                  {
+                    "$id": "129",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.001,
+                    "DepthRange": {
+                      "min": 35.0,
+                      "max": 45.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 45.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 5.0,
+                      "max": 50.0
+                    },
+                    "BlockType": {
+                      "$id": "130",
+                      "Type": "Eco.Mods.TechTree.GoldOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 3.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 5.0,
+                        "Y": 3.0,
+                        "Z": 5.0
+                      },
+                      {
+                        "X": 4.0,
+                        "Y": 2.0,
+                        "Z": 4.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 4.0,
+                        "Z": 2.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 2.0,
+                      "Y": 1.0,
+                      "Z": 2.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "131",
+                "NoiseFrequency": 40.0,
+                "Min": 70,
+                "Max": 100,
+                "BlockType": {
+                  "$ref": "55"
+                },
+                "SubModules": []
+              }
+            ]
+          }
+        },
+        {
+          "$id": "132",
+          "$type": "Eco.WorldGenerator.BiomeTerrainModule, Eco.WorldGenerator",
+          "BiomeName": "Taiga",
+          "Module": {
+            "$id": "133",
+            "BlockDepthRanges": [
+              {
+                "$id": "134",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 0,
+                "BlockType": {
+                  "$ref": "15"
+                },
+                "SubModules": [
+                  {
+                    "$id": "135",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "136",
+                      "Type": "Eco.World.Blocks.FrozenSoilBlock, Eco.World"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 200.0
+                    },
+                    "PercentChance": 0.05,
+                    "NoiseFrequency": 75.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "137",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "17"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 200.0
+                    },
+                    "PercentChance": 0.1,
+                    "NoiseFrequency": 75.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "409",
+                "NoiseFrequency": 55.0,
+                "Min": 10,
+                "Max": 80,
+                "BlockType": {
+                  "$id": "413",
+                  "Type": "Eco.Mods.TechTree.BlueschistBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "408",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": true,
+                    "SpawnPercentChance": 0.0005,
+                    "DepthRange": {
+                      "min": 20.0,
+                      "max": 80.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 100.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 50.0,
+                      "max": 400.0
+                    },
+                    "BlockType": {
+                      "$id": "407",
+                      "Type": "Eco.Mods.TechTree.IlmeniteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 4.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 8.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 8.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 10.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 1.0,
+                      "Z": 1.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "138",
+                "NoiseFrequency": 40.0,
+                "Min": 1,
+                "Max": 3,
+                "BlockType": {
+                  "$id": "139",
+                  "Type": "Eco.World.Blocks.RockySoilBlock, Eco.World"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "140",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 20,
+                "BlockType": {
+                  "$ref": "103"
+                },
+                "SubModules": [
+                  {
+                    "$id": "141",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "105"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 1.0
+                    },
+                    "PercentChance": 0.5,
+                    "NoiseFrequency": 99.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "142",
+                "NoiseFrequency": 25.0,
+                "Min": 0,
+                "Max": 20,
+                "BlockType": {
+                  "$id": "143",
+                  "Type": "Eco.Mods.TechTree.GraniteBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "144",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "145",
+                      "Type": "Eco.Mods.TechTree.CrushedGraniteBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 0.0
+                    },
+                    "PercentChance": 0.4,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "146",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "147",
+                      "Type": "Eco.Mods.TechTree.CrushedChalcopyriteOreBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 0.0
+                    },
+                    "PercentChance": 0.05,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "148",
+                "NoiseFrequency": 40.0,
+                "Min": 65,
+                "Max": 70,
+                "BlockType": {
+                  "$ref": "51"
+                },
+                "SubModules": [
+                  {
+                    "$id": "149",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.0015,
+                    "DepthRange": {
+                      "min": 25.0,
+                      "max": 40.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 40.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 25.0,
+                      "max": 100.0
+                    },
+                    "BlockType": {
+                      "$id": "150",
+                      "Type": "Eco.Mods.TechTree.ChalcopyriteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 3.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 2.0,
+                      "Z": 1.0
+                    }
+                  },
+                  {
+                    "$id": "435",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "431",
+                      "Type": "Eco.Mods.TechTree.GreenschistBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 28.0,
+                      "max": 35.0
+                    },
+                    "PercentChance": 0.7,
+                    "NoiseFrequency": 2.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "445",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "430",
+                      "Type": "Eco.Mods.TechTree.GreenschistBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 5.0,
+                      "max": 12.0
+                    },
+                    "PercentChance": 0.6,
+                    "NoiseFrequency": 2.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "151",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.002,
+                    "DepthRange": {
+                      "min": 40.0,
+                      "max": 60.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 60.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 5.0,
+                      "max": 35.0
+                    },
+                    "BlockType": {
+                      "$id": "152",
+                      "Type": "Eco.Mods.TechTree.ChalcopyriteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 3.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 3.0,
+                      "Z": 2.0
+                    }
+                  },
+                  {
+                    "$id": "153",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": true,
+                    "SpawnPercentChance": 0.01,
+                    "DepthRange": {
+                      "min": 50.0,
+                      "max": 60.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 60.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 3.0,
+                      "max": 15.0
+                    },
+                    "BlockType": {
+                      "$id": "154",
+                      "Type": "Eco.Mods.TechTree.GoldOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 3.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 1.0,
+                        "Z": 3.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 1.0,
+                      "Z": 3.0
+                    }
+                  },
+                  {
+                    "$id": "155",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": true,
+                    "SpawnPercentChance": 0.002,
+                    "DepthRange": {
+                      "min": 65.0,
+                      "max": 75.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 75.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 3.0,
+                      "max": 15.0
+                    },
+                    "BlockType": {
+                      "$ref": "154"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 2.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 2.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 3.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 2.0,
+                      "Z": 1.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "156",
+                "NoiseFrequency": 40.0,
+                "Min": 70,
+                "Max": 120,
+                "BlockType": {
+                  "$ref": "55"
+                },
+                "SubModules": []
+              }
+            ]
+          }
+        },
+        {
+          "$id": "157",
+          "$type": "Eco.WorldGenerator.BiomeTerrainModule, Eco.WorldGenerator",
+          "BiomeName": "Tundra",
+          "Module": {
+            "$id": "158",
+            "BlockDepthRanges": [
+              {
+                "$id": "159",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 0,
+                "BlockType": {
+                  "$ref": "15"
+                },
+                "SubModules": [
+                  {
+                    "$id": "160",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "136"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 200.0
+                    },
+                    "PercentChance": 0.15,
+                    "NoiseFrequency": 75.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "161",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "162",
+                      "Type": "Eco.World.Blocks.SnowBlock, Eco.World"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 200.0
+                    },
+                    "PercentChance": 0.2,
+                    "NoiseFrequency": 75.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "163",
+                "NoiseFrequency": 40.0,
+                "Min": 1,
+                "Max": 3,
+                "BlockType": {
+                  "$ref": "139"
+                },
+                "SubModules": [
+                  {
+                    "$id": "164",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "165",
+                      "Type": "Eco.World.Blocks.FrozenSoilBlock, Eco.World"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 200.0
+                    },
+                    "PercentChance": 0.1,
+                    "NoiseFrequency": 99.0,
+                    "NoiseType": "RidgedMulti",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "166",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 30,
+                "BlockType": {
+                  "$ref": "103"
+                },
+                "SubModules": [
+                  {
+                    "$id": "167",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "105"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 1.0
+                    },
+                    "PercentChance": 0.4,
+                    "NoiseFrequency": 99.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "168",
+                "NoiseFrequency": 25.0,
+                "Min": 0,
+                "Max": 30,
+                "BlockType": {
+                  "$ref": "143"
+                },
+                "SubModules": [
+                  {
+                    "$id": "169",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "145"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 0.0
+                    },
+                    "PercentChance": 0.5,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "170",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "171",
+                      "Type": "Eco.Mods.TechTree.CrushedGoldOreBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 0.0
+                    },
+                    "PercentChance": 0.05,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "172",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "147"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 0.0
+                    },
+                    "PercentChance": 0.05,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "411",
+                "NoiseFrequency": 55.0,
+                "Min": 10,
+                "Max": 80,
+                "BlockType": {
+                  "$id": "415",
+                  "Type": "Eco.Mods.TechTree.BlueschistBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "419",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": true,
+                    "SpawnPercentChance": 0.0005,
+                    "DepthRange": {
+                      "min": 20.0,
+                      "max": 80.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 100.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 50.0,
+                      "max": 400.0
+                    },
+                    "BlockType": {
+                      "$id": "417",
+                      "Type": "Eco.Mods.TechTree.IlmeniteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 4.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 8.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 8.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 10.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 1.0,
+                      "Z": 1.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "173",
+                "NoiseFrequency": 40.0,
+                "Min": 65,
+                "Max": 75,
+                "BlockType": {
+                  "$ref": "51"
+                },
+                "SubModules": [
+                  {
+                    "$id": "174",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "175",
+                      "Type": "Eco.Mods.TechTree.BasaltBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 30.0,
+                      "max": 35.0
+                    },
+                    "PercentChance": 0.95,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "176",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": true,
+                    "SpawnPercentChance": 0.002,
+                    "DepthRange": {
+                      "min": 60.0,
+                      "max": 100.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 100.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 15.0,
+                      "max": 68.0
+                    },
+                    "BlockType": {
+                      "$id": "177",
+                      "Type": "Eco.Mods.TechTree.ChalcopyriteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 4.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 1.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 1.0,
+                        "Z": 2.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 1.0,
+                      "Z": 1.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "178",
+                "NoiseFrequency": 25.0,
+                "Min": 70,
+                "Max": 85,
+                "BlockType": {
+                  "$id": "179",
+                  "Type": "Eco.Mods.TechTree.GneissBlock, Eco.Mods"
+                },
+                "SubModules": []
+              }
+            ]
+          }
+        },
+        {
+          "$id": "180",
+          "$type": "Eco.WorldGenerator.BiomeTerrainModule, Eco.WorldGenerator",
+          "BiomeName": "Ice",
+          "Module": {
+            "$id": "181",
+            "BlockDepthRanges": [
+              {
+                "$id": "182",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 8,
+                "BlockType": {
+                  "$id": "183",
+                  "Type": "Eco.World.Blocks.IceBlock, Eco.World"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "405",
+                "NoiseFrequency": 55.0,
+                "Min": 10,
+                "Max": 80,
+                "BlockType": {
+                  "$id": "416",
+                  "Type": "Eco.Mods.TechTree.BlueschistBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "420",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": true,
+                    "SpawnPercentChance": 0.0005,
+                    "DepthRange": {
+                      "min": 20.0,
+                      "max": 80.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 100.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 50.0,
+                      "max": 400.0
+                    },
+                    "BlockType": {
+                      "$id": "418",
+                      "Type": "Eco.Mods.TechTree.IlmeniteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 4.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 8.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 8.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 10.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 1.0,
+                      "Z": 1.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "184",
+                "NoiseFrequency": 40.0,
+                "Min": 10,
+                "Max": 30,
+                "BlockType": {
+                  "$ref": "103"
+                },
+                "SubModules": [
+                  {
+                    "$id": "185",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "105"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 1.0
+                    },
+                    "PercentChance": 0.8,
+                    "NoiseFrequency": 60.0,
+                    "NoiseType": "RidgedMulti",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "186",
+                "NoiseFrequency": 25.0,
+                "Min": 0,
+                "Max": 30,
+                "BlockType": {
+                  "$ref": "143"
+                },
+                "SubModules": [
+                  {
+                    "$id": "187",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "145"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 0.0
+                    },
+                    "PercentChance": 0.9,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "188",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": true,
+                    "SpawnPercentChance": 0.005,
+                    "DepthRange": {
+                      "min": 10.0,
+                      "max": 60.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 60.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 20.0,
+                      "max": 60.0
+                    },
+                    "BlockType": {
+                      "$id": "189",
+                      "Type": "Eco.Mods.TechTree.ChalcopyriteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 3.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 2.0,
+                      "Z": 1.0
+                    }
+                  },
+                  {
+                    "$id": "190",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": true,
+                    "SpawnPercentChance": 0.002,
+                    "DepthRange": {
+                      "min": -1.0,
+                      "max": 15.0
+                    },
+                    "DepositDepthRange": {
+                      "min": -1.0,
+                      "max": 15.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 4.0,
+                      "max": 12.0
+                    },
+                    "BlockType": {
+                      "$id": "191",
+                      "Type": "Eco.Mods.TechTree.CrushedChalcopyriteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 2.0,
+                      "Z": 1.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "192",
+                "NoiseFrequency": 40.0,
+                "Min": 60,
+                "Max": 75,
+                "BlockType": {
+                  "$ref": "51"
+                },
+                "SubModules": [
+                  {
+                    "$id": "193",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": true,
+                    "SpawnPercentChance": 0.001,
+                    "DepthRange": {
+                      "min": 50.0,
+                      "max": 60.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 60.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 60.0,
+                      "max": 200.0
+                    },
+                    "BlockType": {
+                      "$ref": "189"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 4.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 4.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 2.0,
+                      "Z": 1.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "194",
+                "NoiseFrequency": 40.0,
+                "Min": 70,
+                "Max": 100,
+                "BlockType": {
+                  "$ref": "55"
+                },
+                "SubModules": []
+              }
+            ]
+          }
+        },
+        {
+          "$id": "195",
+          "$type": "Eco.WorldGenerator.BiomeTerrainModule, Eco.WorldGenerator",
+          "BiomeName": "Desert",
+          "Module": {
+            "$id": "196",
+            "BlockDepthRanges": [
+              {
+                "$id": "197",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 0,
+                "BlockType": {
+                  "$id": "198",
+                  "Type": "Eco.World.Blocks.DesertSandBlock, Eco.World"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "199",
+                "NoiseFrequency": 25.0,
+                "Min": 4,
+                "Max": 6,
+                "BlockType": {
+                  "$id": "200",
+                  "Type": "Eco.World.Blocks.SandBlock, Eco.World"
+                },
+                "SubModules": [
+                  {
+                    "$id": "201",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "202",
+                      "Type": "Eco.World.Blocks.DesertSandBlock, Eco.World"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 3.0
+                    },
+                    "PercentChance": 1.0,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "203",
+                "NoiseFrequency": 15.0,
+                "Min": 1,
+                "Max": 20,
+                "BlockType": {
+                  "$ref": "200"
+                },
+                "SubModules": [
+                  {
+                    "$id": "204",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "205",
+                      "Type": "Eco.World.Blocks.DesertSandBlock, Eco.World"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 3.0
+                    },
+                    "PercentChance": 1.0,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "206",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "207",
+                      "Type": "Eco.Mods.TechTree.CrushedSandstoneBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 18.0,
+                      "max": 20.0
+                    },
+                    "PercentChance": 0.4,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "208",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "209",
+                      "Type": "Eco.Mods.TechTree.CrushedHematiteOreBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 19.0,
+                      "max": 20.0
+                    },
+                    "PercentChance": 0.3,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "210",
+                "NoiseFrequency": 25.0,
+                "Min": 0,
+                "Max": 20,
+                "BlockType": {
+                  "$id": "211",
+                  "Type": "Eco.Mods.TechTree.SandstoneBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "212",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "213",
+                      "Type": "Eco.Mods.TechTree.CrushedSandstoneBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 0.0
+                    },
+                    "PercentChance": 0.4,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "214",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "215",
+                      "Type": "Eco.Mods.TechTree.CrushedHematiteOreBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 0.0
+                    },
+                    "PercentChance": 0.05,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "216",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "217",
+                      "Type": "Eco.Mods.TechTree.HematiteOreBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 8.0,
+                      "max": 11.0
+                    },
+                    "PercentChance": 0.075,
+                    "NoiseFrequency": 25.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "218",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.0025,
+                    "DepthRange": {
+                      "min": 8.0,
+                      "max": 20.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 20.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 15.0,
+                      "max": 50.0
+                    },
+                    "BlockType": {
+                      "$id": "219",
+                      "Type": "Eco.Mods.TechTree.HematiteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 5.0,
+                        "Y": 2.0,
+                        "Z": 5.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 4.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 3.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 4.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 5.0,
+                        "Y": 2.0,
+                        "Z": 5.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 5.0,
+                      "Z": 1.0
+                    }
+                  },
+                  {
+                    "$id": "220",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.0025,
+                    "DepthRange": {
+                      "min": 8.0,
+                      "max": 20.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 8.0,
+                      "max": 20.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 40.0,
+                      "max": 250.0
+                    },
+                    "BlockType": {
+                      "$id": "221",
+                      "Type": "Eco.Mods.TechTree.HematiteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 4.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 3.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 4.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 2.0,
+                      "Y": 1.0,
+                      "Z": 1.0
+                    }
+                  },
+                  {
+                    "$id": "222",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.0025,
+                    "DepthRange": {
+                      "min": 14.0,
+                      "max": 20.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 20.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 35.0,
+                      "max": 140.0
+                    },
+                    "BlockType": {
+                      "$id": "223",
+                      "Type": "Eco.Mods.TechTree.HematiteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 5.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 4.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 4.0,
+                        "Y": 3.0,
+                        "Z": 4.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 4.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 3.0,
+                        "Z": 2.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 3.0,
+                      "Y": 2.0,
+                      "Z": 2.0
+                    }
+                  },
+                  {
+                    "$id": "224",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.0025,
+                    "DepthRange": {
+                      "min": 18.0,
+                      "max": 20.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 20.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 15.0,
+                      "max": 150.0
+                    },
+                    "BlockType": {
+                      "$id": "225",
+                      "Type": "Eco.Mods.TechTree.HematiteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 5.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 4.0,
+                        "Z": 5.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 3.0,
+                        "Z": 4.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 4.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 5.0,
+                        "Y": 2.0,
+                        "Z": 2.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 3.0,
+                      "Y": 4.0,
+                      "Z": 2.0
+                    }
+                  },
+                  {
+                    "$id": "226",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.02,
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 1.0
+                    },
+                    "DepositDepthRange": {
+                      "min": -2.0,
+                      "max": 1.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 8.0,
+                      "max": 15.0
+                    },
+                    "BlockType": {
+                      "$id": "227",
+                      "Type": "Eco.Mods.TechTree.HematiteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 3.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 2.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 1.0,
+                      "Z": 1.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "228",
+                "NoiseFrequency": 40.0,
+                "Min": 55,
+                "Max": 60,
+                "BlockType": {
+                  "$id": "229",
+                  "Type": "Eco.Mods.TechTree.SandstoneBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "428",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "231",
+                      "Type": "Eco.Mods.TechTree.HematiteOreBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 21.0,
+                      "max": 23.0
+                    },
+                    "PercentChance": 0.15,
+                    "NoiseFrequency": 25.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "232",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.001,
+                    "DepthRange": {
+                      "min": 20.0,
+                      "max": 24.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 5.0,
+                      "max": 30.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 15.0,
+                      "max": 300.0
+                    },
+                    "BlockType": {
+                      "$id": "233",
+                      "Type": "Eco.Mods.TechTree.HematiteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 1.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 4.0,
+                        "Y": 1.0,
+                        "Z": 4.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 3.0,
+                      "Y": 1.0,
+                      "Z": 3.0
+                    }
+                  },
+                  {
+                    "$id": "234",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.0001,
+                    "DepthRange": {
+                      "min": 30.0,
+                      "max": 35.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 30.0,
+                      "max": 35.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 1000.0,
+                      "max": 8000.0
+                    },
+                    "BlockType": {
+                      "$id": "235",
+                      "Type": "Eco.Mods.TechTree.LimestoneBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 5.0,
+                        "Y": 1.0,
+                        "Z": 5.0
+                      },
+                      {
+                        "X": 5.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 5.0
+                      },
+                      {
+                        "X": 6.0,
+                        "Y": 1.0,
+                        "Z": 6.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 6.0
+                      },
+                      {
+                        "X": 6.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 3.0,
+                      "Y": 0.0,
+                      "Z": 3.0
+                    }
+                  },
+                  {
+                    "$id": "421",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "422",
+                      "Type": "Eco.Mods.TechTree.HematiteOreBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 50.0,
+                      "max": 53.0
+                    },
+                    "PercentChance": 0.2,
+                    "NoiseFrequency": 25.0,
+                    "NoiseType": "RidgedMulti",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "238",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.001,
+                    "DepthRange": {
+                      "min": 48.0,
+                      "max": 55.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 35.0,
+                      "max": 55.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 50.0,
+                      "max": 150.0
+                    },
+                    "BlockType": {
+                      "$ref": "233"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 1.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 1.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 4.0,
+                        "Y": 1.0,
+                        "Z": 4.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 3.0,
+                      "Y": 1.0,
+                      "Z": 3.0
+                    }
+                  },
+                  {
+                    "$id": "239",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "240",
+                      "Type": "Eco.Mods.TechTree.HematiteOreBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 200.0
+                    },
+                    "PercentChance": 0.01,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "241",
+                "NoiseFrequency": 25.0,
+                "Min": 58,
+                "Max": 65,
+                "BlockType": {
+                  "$id": "242",
+                  "Type": "Eco.Mods.TechTree.GneissBlock, Eco.Mods"
+                },
+                "SubModules": []
+              }
+            ]
+          }
+        },
+        {
+          "$id": "243",
+          "$type": "Eco.WorldGenerator.BiomeTerrainModule, Eco.WorldGenerator",
+          "BiomeName": "Ocean",
+          "Module": {
+            "$id": "244",
+            "BlockDepthRanges": [
+              {
+                "$id": "245",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 0,
+                "BlockType": {
+                  "$id": "246",
+                  "Type": "Eco.World.Blocks.DirtBlock, Eco.World"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "247",
+                "NoiseFrequency": 40.0,
+                "Min": 4,
+                "Max": 15,
+                "BlockType": {
+                  "$id": "248",
+                  "Type": "Eco.World.Blocks.SandBlock, Eco.World"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "249",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 15,
+                "BlockType": {
+                  "$id": "250",
+                  "Type": "Eco.Mods.TechTree.LimestoneBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "251",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "252",
+                      "Type": "Eco.Mods.TechTree.CrushedLimestoneBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 0.0
+                    },
+                    "PercentChance": 0.3,
+                    "NoiseFrequency": 99.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "253",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 100,
+                "BlockType": {
+                  "$id": "254",
+                  "Type": "Eco.Mods.TechTree.BasaltBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "255",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "256",
+                      "Type": "Eco.Mods.TechTree.CrushedBasaltBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 1.0
+                    },
+                    "PercentChance": 0.3,
+                    "NoiseFrequency": 99.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "$id": "257",
+          "$type": "Eco.WorldGenerator.BiomeTerrainModule, Eco.WorldGenerator",
+          "BiomeName": "DeepOcean",
+          "Module": {
+            "$id": "258",
+            "BlockDepthRanges": [
+              {
+                "$id": "259",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 0,
+                "BlockType": {
+                  "$ref": "246"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "260",
+                "NoiseFrequency": 25.0,
+                "Min": 2,
+                "Max": 10,
+                "BlockType": {
+                  "$id": "261",
+                  "Type": "Eco.World.Blocks.SandBlock, Eco.World"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "262",
+                "NoiseFrequency": 1.0,
+                "Min": 0,
+                "Max": 100,
+                "BlockType": {
+                  "$ref": "254"
+                },
+                "SubModules": [
+                  {
+                    "$id": "263",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "264",
+                      "Type": "Eco.Mods.TechTree.CrushedBasaltBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 1.0
+                    },
+                    "PercentChance": 0.1,
+                    "NoiseFrequency": 99.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "401",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": true,
+                    "SpawnPercentChance": 0.0003,
+                    "DepthRange": {
+                      "min": 34.0,
+                      "max": 100.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 80.0,
+                      "max": 100.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 80.0,
+                      "max": 500.0
+                    },
+                    "BlockType": {
+                      "$id": "400",
+                      "Type": "Eco.Mods.TechTree.MagnetiteOreBlock, Eco.Mods"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 1.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 1.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 4.0,
+                        "Y": 1.0,
+                        "Z": 4.0
+                      },
+                      {
+                        "X": 5.0,
+                        "Y": 1.0,
+                        "Z": 5.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 3.0,
+                      "Y": 1.0,
+                      "Z": 3.0
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "$id": "265",
+          "$type": "Eco.WorldGenerator.BiomeTerrainModule, Eco.WorldGenerator",
+          "BiomeName": "ColdCoast",
+          "Module": {
+            "$id": "266",
+            "BlockDepthRanges": [
+              {
+                "$id": "267",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 0,
+                "BlockType": {
+                  "$ref": "248"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "268",
+                "NoiseFrequency": 25.0,
+                "Min": 5,
+                "Max": 15,
+                "BlockType": {
+                  "$ref": "261"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "269",
+                "NoiseFrequency": 100.0,
+                "Min": 8,
+                "Max": 14,
+                "BlockType": {
+                  "$ref": "250"
+                },
+                "SubModules": [
+                  {
+                    "$id": "270",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "271",
+                      "Type": "Eco.Mods.TechTree.CrushedLimestoneBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 6.0,
+                      "max": 6.0
+                    },
+                    "PercentChance": 0.8,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "272",
+                "NoiseFrequency": 40.0,
+                "Min": 12,
+                "Max": 16,
+                "BlockType": {
+                  "$id": "273",
+                  "Type": "Eco.Mods.TechTree.SandstoneBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "274",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "275",
+                      "Type": "Eco.Mods.TechTree.CrushedSandstoneBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 11.0
+                    },
+                    "PercentChance": 0.5,
+                    "NoiseFrequency": 60.0,
+                    "NoiseType": "RidgedMulti",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "276",
+                "NoiseFrequency": 40.0,
+                "Min": 18,
+                "Max": 30,
+                "BlockType": {
+                  "$ref": "250"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "277",
+                "NoiseFrequency": 40.0,
+                "Min": 28,
+                "Max": 40,
+                "BlockType": {
+                  "$ref": "273"
+                },
+                "SubModules": [
+                  {
+                    "$id": "278",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "279",
+                      "Type": "Eco.Mods.TechTree.HematiteOreBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 34.0,
+                      "max": 37.0
+                    },
+                    "PercentChance": 0.4,
+                    "NoiseFrequency": 15.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "280",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.0003,
+                    "DepthRange": {
+                      "min": 34.0,
+                      "max": 37.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 28.0,
+                      "max": 40.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 25.0,
+                      "max": 150.0
+                    },
+                    "BlockType": {
+                      "$ref": "279"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 1.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 1.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 4.0,
+                        "Y": 1.0,
+                        "Z": 4.0
+                      },
+                      {
+                        "X": 5.0,
+                        "Y": 1.0,
+                        "Z": 5.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 3.0,
+                      "Y": 1.0,
+                      "Z": 3.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "281",
+                "NoiseFrequency": 40.0,
+                "Min": 55,
+                "Max": 75,
+                "BlockType": {
+                  "$ref": "254"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "282",
+                "NoiseFrequency": 40.0,
+                "Min": 70,
+                "Max": 100,
+                "BlockType": {
+                  "$id": "283",
+                  "Type": "Eco.Mods.TechTree.GneissBlock, Eco.Mods"
+                },
+                "SubModules": []
+              }
+            ]
+          }
+        },
+        {
+          "$id": "284",
+          "$type": "Eco.WorldGenerator.BiomeTerrainModule, Eco.WorldGenerator",
+          "BiomeName": "WarmCoast",
+          "Module": {
+            "$id": "285",
+            "BlockDepthRanges": [
+              {
+                "$id": "286",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 0,
+                "BlockType": {
+                  "$ref": "248"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "287",
+                "NoiseFrequency": 25.0,
+                "Min": 4,
+                "Max": 15,
+                "BlockType": {
+                  "$ref": "261"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "288",
+                "NoiseFrequency": 100.0,
+                "Min": 10,
+                "Max": 15,
+                "BlockType": {
+                  "$ref": "250"
+                },
+                "SubModules": [
+                  {
+                    "$id": "289",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "290",
+                      "Type": "Eco.Mods.TechTree.CrushedLimestoneBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 1.0
+                    },
+                    "PercentChance": 0.4,
+                    "NoiseFrequency": 75.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "291",
+                "NoiseFrequency": 40.0,
+                "Min": 18,
+                "Max": 25,
+                "BlockType": {
+                  "$ref": "273"
+                },
+                "SubModules": [
+                  {
+                    "$id": "292",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "293",
+                      "Type": "Eco.Mods.TechTree.HematiteOreBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 16.0,
+                      "max": 18.0
+                    },
+                    "PercentChance": 0.6,
+                    "NoiseFrequency": 75.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "294",
+                "NoiseFrequency": 40.0,
+                "Min": 18,
+                "Max": 30,
+                "BlockType": {
+                  "$ref": "250"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "295",
+                "NoiseFrequency": 40.0,
+                "Min": 37,
+                "Max": 50,
+                "BlockType": {
+                  "$ref": "273"
+                },
+                "SubModules": [
+                  {
+                    "$id": "296",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "279"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 33.0,
+                      "max": 34.0
+                    },
+                    "PercentChance": 0.7,
+                    "NoiseFrequency": 75.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "297",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": true,
+                    "SpawnPercentChance": 0.0001,
+                    "DepthRange": {
+                      "min": 31.0,
+                      "max": 36.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 28.0,
+                      "max": 40.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 20.0,
+                      "max": 500.0
+                    },
+                    "BlockType": {
+                      "$ref": "279"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 1.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 1.0,
+                        "Z": 3.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 10.0,
+                      "Y": 1.0,
+                      "Z": 10.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "298",
+                "NoiseFrequency": 40.0,
+                "Min": 50,
+                "Max": 55,
+                "BlockType": {
+                  "$ref": "283"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "299",
+                "NoiseFrequency": 40.0,
+                "Min": 55,
+                "Max": 60,
+                "BlockType": {
+                  "$ref": "254"
+                },
+                "SubModules": []
+              }
+            ]
+          }
+        },
+        {
+          "$id": "300",
+          "$type": "Eco.WorldGenerator.BiomeTerrainModule, Eco.WorldGenerator",
+          "BiomeName": "Wetland",
+          "Module": {
+            "$id": "301",
+            "BlockDepthRanges": [
+              {
+                "$id": "302",
+                "NoiseFrequency": 40.0,
+                "Min": 0,
+                "Max": 0,
+                "BlockType": {
+                  "$id": "303",
+                  "Type": "Eco.World.Blocks.WetlandsSoilBlock, Eco.World"
+                },
+                "SubModules": []
+              },
+              {
+                "$id": "304",
+                "NoiseFrequency": 25.0,
+                "Min": 4,
+                "Max": 6,
+                "BlockType": {
+                  "$id": "305",
+                  "Type": "Eco.Mods.TechTree.CoalBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "306",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "307",
+                      "Type": "Eco.World.Blocks.DirtBlock, Eco.World"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 3.0
+                    },
+                    "PercentChance": 1.0,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "308",
+                "NoiseFrequency": 15.0,
+                "Min": 1,
+                "Max": 12,
+                "BlockType": {
+                  "$id": "309",
+                  "Type": "Eco.Mods.TechTree.ClayBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "310",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "311",
+                      "Type": "Eco.Mods.TechTree.ClayBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 3.0
+                    },
+                    "PercentChance": 1.0,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "312",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "313",
+                      "Type": "Eco.Mods.TechTree.BogIronOreBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 18.0,
+                      "max": 24.0
+                    },
+                    "PercentChance": 0.4,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "314",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "315",
+                      "Type": "Eco.Mods.TechTree.CrushedCoalBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 19.0,
+                      "max": 20.0
+                    },
+                    "PercentChance": 0.3,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  }
+                ]
+              },
+              {
+                "$id": "316",
+                "NoiseFrequency": 25.0,
+                "Min": 0,
+                "Max": 20,
+                "BlockType": {
+                  "$id": "317",
+                  "Type": "Eco.World.Blocks.DirtBlock, Eco.World"
+                },
+                "SubModules": [
+                  {
+                    "$id": "318",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "313"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 0.0
+                    },
+                    "PercentChance": 0.4,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "319",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "315"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 1.0
+                    },
+                    "PercentChance": 0.4,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Blobs"
+                  },
+                  {
+                    "$id": "320",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "305"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 8.0,
+                      "max": 11.0
+                    },
+                    "PercentChance": 0.075,
+                    "NoiseFrequency": 25.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "449",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.0025,
+                    "DepthRange": {
+                      "min": -1.0,
+                      "max": 10.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 6.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 10.0,
+                      "max": 50.0
+                    },
+                    "BlockType": {
+                      "$ref": "313"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 5.0,
+                        "Y": 2.0,
+                        "Z": 5.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 4.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 3.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 4.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 5.0,
+                        "Y": 2.0,
+                        "Z": 5.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 5.0,
+                      "Z": 1.0
+                    }
+                  },
+                  {
+                    "$id": "321",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.0025,
+                    "DepthRange": {
+                      "min": 8.0,
+                      "max": 20.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 20.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 15.0,
+                      "max": 50.0
+                    },
+                    "BlockType": {
+                      "$ref": "305"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 5.0,
+                        "Y": 2.0,
+                        "Z": 5.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 4.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 3.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 4.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 5.0,
+                        "Y": 2.0,
+                        "Z": 5.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 5.0,
+                      "Z": 1.0
+                    }
+                  },
+                  {
+                    "$id": "322",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.0025,
+                    "DepthRange": {
+                      "min": 8.0,
+                      "max": 20.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 8.0,
+                      "max": 20.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 40.0,
+                      "max": 250.0
+                    },
+                    "BlockType": {
+                      "$ref": "305"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 4.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 3.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 4.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 2.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 2.0,
+                      "Y": 1.0,
+                      "Z": 1.0
+                    }
+                  },
+                  {
+                    "$id": "323",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.0025,
+                    "DepthRange": {
+                      "min": 14.0,
+                      "max": 20.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 20.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 35.0,
+                      "max": 140.0
+                    },
+                    "BlockType": {
+                      "$ref": "305"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 5.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 4.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 4.0,
+                        "Y": 3.0,
+                        "Z": 4.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 4.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 3.0,
+                        "Z": 2.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 3.0,
+                      "Y": 2.0,
+                      "Z": 2.0
+                    }
+                  },
+                  {
+                    "$id": "324",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.0025,
+                    "DepthRange": {
+                      "min": 18.0,
+                      "max": 20.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 0.0,
+                      "max": 20.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 15.0,
+                      "max": 150.0
+                    },
+                    "BlockType": {
+                      "$ref": "305"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 2.0,
+                        "Z": 5.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 4.0,
+                        "Z": 5.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 3.0,
+                        "Z": 4.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 4.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 5.0,
+                        "Y": 2.0,
+                        "Z": 2.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 3.0,
+                      "Y": 4.0,
+                      "Z": 2.0
+                    }
+                  },
+                  {
+                    "$id": "325",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.02,
+                    "DepthRange": {
+                      "min": 0.0,
+                      "max": 1.0
+                    },
+                    "DepositDepthRange": {
+                      "min": -2.0,
+                      "max": 1.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 8.0,
+                      "max": 15.0
+                    },
+                    "BlockType": {
+                      "$ref": "305"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 3.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 2.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 1.0,
+                      "Y": 1.0,
+                      "Z": 1.0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "326",
+                "NoiseFrequency": 40.0,
+                "Min": 55,
+                "Max": 60,
+                "BlockType": {
+                  "$id": "327",
+                  "Type": "Eco.Mods.TechTree.ShaleBlock, Eco.Mods"
+                },
+                "SubModules": [
+                  {
+                    "$id": "328",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "329",
+                      "Type": "Eco.Mods.TechTree.CoalBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 20.0,
+                      "max": 21.0
+                    },
+                    "PercentChance": 1.0,
+                    "NoiseFrequency": 3.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "330",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "305"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 21.0,
+                      "max": 23.0
+                    },
+                    "PercentChance": 0.15,
+                    "NoiseFrequency": 25.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "331",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.001,
+                    "DepthRange": {
+                      "min": 20.0,
+                      "max": 24.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 5.0,
+                      "max": 30.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 15.0,
+                      "max": 300.0
+                    },
+                    "BlockType": {
+                      "$ref": "305"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 1.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 4.0,
+                        "Y": 1.0,
+                        "Z": 4.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 3.0,
+                      "Y": 1.0,
+                      "Z": 3.0
+                    }
+                  },
+                  {
+                    "$id": "332",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$ref": "305"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 38.0,
+                      "max": 44.0
+                    },
+                    "PercentChance": 0.2,
+                    "NoiseFrequency": 25.0,
+                    "NoiseType": "RidgedMulti",
+                    "NoiseDistributionType": "Bands"
+                  },
+                  {
+                    "$id": "333",
+                    "$type": "Eco.WorldGenerator.DepositTerrainModule, Eco.WorldGenerator",
+                    "SpawnAtLeastOne": false,
+                    "SpawnPercentChance": 0.001,
+                    "DepthRange": {
+                      "min": 48.0,
+                      "max": 55.0
+                    },
+                    "DepositDepthRange": {
+                      "min": 25.0,
+                      "max": 55.0
+                    },
+                    "BlocksCountRange": {
+                      "min": 75.0,
+                      "max": 200.0
+                    },
+                    "BlockType": {
+                      "$id": "334",
+                      "Type": "Eco.World.Blocks.EmptyBlock, Eco.World"
+                    },
+                    "DirectionWeights": [
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 1.0,
+                        "Y": 1.0,
+                        "Z": 1.0
+                      },
+                      {
+                        "X": 2.0,
+                        "Y": 1.0,
+                        "Z": 2.0
+                      },
+                      {
+                        "X": 3.0,
+                        "Y": 1.0,
+                        "Z": 3.0
+                      },
+                      {
+                        "X": 4.0,
+                        "Y": 1.0,
+                        "Z": 4.0
+                      }
+                    ],
+                    "WeightVariance": {
+                      "X": 3.0,
+                      "Y": 1.0,
+                      "Z": 3.0
+                    }
+                  },
+                  {
+                    "$id": "335",
+                    "$type": "Eco.WorldGenerator.StandardTerrainModule, Eco.WorldGenerator",
+                    "BlockType": {
+                      "$id": "336",
+                      "Type": "Eco.Mods.TechTree.GraniteBlock, Eco.Mods"
+                    },
+                    "HeightRange": {
+                      "min": -1.0,
+                      "max": 1.0
+                    },
+                    "DepthRange": {
+                      "min": 45.0,
+                      "max": 60.0
+                    },
+                    "PercentChance": 0.8,
+                    "NoiseFrequency": 15.0,
+                    "NoiseType": "Perlin",
+                    "NoiseDistributionType": "Bands"
+                  }
+                ]
+              },
+              {
+                "$id": "337",
+                "NoiseFrequency": 25.0,
+                "Min": 58,
+                "Max": 65,
+                "BlockType": {
+                  "$id": "338",
+                  "Type": "Eco.Mods.TechTree.GneissBlock, Eco.Mods"
+                },
+                "SubModules": []
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }

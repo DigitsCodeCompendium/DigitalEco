@@ -54,6 +54,7 @@ namespace Eco.Mods.TechTree
     [LocDisplayName("Sodium Aluminate")]
     [LocDescription("Sodium Aluminate")]
     [Weight(100)]
+    [Category("Hidden")]
     [Tag("Chemical")]                                               
     public partial class SodiumAluminateItem : Item
     {
