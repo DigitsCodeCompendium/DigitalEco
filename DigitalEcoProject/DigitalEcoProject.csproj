@@ -8,7 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CoreReference\CoreReference.csproj" />
+    <None Remove="src\EngineeringPlus\Content\SteamTruckInvention.old" />
+    <None Remove="src\OresNMetals\Ores\Malachite\AshlarMalachite.disabled" />
+    <None Remove="src\OresNMetals\Ores\Malachite\AshlarMalachiteForms.disabled" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="src\EngineeringPlus\Content\SteamTruckInvention.old" />
+    <Compile Include="src\OresNMetals\Ores\Malachite\AshlarMalachite.disabled" />
+    <Compile Include="src\OresNMetals\Ores\Malachite\AshlarMalachiteForms.disabled" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,7 +50,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="src\OresNMetals\Recipes\" />
+    <Folder Include="src\EngineeringPlus\Content\Autogen\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoreReference\CoreReference.csproj" />
   </ItemGroup>
 
 </Project>
