@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public ElectricWaterPumpInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(IndustrialMachineKitItem)), Item.Get(typeof(IndustrialMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 120f;
+            this.InventionTime          = 8f;
+            this.InventionExperience    = 10f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 4), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(IronPipeItem), 12), new(typeof(IronBarItem), 8), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(ElectricWaterPumpItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(IndustrialMachineKitItem)), Item.Get(typeof(IndustrialMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 120f;
+            this.FabricationTime        = 8f;
+            this.FabricationExperience  = 10f;
+            this.FabricationTable = typeof(ElectricMachinistTableItem);
 
-            this.InventionLabor     = 120f;
-            this.InventionTime      = 8f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 4), 
             };
 
-            this.FabricationTable = typeof(ElectricMachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Electric Water Pump"),
-                            referencedRecipeFamilyType: typeof(ElectricWaterPumpRecipe),
                             referencedDrawing:  typeof(ElectricWaterPumpDrawingItem));
         }
     }

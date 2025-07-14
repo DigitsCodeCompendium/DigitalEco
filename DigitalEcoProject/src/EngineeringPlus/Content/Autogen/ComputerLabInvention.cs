@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public ComputerLabInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 3000f;
+            this.InventionTime          = 120f;
+            this.InventionExperience    = 40f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(ElectronicsSkill), 6), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(ReinforcedConcreteItem), 100), new(typeof(PlasticItem), 100), new(typeof(AdvancedCircuitItem), 50), new("CompositeLumber", 100), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(ComputerLabItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 3000f;
+            this.FabricationTime        = 120f;
+            this.FabricationExperience  = 40f;
+            this.FabricationTable = typeof(ElectronicsAssemblyItem);
 
-            this.InventionLabor     = 3000f;
-            this.InventionTime      = 120f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(ElectronicsSkill), 6), 
             };
 
-            this.FabricationTable = typeof(ElectronicsAssemblyItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Computer Lab"),
-                            referencedRecipeFamilyType: typeof(ComputerLabRecipe),
                             referencedDrawing:  typeof(ComputerLabDrawingItem));
         }
     }

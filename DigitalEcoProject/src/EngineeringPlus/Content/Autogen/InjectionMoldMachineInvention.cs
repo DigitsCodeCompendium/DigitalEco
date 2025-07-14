@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public InjectionMoldMachineInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 560f;
+            this.InventionTime          = 5f;
+            this.InventionExperience    = 1f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 3), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelPlateItem), 4), new(typeof(CopperWiringItem), 6), new(typeof(BasicCircuitItem), 4), new(typeof(ElectricMotorItem), 2, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(InjectionMoldMachineItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 560f;
+            this.FabricationTime        = 5f;
+            this.FabricationExperience  = 1f;
+            this.FabricationTable = typeof(ElectricMachinistTableItem);
 
-            this.InventionLabor     = 560f;
-            this.InventionTime      = 5f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 3), 
             };
 
-            this.FabricationTable = typeof(ElectricMachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Injection Mold Machine"),
-                            referencedRecipeFamilyType: typeof(InjectionMoldMachineRecipe),
                             referencedDrawing:  typeof(InjectionMoldMachineDrawingItem));
         }
     }

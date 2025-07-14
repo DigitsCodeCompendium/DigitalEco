@@ -43,7 +43,7 @@ namespace Eco.Mods.TechTree
             this.Initialize(displayText: Localizer.DoStr("Sulphuric Acid"), recipeType: typeof(SulphuricAcidRecipe));
             this.ModsPostInitialize();
 
-            CraftingComponent.AddRecipe(tableType: typeof(ReactionChamberObject), recipe: this);
+            CraftingComponent.AddRecipe(tableType: typeof(ReactionChamberObject), recipeFamily: this);
         }
 
         partial void ModsPreInitialize();

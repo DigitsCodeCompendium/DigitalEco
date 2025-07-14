@@ -53,7 +53,7 @@ namespace Eco.Mods.TechTree
 			this.Initialize(displayText: Localizer.DoStr("Crush Bog Iron Ore Lv2"), recipeType: typeof(CrushBogIronOreLv2Recipe));
 			this.ModsPostInitialize();
 
-			CraftingComponent.AddRecipe(tableType: typeof(StampMillObject), recipe: this);
+			CraftingComponent.AddRecipe(tableType: typeof(StampMillObject), recipeFamily: this);
 		}
 		partial void ModsPreInitialize();
 		partial void ModsPostInitialize();

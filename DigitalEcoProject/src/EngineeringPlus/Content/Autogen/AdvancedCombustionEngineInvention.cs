@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public AdvancedCombustionEngineInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 600f;
+            this.InventionTime          = 4f;
+            this.InventionExperience    = 20f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelPlateItem), 16), new(typeof(RivetItem), 12), new(typeof(PistonItem), 6), new(typeof(ValveItem), 6), new(typeof(ServoItem), 6), new(typeof(AdvancedCircuitItem), 6), new(typeof(RadiatorItem), 3), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(AdvancedCombustionEngineItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 600f;
+            this.FabricationTime        = 4f;
+            this.FabricationExperience  = 20f;
+            this.FabricationTable = typeof(RoboticAssemblyLineItem);
 
-            this.InventionLabor     = 600f;
-            this.InventionTime      = 4f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 1), 
             };
 
-            this.FabricationTable = typeof(RoboticAssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Advanced Combustion Engine"),
-                            referencedRecipeFamilyType: typeof(AdvancedCombustionEngineRecipe),
                             referencedDrawing:  typeof(AdvancedCombustionEngineDrawingItem));
         }
     }

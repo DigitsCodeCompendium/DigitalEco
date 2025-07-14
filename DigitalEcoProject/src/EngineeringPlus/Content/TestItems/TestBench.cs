@@ -22,9 +22,9 @@ namespace Eco.Mods.TechTree
     [RequireComponent(typeof(PropertyAuthComponent))]
     [RequireComponent(typeof(LinkComponent))]
     [RequireComponent(typeof(OnOffComponent))]
-    //[RequireComponent(typeof(FabricatingComponent))]
+    [RequireComponent(typeof(FabricatingComponent))]
     [RequireComponent(typeof(EngineeringComponent))]
-    [RequireComponent(typeof(PublicStorageComponent))]
+    [RequireComponent(typeof(ClockInComponent))]
     public class TestBenchObject : WorldObject, IRepresentsItem
     {
         public virtual Type RepresentedItemType => typeof(TestBenchItem);
@@ -32,11 +32,8 @@ namespace Eco.Mods.TechTree
         protected override void Initialize()
         {
             //this.GetComponent<FabricatingComponent>().Initialize();
-            //this.GetComponent<EngineeringComponent>().Initialize();
-            var storage = this.GetComponent<PublicStorageComponent>();
-            storage.Initialize(16);
-            storage.Storage.AddInvRestriction(new NotCarriedRestriction()); // can't store block or large items
-            this.GetComponent<EngineeringComponent>().Initialize(-0.1, 0.1);
+            this.GetComponent<EngineeringComponent>().Initialize();
+            this.GetComponent<FabricatingComponent>().Initialize();
         }
 
         static TestBenchObject()

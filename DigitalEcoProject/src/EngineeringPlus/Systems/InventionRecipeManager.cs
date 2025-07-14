@@ -31,7 +31,7 @@ namespace Eco.Gameplay.Items.Recipes
             typenameToRecipe = recipeTypeToRecipe.DistinctBy(x => x.Key.Name).ToDictionary(x => x.Key.Name, x => x.Value);
 
             skillToInventionRecipes = (from InventionRecipe recipe in AllRecipes
-                                     from RequiredSkill skill in recipe.RequiredSkills
+                                     from RequiredSkill skill in recipe.InventionSkills
                                      group recipe by skill.SkillType)
                                            .ToDictionary(x => x.Key, x => x.ToList());
         }

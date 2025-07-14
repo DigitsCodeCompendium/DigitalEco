@@ -24,15 +24,21 @@ namespace Digits.src.EngineeringPlus
         public IngredientReqView(Item item)
         {
             this.DisplayItem = item;
-            this.DisplayString = Localizer.DoStr($"{this.DisplayItem.UILink()}\nSatisfied 0/0 Required - 0 Available");
+            this.InfoString = Localizer.DoStr($"{this.DisplayItem.UILink()} Satisfied 0 / 0 Required - 0 Available");
+        }
+
+        public IngredientReqView(string TypeName)
+        {
+            this.DisplayItem = Item.Get(TypeName);
+            this.InfoString = Localizer.DoStr($"{this.DisplayItem.UILink()} Satisfied 0 / 0 Required - 0 Available");
         }
 
         [Eco, PropReadOnly, UITypeName("StringDisplay")]
-        public string DisplayString { get; set; } = string.Empty;
+        public string InfoString { get; set; } = string.Empty;
 
         public void Update(int required, int satisfied, int available)
         {
-            this.DisplayString = Localizer.DoStr($"{this.DisplayItem.UILink()}\n Satisfied {satisfied}/{required} Required - {available} Available");
+            this.InfoString = Localizer.DoStr($"{this.DisplayItem.UILink()} Satisfied {satisfied}/{required} Required - {available} Available");
         }
 
         #region IController

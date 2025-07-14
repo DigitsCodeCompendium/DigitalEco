@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public GoldFlakesInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 75f;
+            this.InventionTime          = 0.8f;
+            this.InventionExperience    = 1f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(ElectronicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(GoldBarItem), 2), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(GoldFlakesItem), 4, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 75f;
+            this.FabricationTime        = 0.8f;
+            this.FabricationExperience  = 1f;
+            this.FabricationTable = typeof(ElectronicsAssemblyItem);
 
-            this.InventionLabor     = 75f;
-            this.InventionTime      = 0.8f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(ElectronicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(ElectronicsAssemblyItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Gold Flakes"),
-                            referencedRecipeFamilyType: typeof(GoldFlakesRecipe),
                             referencedDrawing:  typeof(GoldFlakesDrawingItem));
         }
     }

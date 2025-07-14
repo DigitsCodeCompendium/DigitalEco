@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public WashingMachineInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 240f;
+            this.InventionTime          = 10f;
+            this.InventionExperience    = 2f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 3), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelBarItem), 12), new(typeof(BasicCircuitItem), 6), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(WashingMachineItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 240f;
+            this.FabricationTime        = 10f;
+            this.FabricationExperience  = 2f;
+            this.FabricationTable = typeof(RoboticAssemblyLineItem);
 
-            this.InventionLabor     = 240f;
-            this.InventionTime      = 10f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 3), 
             };
 
-            this.FabricationTable = typeof(RoboticAssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Washing Machine"),
-                            referencedRecipeFamilyType: typeof(WashingMachineRecipe),
                             referencedDrawing:  typeof(WashingMachineDrawingItem));
         }
     }

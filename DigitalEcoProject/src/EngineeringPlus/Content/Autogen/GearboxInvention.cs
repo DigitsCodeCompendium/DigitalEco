@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public GearboxInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 45f;
+            this.InventionTime          = 1.5f;
+            this.InventionExperience    = 2f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(IronBarItem), 2), new(typeof(IronGearItem), 4), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(GearboxItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 45f;
+            this.FabricationTime        = 1.5f;
+            this.FabricationExperience  = 2f;
+            this.FabricationTable = typeof(ShaperItem);
 
-            this.InventionLabor     = 45f;
-            this.InventionTime      = 1.5f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(ShaperItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Gearbox"),
-                            referencedRecipeFamilyType: typeof(GearboxRecipe),
                             referencedDrawing:  typeof(GearboxDrawingItem));
         }
     }

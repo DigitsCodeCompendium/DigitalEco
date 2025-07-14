@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public ServoInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(IndustrialMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 60f;
+            this.InventionTime          = 3f;
+            this.InventionExperience    = 2f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 2), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(BasicCircuitItem), 2), new(typeof(FiberglassItem), 5), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(ServoItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(IndustrialMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 60f;
+            this.FabricationTime        = 3f;
+            this.FabricationExperience  = 2f;
+            this.FabricationTable = typeof(ElectricMachinistTableItem);
 
-            this.InventionLabor     = 60f;
-            this.InventionTime      = 3f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 2), 
             };
 
-            this.FabricationTable = typeof(ElectricMachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Servo"),
-                            referencedRecipeFamilyType: typeof(ServoRecipe),
                             referencedDrawing:  typeof(ServoDrawingItem));
         }
     }

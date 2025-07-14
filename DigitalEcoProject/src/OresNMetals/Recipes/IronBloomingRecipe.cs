@@ -54,7 +54,7 @@ namespace Eco.Mods.TechTree
 			this.Initialize(displayText: Localizer.DoStr("Iron Blooming"), recipeType: typeof(IronBloomingRecipe));
 			this.ModsPostInitialize();
 
-			CraftingComponent.AddRecipe(tableType: typeof(BloomeryObject), recipe: this);
+			CraftingComponent.AddRecipe(tableType: typeof(BloomeryObject), recipeFamily: this);
 		}
 		partial void ModsPreInitialize();
 		partial void ModsPostInitialize();

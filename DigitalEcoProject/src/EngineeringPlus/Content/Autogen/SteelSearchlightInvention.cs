@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public SteelSearchlightInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 120f;
+            this.InventionTime          = 4f;
+            this.InventionExperience    = 20f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(ElectronicsSkill), 3), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelPlateItem), 8), new(typeof(RivetItem), 8), new(typeof(CopperWiringItem), 10), new(typeof(LightBulbItem), 4, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(SteelSearchlightItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 120f;
+            this.FabricationTime        = 4f;
+            this.FabricationExperience  = 20f;
+            this.FabricationTable = typeof(RoboticAssemblyLineItem);
 
-            this.InventionLabor     = 120f;
-            this.InventionTime      = 4f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(ElectronicsSkill), 3), 
             };
 
-            this.FabricationTable = typeof(RoboticAssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Steel Searchlight"),
-                            referencedRecipeFamilyType: typeof(SteelSearchlightRecipe),
                             referencedDrawing:  typeof(SteelSearchlightDrawingItem));
         }
     }

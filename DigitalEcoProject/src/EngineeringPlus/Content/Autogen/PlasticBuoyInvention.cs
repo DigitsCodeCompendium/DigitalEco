@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public PlasticBuoyInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 240f;
+            this.InventionTime          = 1f;
+            this.InventionExperience    = 0.5f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 4), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelBarItem), 4), new(typeof(PlasticItem), 6), new(typeof(CopperWiringItem), 5), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(PlasticBuoyItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 240f;
+            this.FabricationTime        = 1f;
+            this.FabricationExperience  = 0.5f;
+            this.FabricationTable = typeof(ElectricMachinistTableItem);
 
-            this.InventionLabor     = 240f;
-            this.InventionTime      = 1f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 4), 
             };
 
-            this.FabricationTable = typeof(ElectricMachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Plastic Buoy"),
-                            referencedRecipeFamilyType: typeof(PlasticBuoyRecipe),
                             referencedDrawing:  typeof(PlasticBuoyDrawingItem));
         }
     }

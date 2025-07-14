@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public StoveInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(IndustrialMachineKitItem)), Item.Get(typeof(IndustrialMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 900f;
+            this.InventionTime          = 10f;
+            this.InventionExperience    = 5f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 5), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelPlateItem), 16), new(typeof(RivetItem), 12), new(typeof(BasicCircuitItem), 2), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(StoveItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(IndustrialMachineKitItem)), Item.Get(typeof(IndustrialMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 900f;
+            this.FabricationTime        = 10f;
+            this.FabricationExperience  = 5f;
+            this.FabricationTable = typeof(ElectricMachinistTableItem);
 
-            this.InventionLabor     = 900f;
-            this.InventionTime      = 10f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 5), 
             };
 
-            this.FabricationTable = typeof(ElectricMachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Stove"),
-                            referencedRecipeFamilyType: typeof(StoveRecipe),
                             referencedDrawing:  typeof(StoveDrawingItem));
         }
     }

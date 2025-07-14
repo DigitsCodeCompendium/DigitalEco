@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public PumpJackInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(IndustrialMachineKitItem)), Item.Get(typeof(IndustrialMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 72f;
+            this.InventionTime          = 20f;
+            this.InventionExperience    = 25f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(ReinforcedConcreteItem), 12), new(typeof(GearboxItem), 4), new(typeof(PistonItem), 8), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(PumpJackItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(IndustrialMachineKitItem)), Item.Get(typeof(IndustrialMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 72f;
+            this.FabricationTime        = 20f;
+            this.FabricationExperience  = 25f;
+            this.FabricationTable = typeof(AssemblyLineItem);
 
-            this.InventionLabor     = 72f;
-            this.InventionTime      = 20f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(AssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Pump Jack"),
-                            referencedRecipeFamilyType: typeof(PumpJackRecipe),
                             referencedDrawing:  typeof(PumpJackDrawingItem));
         }
     }

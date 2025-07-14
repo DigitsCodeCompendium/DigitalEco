@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public FrothFloatationCellInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 120f;
+            this.InventionTime          = 5f;
+            this.InventionExperience    = 5f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(ElectronicsSkill), 2), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelPlateItem), 15), new(typeof(SteelPipeItem), 20), new(typeof(AdvancedCircuitItem), 10), new(typeof(ElectricMotorItem), 1, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(FrothFloatationCellItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 120f;
+            this.FabricationTime        = 5f;
+            this.FabricationExperience  = 5f;
+            this.FabricationTable = typeof(ElectronicsAssemblyItem);
 
-            this.InventionLabor     = 120f;
-            this.InventionTime      = 5f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(ElectronicsSkill), 2), 
             };
 
-            this.FabricationTable = typeof(ElectronicsAssemblyItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Froth Floatation Cell"),
-                            referencedRecipeFamilyType: typeof(FrothFloatationCellRecipe),
                             referencedDrawing:  typeof(FrothFloatationCellDrawingItem));
         }
     }

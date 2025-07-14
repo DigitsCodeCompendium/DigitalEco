@@ -53,7 +53,7 @@ namespace Eco.Mods.TechTree
 			this.Initialize(displayText: Localizer.DoStr("Bloom Cracking"), recipeType: typeof(BloomCrackingRecipe));
 			this.ModsPostInitialize();
 
-			CraftingComponent.AddRecipe(tableType: typeof(AnvilObject), recipe: this);
+			CraftingComponent.AddRecipe(tableType: typeof(AnvilObject), recipeFamily: this);
 		}
 		partial void ModsPreInitialize();
 		partial void ModsPostInitialize();

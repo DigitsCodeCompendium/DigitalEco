@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public AdvancedTailoringTableInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 600f;
+            this.InventionTime          = 15f;
+            this.InventionExperience    = 5f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelPlateItem), 20), new(typeof(BasicCircuitItem), 10), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(AdvancedTailoringTableItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 600f;
+            this.FabricationTime        = 15f;
+            this.FabricationExperience  = 5f;
+            this.FabricationTable = typeof(ElectricMachinistTableItem);
 
-            this.InventionLabor     = 600f;
-            this.InventionTime      = 15f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 1), 
             };
 
-            this.FabricationTable = typeof(ElectricMachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Advanced Tailoring Table"),
-                            referencedRecipeFamilyType: typeof(AdvancedTailoringTableRecipe),
                             referencedDrawing:  typeof(AdvancedTailoringTableDrawingItem));
         }
     }

@@ -1,9 +1,14 @@
-﻿using Eco.Core.Controller;
+﻿using Digits.src.EngineeringPlus.Systems;
+using Eco.Core.Controller;
+using Eco.Core.Items;
 using Eco.Core.PropertyHandling;
 using Eco.Gameplay.DynamicValues;
 using Eco.Gameplay.Items;
 using Eco.Gameplay.Items.Recipes;
+using Eco.Gameplay.Players;
+using Eco.Gameplay.Skills;
 using Eco.Gameplay.Systems.NewTooltip;
+using Eco.Gameplay.Systems.NewTooltip.TooltipLibraryFiles;
 using Eco.Gameplay.Systems.TextLinks;
 using Eco.Mods.TechTree;
 using Eco.Shared.Items;
@@ -20,43 +25,53 @@ using System.Threading.Tasks;
 namespace Digits.src.EngineeringPlus
 {
     [MaxStackSize(1)]
+    [Weight(100)]
+    [Tag("Technical Drawing")]
     public class DrawingItem : Item
     {
         [Serialized] public FabricationElement[]    Ingredients         { get; set; }
         [Serialized] public FabricationElement[]    Products            { get; set; }
         [Serialized] public int                     PartNumber          { get; set; }
         [Serialized] public Type                    FabricationTable    { get; set; }
+        [Serialized] public float                   FabricationTime     { get; set; } //craft time in minutes
+        [Serialized] public double                  FabricationLabor    { get; set; }
+        [Serialized] public RequiredSkill[]         FabricationSkills   { get; set; }
+        [Serialized] public User                    Creator             { get; private set; }
+        [Serialized] public Boolean                 IsCopy              { get; set; } = false;
 
         public DrawingItem() 
         {
             this.Ingredients =  Array.Empty<FabricationElement>();
             this.Products =     Array.Empty<FabricationElement>();
             this.PartNumber = 0;
+            this.FabricationTable ??= typeof(AssemblyLineItem);
+            this.FabricationTime = 1;
+            this.FabricationLabor = 100;
         }
 
         [NewTooltip(CacheAs.Instance | CacheAs.User, 11, TTCat.Details, flags: TTFlags.ClearCacheForAllUsers)]
-        public LocString Tooltip()
+        public LocString Tooltip(User user)
         {
             var res = new LocStringBuilder();
-
-            res.AppendLineLoc($"<b><color=#0092f8>Part Number:<color=white></b> {this.PartNumber:00000}\n");
-            res.AppendLineLoc($"<b><color=#0092f8>Fabricated At <color=white></b> {Item.Get(FabricationTable).UILink()}\n");
 
             var avgEff = this.Ingredients
                 .Where(x => !x.IsStatic)
                 .Select(x => x.Efficiency > 0 ? x.Efficiency : 0)
                 .Average();
-
             var color = GetQualityColor(avgEff);
-            res.AppendLineLoc($"<b><color=#0092f8>Quality:<color=white></b> {color}{avgEff*100:0.0}</color>\n");
 
-            res.AppendLineLoc($"<b><color=#0092f8>Products<color=white></b>");
+            res.AppendLineLoc($"<b><color=#0092f8>Part Number:</color></b> {this.PartNumber:00000}");
+            res.AppendLineLoc($"<b><color=#0092f8>Inventor:</color></b> {this.Creator.UILink()}");
+            res.AppendLineLoc($"<b><color=#0092f8>Quality:</color></b> {color}{avgEff * 100:0.0}</color>\n");
+
+            res.AppendLineLoc($"<b><color=#0092f8>Fabricated at:</color></b> {Item.Get(FabricationTable).UILink()}");
+            res.AppendLineLoc($"<b><color=#0092f8>Skill required:</color></b> {this.FabricationSkills.First().SkillItem.UILinkContent()}\n");
+
+
+            res.AppendLineLoc($"<b><color=#0092f8>Products</color></b>");
             for (var i = 0; i < Products.Length; i++)
             {
-                if (Products[i].IsStatic)
-                {
-                    res.AppendLocStr($"   {Products[i].Count} ");
-                }
+                if (Products[i].IsStatic) res.AppendLocStr($"   {Products[i].Count} ");
                 else
                 {
                     color = GetQualityColor(Ingredients[i].Efficiency);
@@ -65,19 +80,13 @@ namespace Digits.src.EngineeringPlus
                 res.AppendLine(Products[i].GetStackable().UILinkGeneric());
             }
 
-            res.AppendLineLoc($"<b><color=#0092f8>Ingredients<color=white></b>");
+            res.AppendLineLoc($"<b><color=#0092f8>Ingredients</color></b>");
             for ( var i = 0; i < Ingredients.Length; i++) 
             {
-                if (Ingredients[i].IsStatic)
-                {
-                    res.AppendLocStr($"   {Ingredients[i].Count} (Static) ");
-                }
+                if (Ingredients[i].IsStatic) res.AppendLocStr($"   {Ingredients[i].Count} (Static) ");
                 else
                 {
-                    if (Ingredients[i].Efficiency == 0)
-                    {
-                        res.AppendLocStr($"   {Ingredients[i].Count} (No Bonus) ");
-                    }
+                    if (Ingredients[i].Efficiency == 0) res.AppendLocStr($"   {Ingredients[i].Count} (No Bonus) ");
                     else
                     {
                         color = GetQualityColor(Ingredients[i].Efficiency);
@@ -91,10 +100,14 @@ namespace Digits.src.EngineeringPlus
             return res.ToLocString().Trim();
         }
 
-        public void Generate(InventionRecipe inventionRecipe, double mean = 0.1, double stdDev = 0.1)
+        public void Generate(InventionRecipe inventionRecipe, User creator, double mean = 0.1, double stdDev = 0.1)
         {
+            this.Creator = creator;
             this.PartNumber = InventionRecipeManager.GetNextPN();
             this.FabricationTable = inventionRecipe.FabricationTable;
+            this.FabricationLabor = inventionRecipe.FabricationLabor;
+            this.FabricationTime = inventionRecipe.FabricationTime;
+            this.FabricationSkills = inventionRecipe.FabricationSkills;
 
             Random random = new();
 

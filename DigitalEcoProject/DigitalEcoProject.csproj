@@ -8,15 +8,28 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="src\EngineeringPlus\Content\SteamTruckInvention.old" />
+    <Compile Remove="tools\**" />
+    <EmbeddedResource Remove="tools\**" />
+    <None Remove="tools\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="src\OresNMetals\Ores\Malachite\AshlarMalachite.disabled" />
     <None Remove="src\OresNMetals\Ores\Malachite\AshlarMalachiteForms.disabled" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="src\EngineeringPlus\Content\SteamTruckInvention.old" />
     <Compile Include="src\OresNMetals\Ores\Malachite\AshlarMalachite.disabled" />
     <Compile Include="src\OresNMetals\Ores\Malachite\AshlarMalachiteForms.disabled" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="src\EngineeringPlus\Content\Autogen\" />
+    <Folder Include="src\EngineeringPlus\Content\Override\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoreReference\CoreReference.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,14 +60,6 @@
     <Reference Include="Eco.WorldGenerator">
       <HintPath>..\CoreDependencies\Eco.WorldGenerator.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="src\EngineeringPlus\Content\Autogen\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CoreReference\CoreReference.csproj" />
   </ItemGroup>
 
 </Project>

@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public SkidSteerInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 2500f;
+            this.InventionTime          = 10f;
+            this.InventionExperience    = 24f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 2), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(GearboxItem), 4), new(typeof(SteelPlateItem), 16), new(typeof(NylonFabricItem), 20), new(typeof(SteelSpringItem), 6), new(typeof(AdvancedCombustionEngineItem), 1, true), new(typeof(RubberWheelItem), 4, true), new(typeof(RadiatorItem), 2, true), new(typeof(SteelAxleItem), 2, true), new(typeof(LightBulbItem), 4, true), new(typeof(LubricantItem), 2, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(SkidSteerItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 2500f;
+            this.FabricationTime        = 10f;
+            this.FabricationExperience  = 24f;
+            this.FabricationTable = typeof(RoboticAssemblyLineItem);
 
-            this.InventionLabor     = 2500f;
-            this.InventionTime      = 10f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 2), 
             };
 
-            this.FabricationTable = typeof(RoboticAssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Skid Steer"),
-                            referencedRecipeFamilyType: typeof(SkidSteerRecipe),
                             referencedDrawing:  typeof(SkidSteerDrawingItem));
         }
     }

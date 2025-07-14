@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public PistonInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 60f;
+            this.InventionTime          = 1.5f;
+            this.InventionExperience    = 2f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(IronPipeItem), 2), new(typeof(IronBarItem), 2), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(PistonItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 60f;
+            this.FabricationTime        = 1.5f;
+            this.FabricationExperience  = 2f;
+            this.FabricationTable = typeof(ScrewPressItem);
 
-            this.InventionLabor     = 60f;
-            this.InventionTime      = 1.5f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(ScrewPressItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Piston"),
-                            referencedRecipeFamilyType: typeof(PistonRecipe),
                             referencedDrawing:  typeof(PistonDrawingItem));
         }
     }

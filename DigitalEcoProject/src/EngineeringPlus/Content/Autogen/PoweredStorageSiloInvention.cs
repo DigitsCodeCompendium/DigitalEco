@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public PoweredStorageSiloInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 800f;
+            this.InventionTime          = 10f;
+            this.InventionExperience    = 6f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 3), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelPlateItem), 18), new(typeof(AdvancedCircuitItem), 8), new(typeof(RadiatorItem), 4), new(typeof(SteelPipeItem), 8), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(PoweredStorageSiloItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 800f;
+            this.FabricationTime        = 10f;
+            this.FabricationExperience  = 6f;
+            this.FabricationTable = typeof(RoboticAssemblyLineItem);
 
-            this.InventionLabor     = 800f;
-            this.InventionTime      = 10f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 3), 
             };
 
-            this.FabricationTable = typeof(RoboticAssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Powered Storage Silo"),
-                            referencedRecipeFamilyType: typeof(PoweredStorageSiloRecipe),
                             referencedDrawing:  typeof(PoweredStorageSiloDrawingItem));
         }
     }

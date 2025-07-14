@@ -53,7 +53,7 @@ namespace Eco.Mods.TechTree
 			this.Initialize(displayText: Localizer.DoStr("Crush Chalcopyrite"), recipeType: typeof(CrushChalcopyriteRecipe));
 			this.ModsPostInitialize();
 
-			CraftingComponent.AddRecipe(tableType: typeof(ArrastraObject), recipe: this);
+			CraftingComponent.AddRecipe(tableType: typeof(ArrastraObject), recipeFamily: this);
 		}
 		partial void ModsPreInitialize();
 		partial void ModsPostInitialize();

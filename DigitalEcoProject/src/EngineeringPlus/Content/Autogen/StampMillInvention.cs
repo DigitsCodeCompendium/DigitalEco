@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public StampMillInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(SteamMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 120f;
+            this.InventionTime          = 5f;
+            this.InventionExperience    = 5f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 2), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(IronBarItem), 5), new(typeof(ScrewsItem), 14), new(typeof(IronGearItem), 8), new("WoodBoard", 14), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(StampMillItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(SteamMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 120f;
+            this.FabricationTime        = 5f;
+            this.FabricationExperience  = 5f;
+            this.FabricationTable = typeof(MachinistTableItem);
 
-            this.InventionLabor     = 120f;
-            this.InventionTime      = 5f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 2), 
             };
 
-            this.FabricationTable = typeof(MachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Stamp Mill"),
-                            referencedRecipeFamilyType: typeof(StampMillRecipe),
                             referencedDrawing:  typeof(StampMillDrawingItem));
         }
     }

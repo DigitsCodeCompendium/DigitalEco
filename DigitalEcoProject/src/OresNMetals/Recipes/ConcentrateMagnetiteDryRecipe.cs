@@ -53,7 +53,7 @@ namespace Eco.Mods.TechTree
 			this.Initialize(displayText: Localizer.DoStr("Concentrate Magnetite Dry"), recipeType: typeof(ConcentrateMagnetiteDryRecipe));
 			this.ModsPostInitialize();
 
-			CraftingComponent.AddRecipe(tableType: typeof(ScreeningMachineObject), recipe: this);
+			CraftingComponent.AddRecipe(tableType: typeof(ScreeningMachineObject), recipeFamily: this);
 		}
 		partial void ModsPreInitialize();
 		partial void ModsPostInitialize();

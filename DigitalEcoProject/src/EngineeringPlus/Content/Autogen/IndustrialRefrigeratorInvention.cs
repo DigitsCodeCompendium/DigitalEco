@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public IndustrialRefrigeratorInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 240f;
+            this.InventionTime          = 10f;
+            this.InventionExperience    = 8f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 6), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelPlateItem), 32), new(typeof(AdvancedCircuitItem), 12), new(typeof(RadiatorItem), 10), new(typeof(GlassItem), 4), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(IndustrialRefrigeratorItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 240f;
+            this.FabricationTime        = 10f;
+            this.FabricationExperience  = 8f;
+            this.FabricationTable = typeof(RoboticAssemblyLineItem);
 
-            this.InventionLabor     = 240f;
-            this.InventionTime      = 10f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 6), 
             };
 
-            this.FabricationTable = typeof(RoboticAssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Industrial Refrigerator"),
-                            referencedRecipeFamilyType: typeof(IndustrialRefrigeratorRecipe),
                             referencedDrawing:  typeof(IndustrialRefrigeratorDrawingItem));
         }
     }

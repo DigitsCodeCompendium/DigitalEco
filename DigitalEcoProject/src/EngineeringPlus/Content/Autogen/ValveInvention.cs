@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public ValveInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(IndustrialMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 60f;
+            this.InventionTime          = 3f;
+            this.InventionExperience    = 4f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 2), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelPipeItem), 4), new(typeof(SteelPlateItem), 4), new(typeof(SteelGearboxItem), 1, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(ValveItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(IndustrialMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 60f;
+            this.FabricationTime        = 3f;
+            this.FabricationExperience  = 4f;
+            this.FabricationTable = typeof(ElectricMachinistTableItem);
 
-            this.InventionLabor     = 60f;
-            this.InventionTime      = 3f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 2), 
             };
 
-            this.FabricationTable = typeof(ElectricMachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Valve"),
-                            referencedRecipeFamilyType: typeof(ValveRecipe),
                             referencedDrawing:  typeof(ValveDrawingItem));
         }
     }

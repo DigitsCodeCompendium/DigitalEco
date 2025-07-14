@@ -2,6 +2,7 @@
 using Eco.Gameplay.Items;
 using Eco.Gameplay.Players;
 using Eco.Gameplay.Skills;
+using Eco.Shared.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +11,19 @@ using System.Threading.Tasks;
 
 namespace Eco.Gameplay.Skills
 {
+    [Serialized]
     public class RequiredSkill
     {
         public Skill SkillItem => Item.Get(this.SkillType) as Skill;
 
-        [SyncToView] public Type SkillType { get; private set; }
+        [SyncToView, Serialized] public Type SkillType { get; private set; }
         [SyncToView] public int SkillTypeID => Item.Get(this.SkillType).TypeID;
-        [SyncToView] public int Level { get; private set; }
+        [SyncToView, Serialized] public int Level { get; private set; }
+
+        public RequiredSkill()
+        {
+
+        }
 
         public RequiredSkill(Type requiredSkillType, int requiredSkillLevel)
         {

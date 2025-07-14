@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public CementKilnInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(IndustrialMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 600f;
+            this.InventionTime          = 100f;
+            this.InventionExperience    = 20f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 4), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(GearboxItem), 8), new(typeof(PistonItem), 4), new(typeof(IronPlateItem), 16), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(CementKilnItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(IndustrialMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 600f;
+            this.FabricationTime        = 100f;
+            this.FabricationExperience  = 20f;
+            this.FabricationTable = typeof(AssemblyLineItem);
 
-            this.InventionLabor     = 600f;
-            this.InventionTime      = 100f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 4), 
             };
 
-            this.FabricationTable = typeof(AssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Cement Kiln"),
-                            referencedRecipeFamilyType: typeof(CementKilnRecipe),
                             referencedDrawing:  typeof(CementKilnDrawingItem));
         }
     }

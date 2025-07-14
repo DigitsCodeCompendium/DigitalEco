@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public ScrewsInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 25f;
+            this.InventionTime          = 2f;
+            this.InventionExperience    = 1f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(IronBarItem), 1), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(ScrewsItem), 4, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 25f;
+            this.FabricationTime        = 2f;
+            this.FabricationExperience  = 1f;
+            this.FabricationTable = typeof(LatheItem);
 
-            this.InventionLabor     = 25f;
-            this.InventionTime      = 2f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(LatheItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Screws"),
-                            referencedRecipeFamilyType: typeof(ScrewsRecipe),
                             referencedDrawing:  typeof(ScrewsDrawingItem));
         }
     }

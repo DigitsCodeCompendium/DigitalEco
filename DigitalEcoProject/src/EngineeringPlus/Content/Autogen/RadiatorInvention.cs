@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public RadiatorInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 35f;
+            this.InventionTime          = 1.5f;
+            this.InventionExperience    = 3f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(HeatSinkItem), 4), new(typeof(CopperWiringItem), 8), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(RadiatorItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 35f;
+            this.FabricationTime        = 1.5f;
+            this.FabricationExperience  = 3f;
+            this.FabricationTable = typeof(ElectricStampingPressItem);
 
-            this.InventionLabor     = 35f;
-            this.InventionTime      = 1.5f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 1), 
             };
 
-            this.FabricationTable = typeof(ElectricStampingPressItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Radiator"),
-                            referencedRecipeFamilyType: typeof(RadiatorRecipe),
                             referencedDrawing:  typeof(RadiatorDrawingItem));
         }
     }

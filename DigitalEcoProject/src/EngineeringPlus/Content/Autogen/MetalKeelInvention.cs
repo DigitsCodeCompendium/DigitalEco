@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public MetalKeelInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 120f;
+            this.InventionTime          = 2f;
+            this.InventionExperience    = 1f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 4), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(IronBarItem), 8), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(MetalKeelItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 120f;
+            this.FabricationTime        = 2f;
+            this.FabricationExperience  = 1f;
+            this.FabricationTable = typeof(ShaperItem);
 
-            this.InventionLabor     = 120f;
-            this.InventionTime      = 2f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 4), 
             };
 
-            this.FabricationTable = typeof(ShaperItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Metal Keel"),
-                            referencedRecipeFamilyType: typeof(MetalKeelRecipe),
                             referencedDrawing:  typeof(MetalKeelDrawingItem));
         }
     }

@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public PowerHammerInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(SteamMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 180f;
+            this.InventionTime          = 8f;
+            this.InventionExperience    = 10f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(IronPlateItem), 4), new(typeof(GearboxItem), 4), new(typeof(CopperPlateItem), 2), new("HewnLog", 10), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(PowerHammerItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(SteamMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 180f;
+            this.FabricationTime        = 8f;
+            this.FabricationExperience  = 10f;
+            this.FabricationTable = typeof(AssemblyLineItem);
 
-            this.InventionLabor     = 180f;
-            this.InventionTime      = 8f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(AssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Power Hammer"),
-                            referencedRecipeFamilyType: typeof(PowerHammerRecipe),
                             referencedDrawing:  typeof(PowerHammerDrawingItem));
         }
     }

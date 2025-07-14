@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public IndustrialMillInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 360f;
+            this.InventionTime          = 8f;
+            this.InventionExperience    = 5f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelPlateItem), 8), new(typeof(GearboxItem), 4), new(typeof(CombustionEngineItem), 1, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(IndustrialMillItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 360f;
+            this.FabricationTime        = 8f;
+            this.FabricationExperience  = 5f;
+            this.FabricationTable = typeof(MasonryTableItem);
 
-            this.InventionLabor     = 360f;
-            this.InventionTime      = 8f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 1), 
             };
 
-            this.FabricationTable = typeof(MasonryTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Industrial Mill"),
-                            referencedRecipeFamilyType: typeof(IndustrialMillRecipe),
                             referencedDrawing:  typeof(IndustrialMillDrawingItem));
         }
     }

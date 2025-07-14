@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public LighthouseLampInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMachineKitItem)), 
+            };
+        
+            this.InventionLabor         = 480f;
+            this.InventionTime          = 5f;
+            this.InventionExperience    = 4f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 4), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(GlassItem), 12), new(typeof(CopperWiringItem), 6), new(typeof(IronPlateItem), 4), new(typeof(ElectricMotorItem), 1, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(LighthouseLampItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMachineKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 480f;
+            this.FabricationTime        = 5f;
+            this.FabricationExperience  = 4f;
+            this.FabricationTable = typeof(MachinistTableItem);
 
-            this.InventionLabor     = 480f;
-            this.InventionTime      = 5f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 4), 
             };
 
-            this.FabricationTable = typeof(MachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Lighthouse Lamp"),
-                            referencedRecipeFamilyType: typeof(LighthouseLampRecipe),
                             referencedDrawing:  typeof(LighthouseLampDrawingItem));
         }
     }

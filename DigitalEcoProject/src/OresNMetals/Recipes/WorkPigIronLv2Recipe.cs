@@ -53,7 +53,7 @@ namespace Eco.Mods.TechTree
 			this.Initialize(displayText: Localizer.DoStr("Work Pig Iron Lv2"), recipeType: typeof(WorkPigIronLv2Recipe));
 			this.ModsPostInitialize();
 
-			CraftingComponent.AddRecipe(tableType: typeof(PowerHammerObject), recipe: this);
+			CraftingComponent.AddRecipe(tableType: typeof(PowerHammerObject), recipeFamily: this);
 		}
 		partial void ModsPreInitialize();
 		partial void ModsPostInitialize();

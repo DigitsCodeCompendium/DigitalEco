@@ -53,7 +53,7 @@ namespace Eco.Mods.TechTree
 			this.Initialize(displayText: Localizer.DoStr("Concentrate Ilmenite Dry Lv2"), recipeType: typeof(ConcentrateIlmeniteDryLv2Recipe));
 			this.ModsPostInitialize();
 
-			CraftingComponent.AddRecipe(tableType: typeof(SensorBasedBeltSorterObject), recipe: this);
+			CraftingComponent.AddRecipe(tableType: typeof(SensorBasedBeltSorterObject), recipeFamily: this);
 		}
 		partial void ModsPreInitialize();
 		partial void ModsPostInitialize();

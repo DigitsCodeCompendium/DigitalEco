@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public IndustrialElevatorInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 2500f;
+            this.InventionTime          = 10f;
+            this.InventionExperience    = 20f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 2), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(FlatSteelItem), 30), new(typeof(SteelGearboxItem), 4), new(typeof(CopperWiringItem), 20), new(typeof(ElectricMotorItem), 2, true), new(typeof(LubricantItem), 2, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(IndustrialElevatorItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 2500f;
+            this.FabricationTime        = 10f;
+            this.FabricationExperience  = 20f;
+            this.FabricationTable = typeof(RoboticAssemblyLineItem);
 
-            this.InventionLabor     = 2500f;
-            this.InventionTime      = 10f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 2), 
             };
 
-            this.FabricationTable = typeof(RoboticAssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Industrial Elevator"),
-                            referencedRecipeFamilyType: typeof(IndustrialElevatorRecipe),
                             referencedDrawing:  typeof(IndustrialElevatorDrawingItem));
         }
     }

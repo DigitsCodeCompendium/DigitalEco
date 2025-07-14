@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public OilRefineryInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(IndustrialMachineKitItem)), Item.Get(typeof(IndustrialMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 420f;
+            this.InventionTime          = 20f;
+            this.InventionExperience    = 40f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(ReinforcedConcreteItem), 12), new(typeof(IronPipeItem), 24), new(typeof(BoilerItem), 2), new(typeof(CopperPlateItem), 6), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(OilRefineryItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(IndustrialMachineKitItem)), Item.Get(typeof(IndustrialMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 420f;
+            this.FabricationTime        = 20f;
+            this.FabricationExperience  = 40f;
+            this.FabricationTable = typeof(AssemblyLineItem);
 
-            this.InventionLabor     = 420f;
-            this.InventionTime      = 20f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(AssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Oil Refinery"),
-                            referencedRecipeFamilyType: typeof(OilRefineryRecipe),
                             referencedDrawing:  typeof(OilRefineryDrawingItem));
         }
     }

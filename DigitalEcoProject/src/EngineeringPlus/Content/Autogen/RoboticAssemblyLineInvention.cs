@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public RoboticAssemblyLineInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 1200f;
+            this.InventionTime          = 75f;
+            this.InventionExperience    = 30f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(ElectronicsSkill), 2), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(CementItem), 30), new(typeof(ElectricMotorItem), 5), new(typeof(ServoItem), 12), new(typeof(SteelBarItem), 30), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(RoboticAssemblyLineItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 1200f;
+            this.FabricationTime        = 75f;
+            this.FabricationExperience  = 30f;
+            this.FabricationTable = typeof(ElectronicsAssemblyItem);
 
-            this.InventionLabor     = 1200f;
-            this.InventionTime      = 75f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(ElectronicsSkill), 2), 
             };
 
-            this.FabricationTable = typeof(ElectronicsAssemblyItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Robotic Assembly Line"),
-                            referencedRecipeFamilyType: typeof(RoboticAssemblyLineRecipe),
                             referencedDrawing:  typeof(RoboticAssemblyLineDrawingItem));
         }
     }

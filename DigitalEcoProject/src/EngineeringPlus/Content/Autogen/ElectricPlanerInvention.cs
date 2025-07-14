@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public ElectricPlanerInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 240f;
+            this.InventionTime          = 8f;
+            this.InventionExperience    = 20f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelPlateItem), 12), new(typeof(RivetItem), 12), new(typeof(GearboxItem), 2), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(ElectricPlanerItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 240f;
+            this.FabricationTime        = 8f;
+            this.FabricationExperience  = 20f;
+            this.FabricationTable = typeof(ElectricMachinistTableItem);
 
-            this.InventionLabor     = 240f;
-            this.InventionTime      = 8f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 1), 
             };
 
-            this.FabricationTable = typeof(ElectricMachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Electric Planer"),
-                            referencedRecipeFamilyType: typeof(ElectricPlanerRecipe),
                             referencedDrawing:  typeof(ElectricPlanerDrawingItem));
         }
     }

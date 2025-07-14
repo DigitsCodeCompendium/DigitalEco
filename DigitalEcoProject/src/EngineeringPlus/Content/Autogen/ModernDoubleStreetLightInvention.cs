@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public ModernDoubleStreetLightInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 140f;
+            this.InventionTime          = 6f;
+            this.InventionExperience    = 5f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(ElectronicsSkill), 5), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelPlateItem), 8), new(typeof(PlasticItem), 5), new(typeof(CopperWiringItem), 10), new(typeof(LightBulbItem), 2, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(ModernDoubleStreetLightItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 140f;
+            this.FabricationTime        = 6f;
+            this.FabricationExperience  = 5f;
+            this.FabricationTable = typeof(RoboticAssemblyLineItem);
 
-            this.InventionLabor     = 140f;
-            this.InventionTime      = 6f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(ElectronicsSkill), 5), 
             };
 
-            this.FabricationTable = typeof(RoboticAssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Modern Double Street Light"),
-                            referencedRecipeFamilyType: typeof(ModernDoubleStreetLightRecipe),
                             referencedDrawing:  typeof(ModernDoubleStreetLightDrawingItem));
         }
     }

@@ -25,11 +25,7 @@ namespace Eco.Mods.TechTree
     using Eco.World;
     using Eco.World.Blocks;
     using Eco.World.Water;
-    using Eco.Gameplay.Pipes;
-    using Eco.Core.Controller;
     using Eco.Gameplay.Items.Recipes;
-    using Eco.Shared.Graphics;
-    using Eco.World.Color;
 
     [RequiresSkill(typeof(AdvancedMasonrySkill), 1)]
     [Ecopedia("Blocks", "Building Materials", subPageName: "Ashlar Blueschist Item")]
@@ -74,7 +70,7 @@ namespace Eco.Mods.TechTree
             this.ModsPostInitialize();
 
             // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddRecipe(tableType: typeof(AdvancedMasonryTableObject), recipe: this);
+            CraftingComponent.AddRecipe(tableType: typeof(AdvancedMasonryTableObject), recipeFamily: this);
         }
 
         /// <summary>Hook for mods to customize RecipeFamily before initialization. You can change recipes, xp, labor, time here.</summary>

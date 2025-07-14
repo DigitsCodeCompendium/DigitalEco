@@ -52,7 +52,7 @@ namespace Eco.Mods.TechTree
 			this.Initialize(displayText: Localizer.DoStr("Work Steel"), recipeType: typeof(WorkSteelRecipe));
 			this.ModsPostInitialize();
 
-			CraftingComponent.AddRecipe(tableType: typeof(AnvilObject), recipe: this);
+			CraftingComponent.AddRecipe(tableType: typeof(AnvilObject), recipeFamily: this);
 		}
 		partial void ModsPreInitialize();
 		partial void ModsPostInitialize();

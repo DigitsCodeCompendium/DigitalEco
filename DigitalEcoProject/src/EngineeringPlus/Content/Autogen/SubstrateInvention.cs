@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public SubstrateInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 60f;
+            this.InventionTime          = 2f;
+            this.InventionExperience    = 2f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(ElectronicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(FiberglassItem), 4), new(typeof(EpoxyItem), 4), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(SubstrateItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 60f;
+            this.FabricationTime        = 2f;
+            this.FabricationExperience  = 2f;
+            this.FabricationTable = typeof(ElectronicsAssemblyItem);
 
-            this.InventionLabor     = 60f;
-            this.InventionTime      = 2f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(ElectronicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(ElectronicsAssemblyItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Substrate"),
-                            referencedRecipeFamilyType: typeof(SubstrateRecipe),
                             referencedDrawing:  typeof(SubstrateDrawingItem));
         }
     }

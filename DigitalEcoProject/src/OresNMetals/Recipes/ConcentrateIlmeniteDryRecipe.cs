@@ -53,7 +53,7 @@ namespace Eco.Mods.TechTree
 			this.Initialize(displayText: Localizer.DoStr("Concentrate Ilmenite Dry"), recipeType: typeof(ConcentrateIlmeniteDryRecipe));
 			this.ModsPostInitialize();
 
-			CraftingComponent.AddRecipe(tableType: typeof(ScreeningMachineObject), recipe: this);
+			CraftingComponent.AddRecipe(tableType: typeof(ScreeningMachineObject), recipeFamily: this);
 		}
 		partial void ModsPreInitialize();
 		partial void ModsPostInitialize();

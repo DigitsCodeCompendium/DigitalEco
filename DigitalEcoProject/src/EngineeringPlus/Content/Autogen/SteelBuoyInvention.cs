@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public SteelBuoyInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(IndustrialMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 240f;
+            this.InventionTime          = 1f;
+            this.InventionExperience    = 0.5f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 4), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelBarItem), 4), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(SteelBuoyItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(IndustrialMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 240f;
+            this.FabricationTime        = 1f;
+            this.FabricationExperience  = 0.5f;
+            this.FabricationTable = typeof(MachinistTableItem);
 
-            this.InventionLabor     = 240f;
-            this.InventionTime      = 1f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 4), 
             };
 
-            this.FabricationTable = typeof(MachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Steel Buoy"),
-                            referencedRecipeFamilyType: typeof(SteelBuoyRecipe),
                             referencedDrawing:  typeof(SteelBuoyDrawingItem));
         }
     }

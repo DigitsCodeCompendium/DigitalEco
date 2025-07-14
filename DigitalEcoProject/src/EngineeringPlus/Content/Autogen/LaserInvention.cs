@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public LaserInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 900f;
+            this.InventionTime          = 100f;
+            this.InventionExperience    = 50f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(ElectronicsSkill), 6), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(GoldBarItem), 80), new(typeof(SteelBarItem), 80), new(typeof(FramedGlassItem), 80), new(typeof(AdvancedCircuitItem), 40), new(typeof(ElectricMotorItem), 2, true), new(typeof(RadiatorItem), 10, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(LaserItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 900f;
+            this.FabricationTime        = 100f;
+            this.FabricationExperience  = 50f;
+            this.FabricationTable = typeof(RoboticAssemblyLineItem);
 
-            this.InventionLabor     = 900f;
-            this.InventionTime      = 100f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(ElectronicsSkill), 6), 
             };
 
-            this.FabricationTable = typeof(RoboticAssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Laser"),
-                            referencedRecipeFamilyType: typeof(LaserRecipe),
                             referencedDrawing:  typeof(LaserDrawingItem));
         }
     }

@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public SteamTractorInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamVehicleKitItem)), Item.Get(typeof(SteamPowerKitItem)), 
+            };
+        
+            this.InventionLabor         = 1000f;
+            this.InventionTime          = 10f;
+            this.InventionExperience    = 25f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 2), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(IronPlateItem), 12), new(typeof(IronPipeItem), 8), new(typeof(ScrewsItem), 24), new(typeof(LeatherHideItem), 20), new("Lumber", 30), new(typeof(PortableSteamEngineItem), 1, true), new(typeof(IronWheelItem), 4, true), new(typeof(IronAxleItem), 2, true), new(typeof(LightBulbItem), 2, true), new(typeof(LubricantItem), 2, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(SteamTractorItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamVehicleKitItem)), Item.Get(typeof(SteamPowerKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 1000f;
+            this.FabricationTime        = 10f;
+            this.FabricationExperience  = 25f;
+            this.FabricationTable = typeof(AssemblyLineItem);
 
-            this.InventionLabor     = 1000f;
-            this.InventionTime      = 10f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 2), 
             };
 
-            this.FabricationTable = typeof(AssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Steam Tractor"),
-                            referencedRecipeFamilyType: typeof(SteamTractorRecipe),
                             referencedDrawing:  typeof(SteamTractorDrawingItem));
         }
     }

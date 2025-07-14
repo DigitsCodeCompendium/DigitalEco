@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public SteelGearInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 60f;
+            this.InventionTime          = 0.4f;
+            this.InventionExperience    = 1f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelBarItem), 2), new(typeof(EpoxyItem), 1), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(SteelGearItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 60f;
+            this.FabricationTime        = 0.4f;
+            this.FabricationExperience  = 1f;
+            this.FabricationTable = typeof(ElectricPlanerItem);
 
-            this.InventionLabor     = 60f;
-            this.InventionTime      = 0.4f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 1), 
             };
 
-            this.FabricationTable = typeof(ElectricPlanerItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Steel Gear"),
-                            referencedRecipeFamilyType: typeof(SteelGearRecipe),
                             referencedDrawing:  typeof(SteelGearDrawingItem));
         }
     }

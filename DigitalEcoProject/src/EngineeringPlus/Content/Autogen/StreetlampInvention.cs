@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public StreetlampInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 60f;
+            this.InventionTime          = 6f;
+            this.InventionExperience    = 5f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(ElectronicsSkill), 5), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelBarItem), 12), new(typeof(GlassItem), 5), new(typeof(CopperWiringItem), 5), new(typeof(LightBulbItem), 1, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(StreetlampItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 60f;
+            this.FabricationTime        = 6f;
+            this.FabricationExperience  = 5f;
+            this.FabricationTable = typeof(RoboticAssemblyLineItem);
 
-            this.InventionLabor     = 60f;
-            this.InventionTime      = 6f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(ElectronicsSkill), 5), 
             };
 
-            this.FabricationTable = typeof(RoboticAssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Streetlamp"),
-                            referencedRecipeFamilyType: typeof(StreetlampRecipe),
                             referencedDrawing:  typeof(StreetlampDrawingItem));
         }
     }

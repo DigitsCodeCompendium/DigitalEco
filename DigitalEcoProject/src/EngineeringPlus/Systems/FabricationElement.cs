@@ -15,9 +15,9 @@ namespace Digits.src.EngineeringPlus
         [Serialized] public string Typename { get; set; }
         [Serialized] public float Count { get; set; }
         [Serialized] public bool IsStatic { get; set; }
-        [Serialized] public bool IsSpecificItem { get; set; }
+        [Serialized] public bool IsSpecificItem { get; private set; }
 
-        public FabricationElement(Stackable stackable, float count = 1, bool isStatic = false)
+        public FabricationElement(ItemRepresentation stackable, float count = 1, bool isStatic = false)
         {
             if (stackable is Item)
             {
@@ -38,7 +38,7 @@ namespace Digits.src.EngineeringPlus
         public FabricationElement(string tag, float count = 1f, bool isStatic = false)    : this(TagManager.Tag(tag), count, isStatic) { }
         public FabricationElement(Type itemType, float count = 1f, bool isStatic = false) : this(Item.Get(itemType), count, isStatic) { }
 
-        public Stackable GetStackable()
+        public ItemRepresentation GetStackable()
         {
             if (IsSpecificItem) return Item.Get(Typename);
             else                return TagManager.Tag(Typename);

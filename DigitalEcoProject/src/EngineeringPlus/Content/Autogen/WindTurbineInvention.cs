@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public WindTurbineInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 1200f;
+            this.InventionTime          = 20f;
+            this.InventionExperience    = 15f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(ElectronicsSkill), 5), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelBarItem), 8), new(typeof(GearboxItem), 4), new(typeof(AdvancedCircuitItem), 4), new(typeof(ServoItem), 8), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(WindTurbineItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 1200f;
+            this.FabricationTime        = 20f;
+            this.FabricationExperience  = 15f;
+            this.FabricationTable = typeof(RoboticAssemblyLineItem);
 
-            this.InventionLabor     = 1200f;
-            this.InventionTime      = 20f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(ElectronicsSkill), 5), 
             };
 
-            this.FabricationTable = typeof(RoboticAssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Wind Turbine"),
-                            referencedRecipeFamilyType: typeof(WindTurbineRecipe),
                             referencedDrawing:  typeof(WindTurbineDrawingItem));
         }
     }

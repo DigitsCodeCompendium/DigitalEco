@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public JawCrusherInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 1200f;
+            this.InventionTime          = 5f;
+            this.InventionExperience    = 5f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(ElectronicsSkill), 2), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelBarItem), 25), new(typeof(SyntheticRubberItem), 25), new(typeof(SteelGearItem), 20), new(typeof(ElectricMotorItem), 2, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(JawCrusherItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 1200f;
+            this.FabricationTime        = 5f;
+            this.FabricationExperience  = 5f;
+            this.FabricationTable = typeof(RoboticAssemblyLineItem);
 
-            this.InventionLabor     = 1200f;
-            this.InventionTime      = 5f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(ElectronicsSkill), 2), 
             };
 
-            this.FabricationTable = typeof(RoboticAssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Jaw Crusher"),
-                            referencedRecipeFamilyType: typeof(JawCrusherRecipe),
                             referencedDrawing:  typeof(JawCrusherDrawingItem));
         }
     }

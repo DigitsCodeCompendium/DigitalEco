@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public WasteFilterInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(IndustrialMachineKitItem)), 
+            };
+        
+            this.InventionLabor         = 480f;
+            this.InventionTime          = 20f;
+            this.InventionExperience    = 25f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 4), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelBarItem), 12), new(typeof(CementItem), 8), new(typeof(GearboxItem), 4), new(typeof(PistonItem), 2), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(WasteFilterItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(IndustrialMachineKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 480f;
+            this.FabricationTime        = 20f;
+            this.FabricationExperience  = 25f;
+            this.FabricationTable = typeof(AssemblyLineItem);
 
-            this.InventionLabor     = 480f;
-            this.InventionTime      = 20f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 4), 
             };
 
-            this.FabricationTable = typeof(AssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Waste Filter"),
-                            referencedRecipeFamilyType: typeof(WasteFilterRecipe),
                             referencedDrawing:  typeof(WasteFilterDrawingItem));
         }
     }

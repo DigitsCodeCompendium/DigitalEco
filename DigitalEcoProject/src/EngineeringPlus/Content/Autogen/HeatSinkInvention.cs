@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public HeatSinkInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 60f;
+            this.InventionTime          = 2f;
+            this.InventionExperience    = 2f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 2), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(CopperPlateItem), 8), new(typeof(CopperWiringItem), 6), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(HeatSinkItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 60f;
+            this.FabricationTime        = 2f;
+            this.FabricationExperience  = 2f;
+            this.FabricationTable = typeof(ShaperItem);
 
-            this.InventionLabor     = 60f;
-            this.InventionTime      = 2f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 2), 
             };
 
-            this.FabricationTable = typeof(ShaperItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Heat Sink"),
-                            referencedRecipeFamilyType: typeof(HeatSinkRecipe),
                             referencedDrawing:  typeof(HeatSinkDrawingItem));
         }
     }

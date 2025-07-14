@@ -55,7 +55,7 @@ namespace Eco.Mods.TechTree
 			this.Initialize(displayText: Localizer.DoStr("Electrolyse Copper"), recipeType: typeof(ElectrolyseCopperRecipe));
 			this.ModsPostInitialize();
 
-			CraftingComponent.AddRecipe(tableType: typeof(ElectrolyserObject), recipe: this);
+			CraftingComponent.AddRecipe(tableType: typeof(ElectrolyserObject), recipeFamily: this);
 		}
 		partial void ModsPreInitialize();
 		partial void ModsPostInitialize();

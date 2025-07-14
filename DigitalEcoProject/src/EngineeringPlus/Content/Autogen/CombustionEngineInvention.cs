@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public CombustionEngineInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(IndustrialMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 300f;
+            this.InventionTime          = 8f;
+            this.InventionExperience    = 15f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 3), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(PistonItem), 6), new(typeof(GearboxItem), 4), new(typeof(IronPlateItem), 12), new(typeof(RivetItem), 8), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(CombustionEngineItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(IndustrialMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 300f;
+            this.FabricationTime        = 8f;
+            this.FabricationExperience  = 15f;
+            this.FabricationTable = typeof(AssemblyLineItem);
 
-            this.InventionLabor     = 300f;
-            this.InventionTime      = 8f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 3), 
             };
 
-            this.FabricationTable = typeof(AssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Combustion Engine"),
-                            referencedRecipeFamilyType: typeof(CombustionEngineRecipe),
                             referencedDrawing:  typeof(CombustionEngineDrawingItem));
         }
     }

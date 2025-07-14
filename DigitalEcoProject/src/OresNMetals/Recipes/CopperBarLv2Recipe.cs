@@ -54,7 +54,7 @@ namespace Eco.Mods.TechTree
 			this.Initialize(displayText: Localizer.DoStr("Copper Bar Lv2"), recipeType: typeof(CopperBarLv2Recipe));
 			this.ModsPostInitialize();
 
-			CraftingComponent.AddRecipe(tableType: typeof(BlastFurnaceObject), recipe: this);
+			CraftingComponent.AddRecipe(tableType: typeof(BlastFurnaceObject), recipeFamily: this);
 		}
 		partial void ModsPreInitialize();
 		partial void ModsPostInitialize();

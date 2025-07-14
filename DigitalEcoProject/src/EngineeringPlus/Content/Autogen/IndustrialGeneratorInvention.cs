@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public IndustrialGeneratorInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 2400f;
+            this.InventionTime          = 40f;
+            this.InventionExperience    = 60f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 4), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelPlateItem), 48), new(typeof(AdvancedCircuitItem), 32), new(typeof(SteelPipeItem), 32), new(typeof(RivetItem), 64), new(typeof(AdvancedCombustionEngineItem), 1, true), new(typeof(RadiatorItem), 24, true), new(typeof(SteelAxleItem), 1, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(IndustrialGeneratorItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 2400f;
+            this.FabricationTime        = 40f;
+            this.FabricationExperience  = 60f;
+            this.FabricationTable = typeof(RoboticAssemblyLineItem);
 
-            this.InventionLabor     = 2400f;
-            this.InventionTime      = 40f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 4), 
             };
 
-            this.FabricationTable = typeof(RoboticAssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Industrial Generator"),
-                            referencedRecipeFamilyType: typeof(IndustrialGeneratorRecipe),
                             referencedDrawing:  typeof(IndustrialGeneratorDrawingItem));
         }
     }

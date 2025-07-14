@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public SteamEngineInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(SteamPowerKitItem)), 
+            };
+        
+            this.InventionLabor         = 450f;
+            this.InventionTime          = 10f;
+            this.InventionExperience    = 25f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(IronBarItem), 24), new(typeof(IronPipeItem), 12), new(typeof(LubricantItem), 1, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(SteamEngineItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(SteamPowerKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 450f;
+            this.FabricationTime        = 10f;
+            this.FabricationExperience  = 25f;
+            this.FabricationTable = typeof(MachinistTableItem);
 
-            this.InventionLabor     = 450f;
-            this.InventionTime      = 10f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(MachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Steam Engine"),
-                            referencedRecipeFamilyType: typeof(SteamEngineRecipe),
                             referencedDrawing:  typeof(SteamEngineDrawingItem));
         }
     }

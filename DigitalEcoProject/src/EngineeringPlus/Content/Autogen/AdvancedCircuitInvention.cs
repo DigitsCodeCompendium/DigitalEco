@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public AdvancedCircuitInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 85f;
+            this.InventionTime          = 0.8f;
+            this.InventionExperience    = 4f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(ElectronicsSkill), 2), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(CopperWiringItem), 4), new(typeof(GoldWiringItem), 4), new(typeof(GoldFlakesItem), 10), new(typeof(SubstrateItem), 2), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(AdvancedCircuitItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 85f;
+            this.FabricationTime        = 0.8f;
+            this.FabricationExperience  = 4f;
+            this.FabricationTable = typeof(ElectronicsAssemblyItem);
 
-            this.InventionLabor     = 85f;
-            this.InventionTime      = 0.8f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(ElectronicsSkill), 2), 
             };
 
-            this.FabricationTable = typeof(ElectronicsAssemblyItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Advanced Circuit"),
-                            referencedRecipeFamilyType: typeof(AdvancedCircuitRecipe),
                             referencedDrawing:  typeof(AdvancedCircuitDrawingItem));
         }
     }

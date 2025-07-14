@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public PrintingPressInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMachineKitItem)), 
+            };
+        
+            this.InventionLabor         = 240f;
+            this.InventionTime          = 2f;
+            this.InventionExperience    = 1f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 3), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(GearboxItem), 2), new(typeof(PistonItem), 4), new(typeof(IronPlateItem), 12), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(PrintingPressItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMachineKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 240f;
+            this.FabricationTime        = 2f;
+            this.FabricationExperience  = 1f;
+            this.FabricationTable = typeof(MachinistTableItem);
 
-            this.InventionLabor     = 240f;
-            this.InventionTime      = 2f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 3), 
             };
 
-            this.FabricationTable = typeof(MachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Printing Press"),
-                            referencedRecipeFamilyType: typeof(PrintingPressRecipe),
                             referencedDrawing:  typeof(PrintingPressDrawingItem));
         }
     }

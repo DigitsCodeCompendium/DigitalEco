@@ -53,7 +53,7 @@ namespace Eco.Mods.TechTree
 			this.Initialize(displayText: Localizer.DoStr("Concentrate Chalcopyrite"), recipeType: typeof(ConcentrateChalcopyriteRecipe));
 			this.ModsPostInitialize();
 
-			CraftingComponent.AddRecipe(tableType: typeof(RockerBoxObject), recipe: this);
+			CraftingComponent.AddRecipe(tableType: typeof(RockerBoxObject), recipeFamily: this);
 		}
 		partial void ModsPreInitialize();
 		partial void ModsPostInitialize();

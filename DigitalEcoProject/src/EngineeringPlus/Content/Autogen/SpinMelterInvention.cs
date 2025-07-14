@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public SpinMelterInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 300f;
+            this.InventionTime          = 15f;
+            this.InventionExperience    = 10f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelPlateItem), 20), new(typeof(BasicCircuitItem), 10), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(SpinMelterItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 300f;
+            this.FabricationTime        = 15f;
+            this.FabricationExperience  = 10f;
+            this.FabricationTable = typeof(ElectricMachinistTableItem);
 
-            this.InventionLabor     = 300f;
-            this.InventionTime      = 15f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 1), 
             };
 
-            this.FabricationTable = typeof(ElectricMachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Spin Melter"),
-                            referencedRecipeFamilyType: typeof(SpinMelterRecipe),
                             referencedDrawing:  typeof(SpinMelterDrawingItem));
         }
     }

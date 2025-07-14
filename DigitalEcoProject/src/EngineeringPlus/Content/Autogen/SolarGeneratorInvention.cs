@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public SolarGeneratorInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 600f;
+            this.InventionTime          = 20f;
+            this.InventionExperience    = 20f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(ElectronicsSkill), 5), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelBarItem), 12), new(typeof(ServoItem), 8), new(typeof(BasicCircuitItem), 8), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(SolarGeneratorItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 600f;
+            this.FabricationTime        = 20f;
+            this.FabricationExperience  = 20f;
+            this.FabricationTable = typeof(ElectronicsAssemblyItem);
 
-            this.InventionLabor     = 600f;
-            this.InventionTime      = 20f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(ElectronicsSkill), 5), 
             };
 
-            this.FabricationTable = typeof(ElectronicsAssemblyItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Solar Generator"),
-                            referencedRecipeFamilyType: typeof(SolarGeneratorRecipe),
                             referencedDrawing:  typeof(SolarGeneratorDrawingItem));
         }
     }

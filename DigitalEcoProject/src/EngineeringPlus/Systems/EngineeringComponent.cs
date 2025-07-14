@@ -6,7 +6,6 @@ using Eco.Gameplay.Objects;
 using Eco.Gameplay.Players;
 using Eco.Gameplay.Systems.TextLinks;
 using Eco.Gameplay.Utils;
-using Eco.Mods.TechTree;
 using Eco.Shared.Localization;
 using Eco.Shared.Networking;
 using Eco.Shared.Serialization;
@@ -23,20 +22,19 @@ using static Eco.Gameplay.UI.PlayerPopups;
 using Eco.Mods.TextUI;
 using Eco.Gameplay.Components.Storage;
 using Eco.Core.Items;
-using Eco.Gameplay.Systems.EnvVars;
 using Eco.Core.Properties;
-using Eco.Shared.Time;
-using Eco.Gameplay.Components.Store;
 using Digits.src.EngineeringPlus;
+using Eco.Mods.TechTree;
 
 namespace Eco.Gameplay.Components
 {
-    [Eco, AutogenClass, LocDisplayName("Engineering Component")]
-    [Serialized, LocDescription("MyNewComponent Description")]
+    [Eco, AutogenClass, LocDisplayName("Engineering")]
+    [Serialized, LocDescription("Invent new designs and capture them in technical drawings for fabricators to bring to life")]
     [Priority(-150)]
-    [RequireComponent(typeof(CreditComponent))]
+    [RequireComponent(typeof(LinkComponent))]
     [RequireComponent(typeof(StatusComponent))]
     [RequireComponent(typeof(InOutLinkedInventoriesComponent))]
+    [RequireComponent(typeof(ClockInComponent))]
     [NoIcon]
     [Tag("Crafting Table")]
     //[Ecopedia]
@@ -45,18 +43,18 @@ namespace Eco.Gameplay.Components
         [Serialized, Notify] public bool BottleNecked { get; private set; }
         public InventionRecipe? SelectedInventionRecipe => SelectedInvenRecipeType is null ? null : InventionRecipeManager.GetRecipeByRecipeType(SelectedInvenRecipeType);
         [Serialized] public Type? SelectedInvenRecipeType { get; private set; }
-
         [Serialized] public double StoredLabor { get; private set; }
         [Serialized] public double ContributedLabor { get; private set; }
-        [Serialized] public User? OwningUser { get; private set; }
         [Serialized] public bool IsInventionRunning { get; private set; }
         [Serialized] public ImmutableCountdown ContributedCraftTime { get; private set; }
-        [SyncToView] public IEnumerable<string> ValidTalents { get; set; } = new List<string>();
         public double TimeLeft => this.ContributedCraftTime.TimeLeft();
         public bool IsRecipeLoaded => this.SelectedInvenRecipeType is not null;
         private const double MaxLabor = 10000;
         private double BaseMean;
         private double BaseStd;
+        private bool OutputBlocked;
+        private LinkComponent link;
+        private StatusElement status;
 
         public EngineeringComponent()
         {
@@ -65,13 +63,16 @@ namespace Eco.Gameplay.Components
             this.recipeName = "";
             this.infoBox = "";
             this.ContributedCraftTime = ImmutableCountdown.CreatePaused(10);
-            this.SelectedInvenRecipeType ??= null;
+            //this.SelectedInvenRecipeType ??= null;
+            this.OutputBlocked = false;
         }
 
         public void Initialize(double baseMean =-0.1f, double baseStd = 0.1f)
         {
             this.BaseMean = baseMean;
             this.BaseStd = baseStd;
+            this.link = this.Parent.GetComponent<LinkComponent>();
+            this.status = this.Parent.GetComponent<StatusComponent>().CreateStatusElement();
             // check all nearby tables and recheck for talents.
             //if (this.Parent.HasComponent<RoomRequirementsComponent>())
             //this.Parent.GetComponent<RoomRequirementsComponent>().OnRoomCheck.Add(this.GetValidTalents);
@@ -95,26 +96,11 @@ namespace Eco.Gameplay.Components
         public void PauseInvention() { this.ContributedCraftTime = this.ContributedCraftTime.Pause(true); }
         public void UnpauseInvention() { this.ContributedCraftTime = this.ContributedCraftTime.Pause(false); }
 
-        [RPC]
-        public void GetValidTalents()
-        {
-            List<string> talentStrings = new List<string>();
-            foreach (var talent in TalentManager.AllTalents.Where(x => x.TalentType == typeof(CraftingTalent) && x.Base))
-            {
-                // check if talent is active on this
-                if (talent.Active(this))
-                    talentStrings.Add(talent.GetType().Name);
-            }
-            this.ValidTalents = talentStrings;
-        }
-
-        public override void Tick() => this.Tick(this.Parent.SimTickDelta());
-        internal void Tick(float deltaTime)
+        public override void Tick()
         {
             if (IsRecipeLoaded)
             {
-                var recipe = RecipeManager.GetRecipeFamily(this.SelectedInventionRecipe.ReferenceRecipeFamily);
-                this.RecipeName = $"Recipe: {recipe.UILink()}";
+                this.RecipeName = $"Recipe: {this.SelectedInventionRecipe.UILinkContent()}";
             }
             else
             {
@@ -143,8 +129,18 @@ namespace Eco.Gameplay.Components
                 displayString = "Invention Not Running";
             }
 
-            this.FabricatingBar.Update(PercentLeft, displayString);
-            this.LaborBar.Update(this.StoredLabor / MaxLabor, $"Stored Labor {this.StoredLabor:0}/{MaxLabor}");
+            this.InventionBar.Update(PercentLeft, displayString);
+
+            string laborBarInfo;
+            if (IsInventionRunning && IsRecipeLoaded)
+            {
+                laborBarInfo = $"Contributed Labor {this.StoredLabor:0}/{MaxLabor}.\nThere is enough labor for {this.StoredLabor / this.SelectedInventionRecipe.InventionLabor:0} invention itterations.";
+            }
+            else
+            {
+                laborBarInfo = $"Invention Not Running";
+            }
+            this.LaborBar.Update(this.StoredLabor / MaxLabor, laborBarInfo);
 
 
             if (IsRecipeLoaded & this.IsInventionRunning & (this.ContributedCraftTime.Paused() || this.ContributedCraftTime.Expired()))
@@ -163,11 +159,12 @@ namespace Eco.Gameplay.Components
             var qualityMeanColor = DrawingItem.GetQualityColor(qualityMean);
 
             string ingredientInfo = "Required Kits: ";
+            string laborInfo = "Required Labor: ";
             if (IsRecipeLoaded)
             {
-                if (this.SelectedInventionRecipe.RequiredKits.Count() > 0)
+                if (this.SelectedInventionRecipe.InventionKits.Count() > 0)
                 {
-                    foreach (var kit in this.SelectedInventionRecipe.RequiredKits)
+                    foreach (var kit in this.SelectedInventionRecipe.InventionKits)
                     {
                         ingredientInfo += kit.UILink() + " ";
                     }
@@ -176,19 +173,20 @@ namespace Eco.Gameplay.Components
                 {
                     ingredientInfo += "No kits required";
                 }
+                laborInfo += this.SelectedInventionRecipe.InventionSkills.First().SkillItem.UILink();
             }
             else
             {
                 ingredientInfo += "Select recipe first";
+                laborInfo += "Select recipe first";
             }
 
             this.InfoBox = $"Kit Break Chance: <color=#99d047>{GetKitBreakChance():0%}</color>\n" +
                            $"Bonus Chance: <color=#99d047>{1 - this.GetNoBonusChance():0%}</color>\n" +
-                           $"Average Bonus: {bonusMeanColor}{-bonusMean:0.0%}</color>\n" +
+                           $"Average Bonus: {bonusMeanColor}{-bonusMean:0.0%}</color> \n" +
                            $"Average Quality: {qualityMeanColor}{qualityMean * 100:0.0}</color>\n" +
-                           ingredientInfo;
-
-
+                           ingredientInfo + "\n" +
+                           laborInfo;
         }
 
         private static string FormatTime(int totalSeconds)
@@ -207,14 +205,39 @@ namespace Eco.Gameplay.Components
 
         public bool IsInventionBlocked()
         {
-            if (!this.IsRecipeLoaded) return true;
-            if (this.StoredLabor <= 0) return true;
-            if (this.Parent.GetComponent(typeof(PublicStorageComponent)) is not PublicStorageComponent) return true;
+            var user = (this.Parent.GetComponent(typeof(ClockInComponent)) as ClockInComponent).ClaimedUser;
+            if (user is null)
+            {
+                this.status.SetStatusMessage(false, Localizer.DoStr($"Someone must be clocked in to perform invention"));
+                return true;
+            }
 
-            var requiredKits = this.SelectedInventionRecipe.RequiredKits;
-            var storageComponent = this.Parent.GetComponent(typeof(PublicStorageComponent)) as PublicStorageComponent;
-            if (!requiredKits.All(kit => storageComponent.Inventory.NonEmptyStacks.Select(x => x.Item.GetType()).ToList().Contains(kit.GetType())))
-            { return true; }
+            if (!this.IsRecipeLoaded)
+            {
+                this.status.SetStatusMessage(false, Localizer.DoStr($"No invention recipe is selected"));
+                return true;
+            }
+
+            var requiredKits = this.SelectedInventionRecipe.InventionKits;
+            if (!requiredKits.All(kit => link.GetSortedLinkedInventories(user).NonEmptyStacks.Select(x => x.Item.GetType()).ToList().Contains(kit.GetType())))
+            {
+                this.status.SetStatusMessage(false, Localizer.DoStr($"The required kits for invention are not available in connected input inventories"));
+                return true;
+            }
+
+            if (this.StoredLabor <= 0)
+            {
+                this.status.SetStatusMessage(false, Localizer.DoStr($"There is not enough labor to continue invention"));
+                return true;
+            }
+
+            var invCol = new InventoryCollection(this.link.GetSortedLinkedComponents(this.Parent.GetComponent<ClockInComponent>().ClaimedUser, false, true).Select(component => component.Inventory));
+            if (invCol.IsFull) {
+                this.status.SetStatusMessage(false, Localizer.DoStr($"There is no valid output for {this.UILink()}"));
+                return true; 
+            } 
+
+            this.status.SetStatusMessage(true, Localizer.DoStr($"No problems reported from {this.UILink()}"));
             return false;
         }
 
@@ -222,18 +245,19 @@ namespace Eco.Gameplay.Components
         {
             if (this.IsInventionBlocked() || this.SelectedInvenRecipeType is null) { return false; }
 
+            CreateDrawing();
+
+            if (this.OutputBlocked) { return false; }
+
             Random random = new();
-            foreach (var kit in this.SelectedInventionRecipe.RequiredKits) 
+            foreach (var kit in this.SelectedInventionRecipe.InventionKits) 
             {
                 if (random.Chance(this.GetKitBreakChance()))
                 {
-                    var storageComponent = this.Parent.GetComponent(typeof(PublicStorageComponent)) as PublicStorageComponent;
-                    var items = storageComponent.Inventory.NonEmptyStacks.Where(stack => stack.Item.GetType() == kit.GetType());
-                    items.First().Clear();
+                    var user = (this.Parent.GetComponent(typeof(ClockInComponent)) as ClockInComponent).ClaimedUser;
+                    this.link.GetSortedLinkedInventories(user).TryRemoveItem(kit.GetType());
                 }
-            }
-
-            CreateDrawing();
+            } 
 
             return true;
         }
@@ -242,7 +266,7 @@ namespace Eco.Gameplay.Components
         {
             if (this.IsInventionRunning & !this.IsInventionBlocked() & this.IsRecipeLoaded)
             {
-                var laborLeft = this.SelectedInventionRecipe.InventionLabor - this.ContributedLabor;
+                var laborLeft = this.SelectedInventionRecipe!.InventionLabor - this.ContributedLabor;
                 var timeLeft = this.ContributedCraftTime.TimeLeft();
                 var laborToConsume = laborLeft / timeLeft;
 
@@ -256,59 +280,78 @@ namespace Eco.Gameplay.Components
         {
             if (this.SelectedInventionRecipe == null) return;
 
-            var item = Item.Create(this.SelectedInventionRecipe.DrawingItem) as DrawingItem;
+            var item = Item.Create(this.SelectedInventionRecipe.InventionDrawing) as DrawingItem;
+            item.Generate(  this.SelectedInventionRecipe, 
+                            this.Parent.GetComponent<ClockInComponent>().ClaimedUser, 
+                            this.GetInventionMean(), 
+                            this.GetInventionStd());
 
-            item.Generate(this.SelectedInventionRecipe, this.GetInventionMean(), this.GetInventionStd());
-            this.Parent.GetComponent<StorageComponent>().Inventory.TryAddItem(item);
+            var user = this.Parent.GetComponent<ClockInComponent>().ClaimedUser;
+            var invCol = new InventoryCollection(this.link.GetSortedLinkedComponents(user, false, true).Select(component => component.Inventory));
+            var result = invCol.TryAddItem(item);
+            
+            if (result.Success) { this.OutputBlocked = false; }
+            else { this.OutputBlocked = true; }
         }
 
         public bool Operating => !this.ContributedCraftTime.Paused();
-        private double GetInventionMean() => (this.InventionAggressiveness * 0.02) + this.BaseMean;
+        private double GetInventionMean()
+        {
+            double skillMod = 0;
+            if (this.Parent.GetComponent(typeof(ClockInComponent)) is not null)
+            {
+                var user = (this.Parent.GetComponent<ClockInComponent>().ClaimedUser);
+                if (user is not null && user.Skillset.HasSkill(typeof(MechanicsSkill)))
+                {
+                    skillMod = user.Skillset.GetSkill(typeof(MechanicsSkill)).Level * 0.03;
+                }
+            }
+            return (this.InventionAggressiveness * 0.02) + this.BaseMean + skillMod;
+        }
         private double GetInventionStd() => this.BaseStd;
         private double GetKitBreakChance() => Math.Pow(this.InventionAggressiveness, 2) * 0.01;
         private double GetNoBonusChance() => 1 / (1 + Math.Exp(-1.65451 * (-this.GetInventionMean()) * (1 / this.GetInventionStd())));
         private double GetBonusMean() => 0.60440 * this.GetInventionStd() * Math.Log(Math.Abs(1 / this.GetNoBonusChance()));
         private double GetQualityMean() => this.GetBonusMean() * (1 - this.GetNoBonusChance());
+       
         /// ------------------------------------------
         ///            UI STUFF BEYOND HERE
         /// ------------------------------------------
-
-
-
-        [RPC, Autogen, UITypeName("BigButton")]
-        public void StartInvention(Player player)
+        [RPC, Autogen, UITypeName("BigButton"), ]
+        public void StartStopInvention(Player player)
         {
-            if (!IsRecipeLoaded)
+            if (IsInventionRunning)
             {
-                player.InfoBoxLoc($"Can't start invention task, no recipe is selected!");
-                return;
+                this.IsInventionRunning = false;
             }
-
-            foreach (var skillType in this.SelectedInventionRecipe.RequiredSkills.Select(x => x.SkillType))
+            else
             {
-                if (!player.User.Skillset.HasSkill(skillType))
+                if (!IsRecipeLoaded)
                 {
-                    player.InfoBoxLoc($"You require {Skill.Get(skillType).UILink()} to invent this recipe!");
+                    player.InfoBoxLoc($"Can't start invention task, no recipe is selected!");
                     return;
                 }
+
+                foreach (var skillType in this.SelectedInventionRecipe.InventionSkills.Select(x => x.SkillType))
+                {
+                    if (!player.User.Skillset.HasSkill(skillType))
+                    {
+                        player.InfoBoxLoc($"You require {Skill.Get(skillType).UILink()} to invent this recipe!");
+                        return;
+                    }
+                }
+
+                this.ContributedLabor = 0;
+
+                this.IsInventionRunning = true;
+
+                var inventionTime = this.SelectedInventionRecipe.InventionTime;
+
+                if (IsInventionBlocked()) { this.ContributedCraftTime = ImmutableCountdown.CreatePaused(inventionTime, inventionTime); }
+                else { this.ContributedCraftTime = ImmutableCountdown.CreateRunning(inventionTime, inventionTime); }
+
+                player.InfoBoxLoc($"Success!");
             }
-
-            this.ContributedLabor = 0;
-
-            this.IsInventionRunning = true;
-
-            var inventionTime = this.SelectedInventionRecipe.InventionTime;
-
-            if (IsInventionBlocked())   { this.ContributedCraftTime = ImmutableCountdown.CreatePaused(inventionTime, inventionTime); }
-            else                        { this.ContributedCraftTime = ImmutableCountdown.CreateRunning(inventionTime, inventionTime); }
-
-            player.InfoBoxLoc($"Success!");
-        }
-
-        [RPC, Autogen, UITypeName("BigButton")]
-        public void CancelInvention(Player player)
-        {
-            this.IsInventionRunning = false;
         }
 
         //Button Autogen
@@ -328,6 +371,12 @@ namespace Eco.Gameplay.Components
         [RPC, Autogen]
         public virtual async void ChooseRecipe(Player player)
         {
+            if (IsInventionRunning)
+            {
+                player.InfoBoxLoc($"Please stop invention before changing the recipe!");
+                return;
+            }
+
             var inventionRecipes = InventionRecipeManager.AllRecipes;
 
             List<NamedSelection> items = new List<NamedSelection>();
@@ -359,7 +408,7 @@ namespace Eco.Gameplay.Components
         }
 
         [SyncToView, Autogen, Sort(202), PropReadOnly, HideRoot]
-        public ProgressBar FabricatingBar { get; set; } = new ProgressBar("Invention Progress", barLength:60);
+        public ProgressBar InventionBar { get; set; } = new ProgressBar("Invention Progress", barLength:60);
 
         public int inventionAggressiveness { get; set; }
         [Eco, ClientInterfaceProperty]
@@ -372,6 +421,48 @@ namespace Eco.Gameplay.Components
                 if (value > 10) return;
                 this.inventionAggressiveness = value;
                 this.Changed(nameof(this.InventionAggressiveness));
+            }
+        }
+
+        public int inventionFreedom { get; set; }
+        [Eco, ClientInterfaceProperty]
+        public int InventionFreedom
+        {
+            get => this.inventionFreedom;
+            set
+            {
+                if (value == this.inventionFreedom) return;
+                if (value > 10) return;
+                this.inventionFreedom = value;
+                this.Changed(nameof(this.InventionFreedom));
+            }
+        }
+
+        public int inventionBudget { get; set; }
+        [Eco, ClientInterfaceProperty]
+        public int InventionBudget
+        {
+            get => this.inventionBudget;
+            set
+            {
+                if (value == this.inventionBudget) return;
+                if (value > 10) return;
+                this.inventionBudget = value;
+                this.Changed(nameof(this.InventionBudget));
+            }
+        }
+
+        public int inventionComplexity { get; set; }
+        [Eco, ClientInterfaceProperty]
+        public int InventionComplexity
+        {
+            get => this.inventionComplexity;
+            set
+            {
+                if (value == this.inventionComplexity) return;
+                if (value > 10) return;
+                this.inventionComplexity = value;
+                this.Changed(nameof(this.InventionComplexity));
             }
         }
 
@@ -392,6 +483,12 @@ namespace Eco.Gameplay.Components
         [RPC, Autogen, Sort(203)]
         public void AddLabor(Player player)
         {
+            if (!IsInventionRunning)
+            {
+                player.InfoBoxLoc($"You must start invention before contributing labor.");
+                return;
+            }
+
             double laborToConsume = 500;
             double laborToAdd;
             if (this.StoredLabor + laborToConsume > MaxLabor)
@@ -412,6 +509,6 @@ namespace Eco.Gameplay.Components
         }
 
         [SyncToView, Autogen, Sort(204), PropReadOnly, HideRoot]
-        public ProgressBar LaborBar { get; set; } = new ProgressBar("Stored Labor", barLength: 60, fillColor:"blue");
+        public ProgressBar LaborBar { get; set; } = new ProgressBar("Contributed Labor", barLength: 60, fillColor:"blue");
     }
 }

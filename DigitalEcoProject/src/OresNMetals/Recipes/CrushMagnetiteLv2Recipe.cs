@@ -53,7 +53,7 @@ namespace Eco.Mods.TechTree
 			this.Initialize(displayText: Localizer.DoStr("Crush Magnetite Lv2"), recipeType: typeof(CrushMagnetiteLv2Recipe));
 			this.ModsPostInitialize();
 
-			CraftingComponent.AddRecipe(tableType: typeof(StampMillObject), recipe: this);
+			CraftingComponent.AddRecipe(tableType: typeof(StampMillObject), recipeFamily: this);
 		}
 		partial void ModsPreInitialize();
 		partial void ModsPostInitialize();

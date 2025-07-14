@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public AssemblyLineInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(SteamMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 240f;
+            this.InventionTime          = 40f;
+            this.InventionExperience    = 40f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(ScrewsItem), 8), new(typeof(IronBarItem), 8), new(typeof(IronGearItem), 8), new(typeof(PortableSteamEngineItem), 1, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(AssemblyLineItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(SteamMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 240f;
+            this.FabricationTime        = 40f;
+            this.FabricationExperience  = 40f;
+            this.FabricationTable = typeof(MachinistTableItem);
 
-            this.InventionLabor     = 240f;
-            this.InventionTime      = 40f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(MachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Assembly Line"),
-                            referencedRecipeFamilyType: typeof(AssemblyLineRecipe),
                             referencedDrawing:  typeof(AssemblyLineDrawingItem));
         }
     }

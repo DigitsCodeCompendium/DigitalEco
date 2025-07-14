@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public BasicCircuitInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 45f;
+            this.InventionTime          = 0.8f;
+            this.InventionExperience    = 4f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(ElectronicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(CopperWiringItem), 6), new(typeof(GoldFlakesItem), 10), new(typeof(SubstrateItem), 2), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(BasicCircuitItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 45f;
+            this.FabricationTime        = 0.8f;
+            this.FabricationExperience  = 4f;
+            this.FabricationTable = typeof(ElectronicsAssemblyItem);
 
-            this.InventionLabor     = 45f;
-            this.InventionTime      = 0.8f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(ElectronicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(ElectronicsAssemblyItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Basic Circuit"),
-                            referencedRecipeFamilyType: typeof(BasicCircuitRecipe),
                             referencedDrawing:  typeof(BasicCircuitDrawingItem));
         }
     }

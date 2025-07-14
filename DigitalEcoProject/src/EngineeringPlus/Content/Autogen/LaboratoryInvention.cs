@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public LaboratoryInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(SteamMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 120f;
+            this.InventionTime          = 15f;
+            this.InventionExperience    = 20f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(IronBarItem), 20), new(typeof(GlassItem), 15), new(typeof(PaperItem), 20), new("Lumber", 8), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(LaboratoryItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(SteamMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 120f;
+            this.FabricationTime        = 15f;
+            this.FabricationExperience  = 20f;
+            this.FabricationTable = typeof(MachinistTableItem);
 
-            this.InventionLabor     = 120f;
-            this.InventionTime      = 15f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(MachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Laboratory"),
-                            referencedRecipeFamilyType: typeof(LaboratoryRecipe),
                             referencedDrawing:  typeof(LaboratoryDrawingItem));
         }
     }

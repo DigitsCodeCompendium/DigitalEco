@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public LatheInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 150f;
+            this.InventionTime          = 5f;
+            this.InventionExperience    = 20f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(IronWheelItem), 4), new(typeof(IronPlateItem), 12), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(LatheItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 150f;
+            this.FabricationTime        = 5f;
+            this.FabricationExperience  = 20f;
+            this.FabricationTable = typeof(MachinistTableItem);
 
-            this.InventionLabor     = 150f;
-            this.InventionTime      = 5f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(MachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Lathe"),
-                            referencedRecipeFamilyType: typeof(LatheRecipe),
                             referencedDrawing:  typeof(LatheDrawingItem));
         }
     }

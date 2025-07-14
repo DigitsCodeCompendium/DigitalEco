@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public CopperWiringInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 60f;
+            this.InventionTime          = 0.4f;
+            this.InventionExperience    = 1f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(CopperBarItem), 4), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(CopperWiringItem), 2, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 60f;
+            this.FabricationTime        = 0.4f;
+            this.FabricationExperience  = 1f;
+            this.FabricationTable = typeof(MachinistTableItem);
 
-            this.InventionLabor     = 60f;
-            this.InventionTime      = 0.4f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(MachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Copper Wiring"),
-                            referencedRecipeFamilyType: typeof(CopperWiringRecipe),
                             referencedDrawing:  typeof(CopperWiringDrawingItem));
         }
     }

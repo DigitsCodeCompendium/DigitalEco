@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public SensorBasedBeltSorterInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 600f;
+            this.InventionTime          = 5f;
+            this.InventionExperience    = 6f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 4), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelPlateItem), 10), new(typeof(SteelGearboxItem), 5), new(typeof(RivetItem), 16), new(typeof(AdvancedCircuitItem), 5), new(typeof(BasicCircuitItem), 5), new(typeof(ElectricMotorItem), 1, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(SensorBasedBeltSorterItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 600f;
+            this.FabricationTime        = 5f;
+            this.FabricationExperience  = 6f;
+            this.FabricationTable = typeof(ElectronicsAssemblyItem);
 
-            this.InventionLabor     = 600f;
-            this.InventionTime      = 5f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 4), 
             };
 
-            this.FabricationTable = typeof(ElectronicsAssemblyItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Sensor Based Belt Sorter"),
-                            referencedRecipeFamilyType: typeof(SensorBasedBeltSorterRecipe),
                             referencedDrawing:  typeof(SensorBasedBeltSorterDrawingItem));
         }
     }

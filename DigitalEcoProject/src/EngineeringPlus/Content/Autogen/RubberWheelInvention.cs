@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public RubberWheelInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)),
+            };
+        
+            this.InventionLabor         = 60f;
+            this.InventionTime          = 2f;
+            this.InventionExperience    = 3.5f;
+            this.InventionTable = typeof(LaboratoryItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(IndustrySkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SyntheticRubberItem), 8), new(typeof(SteelBarItem), 4), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(RubberWheelItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                
-            }.ToArray();
+            this.FabricationLabor       = 60f;
+            this.FabricationTime        = 2f;
+            this.FabricationExperience  = 3.5f;
+            this.FabricationTable = typeof(ElectricLatheItem);
 
-            this.InventionLabor     = 60f;
-            this.InventionTime      = 2f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(IndustrySkill), 1), 
             };
 
-            this.FabricationTable = typeof(ElectricLatheItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Rubber Wheel"),
-                            referencedRecipeFamilyType: typeof(RubberWheelRecipe),
                             referencedDrawing:  typeof(RubberWheelDrawingItem));
         }
     }

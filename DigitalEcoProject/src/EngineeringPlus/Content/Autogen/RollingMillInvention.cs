@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public RollingMillInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(IndustrialMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 360f;
+            this.InventionTime          = 20f;
+            this.InventionExperience    = 5f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 4), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelBarItem), 8), new(typeof(GearboxItem), 4), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(RollingMillItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(IndustrialMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 360f;
+            this.FabricationTime        = 20f;
+            this.FabricationExperience  = 5f;
+            this.FabricationTable = typeof(AssemblyLineItem);
 
-            this.InventionLabor     = 360f;
-            this.InventionTime      = 20f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 4), 
             };
 
-            this.FabricationTable = typeof(AssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Rolling Mill"),
-                            referencedRecipeFamilyType: typeof(RollingMillRecipe),
                             referencedDrawing:  typeof(RollingMillDrawingItem));
         }
     }

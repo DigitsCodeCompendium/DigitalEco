@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public CameraFilmInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 45f;
+            this.InventionTime          = 0.2f;
+            this.InventionExperience    = 0.5f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(PaperItem), 10), new(typeof(LightBulbItem), 1), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(CameraFilmItem), 10, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 45f;
+            this.FabricationTime        = 0.2f;
+            this.FabricationExperience  = 0.5f;
+            this.FabricationTable = typeof(MachinistTableItem);
 
-            this.InventionLabor     = 45f;
-            this.InventionTime      = 0.2f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(MachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Camera Film"),
-                            referencedRecipeFamilyType: typeof(CameraFilmRecipe),
                             referencedDrawing:  typeof(CameraFilmDrawingItem));
         }
     }

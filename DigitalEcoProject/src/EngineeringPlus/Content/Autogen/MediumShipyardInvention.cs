@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public MediumShipyardInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(SteamMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 800f;
+            this.InventionTime          = 10f;
+            this.InventionExperience    = 6f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(IronPlateItem), 6), new(typeof(PaperItem), 4), new(typeof(HempMooringRopeItem), 2), new("Lumber", 8), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(MediumShipyardItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMachineKitItem)), Item.Get(typeof(SteamMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 800f;
+            this.FabricationTime        = 10f;
+            this.FabricationExperience  = 6f;
+            this.FabricationTable = typeof(MachinistTableItem);
 
-            this.InventionLabor     = 800f;
-            this.InventionTime      = 10f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(MachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Medium Shipyard"),
-                            referencedRecipeFamilyType: typeof(MediumShipyardRecipe),
                             referencedDrawing:  typeof(MediumShipyardDrawingItem));
         }
     }

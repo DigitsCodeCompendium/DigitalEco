@@ -52,7 +52,7 @@
             var current = percent * (double)this.Length;
             var start = (int)Math.Round(current);
             StringBuilder progress = new();
-            progress.AppendLoc($"<align=left>{this.Header}  ");
+            progress.AppendLoc($"<align=left>{this.Header}\n");
             progress.AppendLoc($"<color={this.fillColor}>");
             for (int i = 0; i < start; i++)
             {

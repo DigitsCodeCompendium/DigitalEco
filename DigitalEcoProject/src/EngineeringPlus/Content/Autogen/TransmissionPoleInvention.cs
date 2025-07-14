@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public TransmissionPoleInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(IndustrialMachineKitItem)), 
+            };
+        
+            this.InventionLabor         = 480f;
+            this.InventionTime          = 4f;
+            this.InventionExperience    = 2f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 4), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(IronBarItem), 8), new(typeof(CopperWiringItem), 14), new("Lumber", 10), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(TransmissionPoleItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(IndustrialMachineKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 480f;
+            this.FabricationTime        = 4f;
+            this.FabricationExperience  = 2f;
+            this.FabricationTable = typeof(MachinistTableItem);
 
-            this.InventionLabor     = 480f;
-            this.InventionTime      = 4f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 4), 
             };
 
-            this.FabricationTable = typeof(MachinistTableItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Transmission Pole"),
-                            referencedRecipeFamilyType: typeof(TransmissionPoleRecipe),
                             referencedDrawing:  typeof(TransmissionPoleDrawingItem));
         }
     }

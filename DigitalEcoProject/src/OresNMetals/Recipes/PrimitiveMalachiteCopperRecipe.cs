@@ -55,7 +55,7 @@ namespace Eco.Mods.TechTree
 			this.Initialize(displayText: Localizer.DoStr("Primitive Malachite Copper"), recipeType: typeof(PrimitiveMalachiteCopperRecipe));
 			this.ModsPostInitialize();
 
-			CraftingComponent.AddRecipe(tableType: typeof(CampfireObject), recipe: this);
+			CraftingComponent.AddRecipe(tableType: typeof(CampfireObject), recipeFamily: this);
 		}
 		partial void ModsPreInitialize();
 		partial void ModsPostInitialize();

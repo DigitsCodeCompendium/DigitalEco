@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public SinkInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMachineKitItem)), 
+            };
+        
+            this.InventionLabor         = 110f;
+            this.InventionTime          = 8f;
+            this.InventionExperience    = 5f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 4), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(SteelBarItem), 8), new(typeof(IronPlateItem), 8), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(SinkItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMachineKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 110f;
+            this.FabricationTime        = 8f;
+            this.FabricationExperience  = 5f;
+            this.FabricationTable = typeof(AssemblyLineItem);
 
-            this.InventionLabor     = 110f;
-            this.InventionTime      = 8f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 4), 
             };
 
-            this.FabricationTable = typeof(AssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Sink"),
-                            referencedRecipeFamilyType: typeof(SinkRecipe),
                             referencedDrawing:  typeof(SinkDrawingItem));
         }
     }

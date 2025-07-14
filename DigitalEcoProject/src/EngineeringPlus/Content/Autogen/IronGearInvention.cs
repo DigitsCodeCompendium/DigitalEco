@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public IronGearInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 75f;
+            this.InventionTime          = 0.4f;
+            this.InventionExperience    = 1f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(IronBarItem), 1), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(IronGearItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 75f;
+            this.FabricationTime        = 0.4f;
+            this.FabricationExperience  = 1f;
+            this.FabricationTable = typeof(ShaperItem);
 
-            this.InventionLabor     = 75f;
-            this.InventionTime      = 0.4f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(ShaperItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Iron Gear"),
-                            referencedRecipeFamilyType: typeof(IronGearRecipe),
                             referencedDrawing:  typeof(IronGearDrawingItem));
         }
     }

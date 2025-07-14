@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public WoodenElevatorInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamVehicleKitItem)), Item.Get(typeof(SteamPowerKitItem)), 
+            };
+        
+            this.InventionLabor         = 500f;
+            this.InventionTime          = 10f;
+            this.InventionExperience    = 15f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(GearboxItem), 4), new(typeof(CelluloseFiberItem), 4), new("Lumber", 30), new(typeof(PortableSteamEngineItem), 1, true), new(typeof(LubricantItem), 2, true), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(WoodenElevatorItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamVehicleKitItem)), Item.Get(typeof(SteamPowerKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 500f;
+            this.FabricationTime        = 10f;
+            this.FabricationExperience  = 15f;
+            this.FabricationTable = typeof(AssemblyLineItem);
 
-            this.InventionLabor     = 500f;
-            this.InventionTime      = 10f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(AssemblyLineItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Wooden Elevator"),
-                            referencedRecipeFamilyType: typeof(WoodenElevatorRecipe),
                             referencedDrawing:  typeof(WoodenElevatorDrawingItem));
         }
     }

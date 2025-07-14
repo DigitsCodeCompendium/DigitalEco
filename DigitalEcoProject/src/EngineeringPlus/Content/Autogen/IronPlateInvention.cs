@@ -19,6 +19,21 @@ namespace Eco.Gameplay.Items.Recipes
     {
         public IronPlateInvention() 
         {
+            this.InventionKits = new Item[]
+            {
+                Item.Get(typeof(SteamMaterialKitItem)), 
+            };
+        
+            this.InventionLabor         = 60f;
+            this.InventionTime          = 2f;
+            this.InventionExperience    = 1f;
+            this.InventionTable = typeof(ResearchTableItem);
+
+            this.InventionSkills = new RequiredSkill[]
+            { 
+                new(typeof(MechanicsSkill), 1), 
+            };
+
             this.FabricationIngredients = new FabricationElement[]
             {
                 new(typeof(IronBarItem), 1), 
@@ -29,22 +44,18 @@ namespace Eco.Gameplay.Items.Recipes
                 new(typeof(IronPlateItem), 1, true), 
             };
 
-            this.RequiredKits = new List<Item>()
-            {
-                Item.Get(typeof(SteamMaterialKitItem)), 
-            }.ToArray();
+            this.FabricationLabor       = 60f;
+            this.FabricationTime        = 2f;
+            this.FabricationExperience  = 1f;
+            this.FabricationTable = typeof(ScrewPressItem);
 
-            this.InventionLabor     = 60f;
-            this.InventionTime      = 2f;
-
-            this.RequiredSkills = new RequiredSkill[]
+            this.FabricationSkills = new RequiredSkill[]
             { 
                 new(typeof(MechanicsSkill), 1), 
             };
 
-            this.FabricationTable = typeof(ScrewPressItem);
+            
             this.Initialize(displayText: Localizer.DoStr("Iron Plate"),
-                            referencedRecipeFamilyType: typeof(IronPlateRecipe),
                             referencedDrawing:  typeof(IronPlateDrawingItem));
         }
     }
